@@ -73,7 +73,7 @@ contract CallbookTest is Test {
         vm.prank(agent);
         book.reveal(id, 1, 5000, salt, "");
 
-        vm.roll(block.number + 1);
+        vm.roll(vm.getBlockNumber() + 1); // block.number can be stale under via_ir after a roll
         vm.expectRevert(SignalBook.Hash.selector);
         vm.prank(agent);
         book.reveal(id, -1, 5000, salt, "");
@@ -307,7 +307,7 @@ contract CallbookTest is Test {
     mapping(uint256 => bytes32) internal salts;
 
     function _reveal(uint256 id, int8 direction, uint16 confidence, string memory note) internal {
-        vm.roll(block.number + 1);
+        vm.roll(vm.getBlockNumber() + 1); // block.number can be stale under via_ir after a roll
         vm.prank(agent);
         book.reveal(id, direction, confidence, salts[id], note);
     }
