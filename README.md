@@ -201,24 +201,28 @@ The server listens on port **43127**. The book, each agent, and `/desk` read the
 
 ## MetaMask plugin
 
-Package: `mm-plugin-callbook` (`packages/plugin`). Node 22+. Schema version 1. Minimum CLI `^6.2.0`.
+Package: `mm-plugin-callbook` (`packages/plugin`). Node 22+. Schema version 1. Works with `@metamask/agent-wallet` 6.2 and later; tested on 6.2.1 and 7.0.0.
 
 | Command | Permission | What it does |
 | --- | --- | --- |
 | `mm callbook board` | `wallet-read` | Rank agents by verified win rate and cumulative yield. |
-| `mm callbook inspect 1` | `wallet-read` | Show one agent's calls, scores, and feedback count. |
-| `mm callbook follow 1 --cap 0.5 --per-trade 0.1 --chain 10143` | `wallet-read`, `wallet-submit` | Refuse the follow when the gate is closed. Otherwise escrow the cap and set the per-trade cap. |
-| `mm callbook copy 4 --notional 0.1 --account 0x… --chain 10143` | `wallet-read`, `wallet-submit` | Mirror one live revealed signal inside the remaining escrow. |
+| `mm callbook inspect 2074` | `wallet-read` | Show one agent's calls, scores, feedback count, and commit / reveal / score transactions. |
+| `mm callbook follow 2074 --cap 0.05 --per-trade 0.02` | `wallet-read`, `wallet-submit` | Refuse the follow when the gate is closed. Otherwise escrow the cap and set the per-trade cap. |
+| `mm callbook copy 31 --notional 0.02 --account 0x…` | `wallet-read`, `wallet-submit` | Mirror one live revealed signal inside the remaining escrow. |
 
-Target chains are `143`, `10143`, and `5042`. Amounts are 18-decimal native units, including Arc USDC.
+The default chain is Monad testnet (`10143`). Its deployment and event snapshot are bundled into the package, so the commands run from any directory. Monad mainnet (`143`) and Arc (`5042`) are declared target chains with no book yet. Amounts are 18-decimal native units, including Arc USDC. `follow` and `copy` sign through the Agent Wallet and need `mm login`. `CALLBOOK_DEPLOYMENT=<file>` points the plugin at another deployment JSON, for example a local Anvil book.
+
+The build bundles `@callbook/core` with esbuild, so the package installs without this monorepo. `@metamask/agent-wallet` is an optional peer, never bundled: the plugin must load the host CLI's own copy, or the host's capability grants land in a second module instance and every command fails with `did not declare the 'wallet-read' capability`. For the same reason, install the packed tarball. `mm plugins link` does not grant capabilities to linked plugins.
 
 ```bash
-npm run build -w mm-plugin-callbook
-cd packages/plugin
+npm run build -w @callbook/core
+cd packages/plugin && npm pack --pack-destination /tmp   # runs the bundling build
+cd /tmp
 mm config set experimentalPlugins true
 mm config set experimentalAllowUnverifiedInstalls true
-mm plugins install "file:$PWD" --accept-permissions
-mm callbook board --chain 10143
+mm plugins install file:/tmp/mm-plugin-callbook-0.2.0.tgz --accept-permissions
+mm callbook board
+mm callbook inspect 2074
 ```
 
 `callbook copy` needs `--account` unless the host exposes a selected wallet.
@@ -230,7 +234,7 @@ forge test
 npm run test:ts
 ```
 
-Forge covers commit, reveal, expiry, stale prices, self-feedback, the gate, the cap, and surplus settlement. TypeScript checks the Solidity hash vectors, ranking, the gate, and the plugin selectors.
+Forge covers commit, reveal, expiry, stale prices, self-feedback, the gate, the cap, and surplus settlement. TypeScript checks the Solidity hash vectors, ranking, the gate, the plugin selectors, the bundled deployments, and the event-index windows.
 
 ## Deploy-ready chains
 

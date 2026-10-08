@@ -38,9 +38,9 @@ Terminal, already installed `mm-plugin-callbook`.
 
 ```bash
 mm callbook board --chain 10143
-mm callbook inspect 1 --chain 10143
-mm callbook follow 2 --cap 0.5 --per-trade 0.1 --chain 10143
-mm callbook follow 1 --cap 0.5 --per-trade 0.1 --chain 10143
+mm callbook inspect 2074 --chain 10143
+mm callbook follow 2075 --cap 0.05 --per-trade 0.02 --chain 10143
+mm callbook follow 2074 --cap 0.05 --per-trade 0.02 --chain 10143
 ```
 
 > Board ranks the verified book. Inspect shows the calls. Follow on Blythe stops before a signature, because the win rate is under the gate. Follow on Ada escrows the cap through the Agent Wallet. Copy mirrors one live signal and will not exceed the remaining escrow.

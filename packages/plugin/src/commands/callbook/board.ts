@@ -9,7 +9,7 @@ import {
 } from "@metamask/agent-wallet/plugin";
 import { loadBook } from "../../lib/book.js";
 import { readerFor } from "../../lib/client.js";
-import { readDeployment } from "../../lib/files.js";
+import { defaultChainId, readDeployment } from "../../lib/files.js";
 
 const inputs = {
   chain: {
@@ -51,7 +51,7 @@ export default class CallbookBoard extends PluginCommand {
 
   async execute(io: CommandIO) {
     const { chain, rpc } = await io.resolveInputs(inputs);
-    const chainId = Number(chain || process.env.CALLBOOK_CHAIN_ID || 143);
+    const chainId = chain ? Number(chain) : defaultChainId();
     const deployment = readDeployment(chainId);
     const client = await readerFor(this, chainId, rpc || undefined);
     const agents = await loadBook(client, deployment);

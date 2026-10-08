@@ -1,14 +1,21 @@
 {
   "name": "mm-plugin-callbook",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Copy sealed AI trade signals from the MetaMask Agent Wallet, with a hard spend cap.",
   "license": "MIT",
   "type": "module",
-  "keywords": ["oclif-plugin"],
-  "files": ["dist", "oclif.manifest.json"],
+  "keywords": [
+    "oclif-plugin"
+  ],
+  "files": [
+    "dist",
+    "oclif.manifest.json",
+    "README.md"
+  ],
   "scripts": {
-    "build": "tsc -p tsconfig.json && oclif manifest",
-    "prepack": "tsc -p tsconfig.json && oclif manifest"
+    "build": "node build.mjs && oclif manifest",
+    "typecheck": "tsc -p tsconfig.json",
+    "prepack": "node build.mjs && oclif manifest"
   },
   "oclif": {
     "bin": "mm",
@@ -22,45 +29,89 @@
   },
   "mm": {
     "schemaVersion": 1,
-    "minCliVersion": "^6.2.0",
+    "minCliVersion": ">=6.2.0",
     "capabilities": [],
     "commands": [
       {
         "id": "callbook:board",
-        "capabilities": ["wallet-read"],
-        "dataAccess": ["network"],
-        "targetChains": [143, 10143, 5042]
+        "capabilities": [
+          "wallet-read"
+        ],
+        "dataAccess": [
+          "network"
+        ],
+        "targetChains": [
+          143,
+          10143,
+          5042
+        ]
       },
       {
         "id": "callbook:inspect",
-        "capabilities": ["wallet-read"],
-        "dataAccess": ["network"],
-        "targetChains": [143, 10143, 5042]
+        "capabilities": [
+          "wallet-read"
+        ],
+        "dataAccess": [
+          "network"
+        ],
+        "targetChains": [
+          143,
+          10143,
+          5042
+        ]
       },
       {
         "id": "callbook:follow",
-        "capabilities": ["wallet-read", "wallet-submit"],
-        "dataAccess": ["balances", "accounts"],
-        "targetChains": [143, 10143, 5042]
+        "capabilities": [
+          "wallet-read",
+          "wallet-submit"
+        ],
+        "dataAccess": [
+          "balances",
+          "accounts"
+        ],
+        "targetChains": [
+          143,
+          10143,
+          5042
+        ]
       },
       {
         "id": "callbook:copy",
-        "capabilities": ["wallet-read", "wallet-submit"],
-        "dataAccess": ["balances"],
-        "targetChains": [143, 10143, 5042]
+        "capabilities": [
+          "wallet-read",
+          "wallet-submit"
+        ],
+        "dataAccess": [
+          "balances"
+        ],
+        "targetChains": [
+          143,
+          10143,
+          5042
+        ]
       }
     ]
   },
   "dependencies": {
-    "@callbook/core": "*",
     "viem": "^2.38.3"
   },
   "peerDependencies": {
-    "@metamask/agent-wallet": "^6.2.0"
+    "@metamask/agent-wallet": ">=6.2.0"
   },
   "devDependencies": {
+    "@callbook/core": "*",
     "@metamask/agent-wallet": "^7.0.0",
+    "esbuild": "^0.28.2",
     "oclif": "^4.22.0",
     "typescript": "^5.9.3"
+  },
+  "peerDependenciesMeta": {
+    "@metamask/agent-wallet": {
+      "optional": true
+    }
+  },
+  "engines": {
+    "node": ">=22"
   }
 }

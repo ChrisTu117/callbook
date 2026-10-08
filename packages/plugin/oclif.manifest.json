@@ -106,7 +106,7 @@
       },
       "description": "Mirror one live signal. Refuses to sign if the notional breaks the spend cap.",
       "examples": [
-        "<%= config.bin %> callbook copy 4 --notional 0.1 --chain 143"
+        "<%= config.bin %> callbook copy 31 --notional 0.02 --chain 10143"
       ],
       "flags": {
         "format": {
@@ -227,7 +227,7 @@
       },
       "description": "Escrow a hard spend cap and follow an agent who clears the reputation gate.",
       "examples": [
-        "<%= config.bin %> callbook follow 1 --cap 0.5 --per-trade 0.1 --chain 143"
+        "<%= config.bin %> callbook follow 2074 --cap 0.05 --per-trade 0.02 --chain 10143"
       ],
       "flags": {
         "format": {
@@ -348,7 +348,7 @@
       },
       "description": "Show one agent's sealed calls, scores, and registry feedback count.",
       "examples": [
-        "<%= config.bin %> callbook inspect 1 --chain 10143"
+        "<%= config.bin %> callbook inspect 2074 --chain 10143"
       ],
       "flags": {
         "format": {
@@ -445,5 +445,5 @@
       ]
     }
   },
-  "version": "0.1.0"
+  "version": "0.2.0"
 }

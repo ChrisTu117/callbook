@@ -10,7 +10,7 @@ import {
 } from "@metamask/agent-wallet/plugin";
 import { loadSpend, mirrorCall } from "../../lib/book.js";
 import { readerFor, submitTx } from "../../lib/client.js";
-import { readDeployment } from "../../lib/files.js";
+import { defaultChainId, readDeployment } from "../../lib/files.js";
 
 const inputs = {
   signal: {
@@ -73,7 +73,7 @@ async function selectedAccount(command: object): Promise<`0x${string}` | null> {
 
 export default class CallbookCopy extends PluginCommand {
   static description = "Mirror one live signal. Refuses to sign if the notional breaks the spend cap.";
-  static examples = ["<%= config.bin %> callbook copy 4 --notional 0.1 --chain 143"];
+  static examples = ["<%= config.bin %> callbook copy 31 --notional 0.02 --chain 10143"];
   static flags = schemaToFlags(inputs);
   static args = schemaToArgs(inputs);
 
@@ -81,7 +81,7 @@ export default class CallbookCopy extends PluginCommand {
 
   async execute(io: CommandIO) {
     const flags = await io.resolveInputs(inputs);
-    const chainId = Number(flags.chain || process.env.CALLBOOK_CHAIN_ID || 143);
+    const chainId = flags.chain ? Number(flags.chain) : defaultChainId();
     const deployment = readDeployment(chainId);
     const notional = parseAmount(flags.notional);
     const client = (await readerFor(this, chainId, flags.rpc || undefined)) as PublicClient;

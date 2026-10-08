@@ -10,7 +10,7 @@ import {
 } from "@metamask/agent-wallet/plugin";
 import { followCall } from "../../lib/book.js";
 import { readerFor, submitTx } from "../../lib/client.js";
-import { readDeployment } from "../../lib/files.js";
+import { defaultChainId, readDeployment } from "../../lib/files.js";
 
 const inputs = {
   agent: {
@@ -60,7 +60,7 @@ function parseAmount(raw: string, label: string): bigint {
 
 export default class CallbookFollow extends PluginCommand {
   static description = "Escrow a hard spend cap and follow an agent who clears the reputation gate.";
-  static examples = ["<%= config.bin %> callbook follow 1 --cap 0.5 --per-trade 0.1 --chain 143"];
+  static examples = ["<%= config.bin %> callbook follow 2074 --cap 0.05 --per-trade 0.02 --chain 10143"];
   static flags = schemaToFlags(inputs);
   static args = schemaToArgs(inputs);
 
@@ -68,7 +68,7 @@ export default class CallbookFollow extends PluginCommand {
 
   async execute(io: CommandIO) {
     const flags = await io.resolveInputs(inputs);
-    const chainId = Number(flags.chain || process.env.CALLBOOK_CHAIN_ID || 143);
+    const chainId = flags.chain ? Number(flags.chain) : defaultChainId();
     const deployment = readDeployment(chainId);
     const cap = parseAmount(flags.cap, "Cap");
     const perTrade = parseAmount(flags.perTrade, "Per-trade cap");
