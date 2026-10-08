@@ -2,29 +2,30 @@
 
 Sealed trade calls for AI agents. The agent hashes the side before the move. A scorer writes the result into ERC-8004 after the horizon. A wallet copies only an agent who clears the on-chain win-rate gate, and only up to a hard spend cap.
 
-Monad Metropolis track: **Trust, Identity & AI Infrastructure**. The same contracts deploy to Monad testnet, Monad mainnet, and Arc mainnet. The MetaMask Agent Wallet plugin is the trading surface.
+Monad Metropolis track: **Trust, Identity & AI Infrastructure**. The live deployment is **Monad testnet**. Monad mainnet and Arc are deploy-ready. This submission does not fund them.
 
-| Prize | What Callbook submits |
+Repository: https://github.com/ChrisTu117/callbook
+
+Public book: https://christu117.github.io/callbook/
+
+| Prize | What this submission shows |
 | --- | --- |
-| Track 4, Trust, Identity & AI Infrastructure | Agents mint ERC-8004 identities. Scores are `tradingYield` feedback on the Reputation Registry. A win rate can be written to the Validation Registry. |
-| MetaMask, Best Agent Wallet Plugin | `mm callbook board`, `inspect`, `follow`, and `copy`. Follow and copy submit a real transaction through the Agent Wallet. The spend cap is on-chain. |
-| Arc microgrant | The same book on Arc. The cap is native USDC sent as value. See [docs/ARC.md](docs/ARC.md). |
+| Track 4, Trust, Identity & AI Infrastructure | Agents mint ERC-8004 identities on Monad testnet. Scores are `tradingYield` feedback on the Reputation Registry. |
+| MetaMask, Best Agent Wallet Plugin | `mm callbook board`, `inspect`, `follow`, and `copy`. The spend cap is on-chain. |
 
 ## Public dashboard
 
-The site is static. The browser reads the chain RPC. There is no Callbook server at view time. The label on the page is **Live chain read**.
+The site is static. The browser reads Monad testnet. There is no Callbook server at view time. The label on the page is **Live chain read**.
 
-The switcher defaults to Monad testnet. Monad mainnet (`143`) and Arc (`5042`) are in the same file. They show "not deployed" until `signalBook`, `scoreAnchor`, and `copyDesk` are filled in.
+Open https://christu117.github.io/callbook/ . The Pages base path is `/callbook`.
 
-Edit one file: [networks.json](networks.json).
+The switcher defaults to Monad testnet. Monad mainnet (`143`) and Arc (`5042`) are in [networks.json](networks.json) with empty book addresses. They show "not deployed". Fill `signalBook`, `scoreAnchor`, and `copyDesk` only if you later deploy those chains.
 
 ```bash
 npm run pages
 ```
 
-That builds `@callbook/core`, then the dashboard. The HTML is in `apps/web/out`. GitHub Actions does the same build and publishes `apps/web/out` with [`.github/workflows/pages.yml`](.github/workflows/pages.yml). The workflow sets the base path to `/<repo>` for a project page, and to `/` when the repo is `<owner>.github.io`.
-
-After the first push, open the repo Settings → Pages and choose **GitHub Actions** if the site does not appear on its own. The project URL is `https://christu117.github.io/callbook/`.
+That builds `@callbook/core`, then the dashboard. The HTML is in `apps/web/out`. GitHub Actions publishes that folder with [`.github/workflows/pages.yml`](.github/workflows/pages.yml).
 
 ```mermaid
 flowchart LR
@@ -136,18 +137,19 @@ A fresh Anvil plus this bytecode writes `deployments/31337.json`:
 
 ## Deploy
 
+The live book is already on Monad testnet. See the addresses below. Do not redeploy testnet unless you intend to replace that book.
+
 Copy `.env.example` to `.env`. Set `PRIVATE_KEY`. Never commit `.env`.
 
-One deploy is about 6.1 million gas. At 2 gwei that is about 0.013 of the native coin. Send **2 MON** on Monad testnet or mainnet, and **2 native USDC** on Arc. The extra balance covers agent commits, reveals, and scores.
+Monad mainnet and Arc are deploy-ready. This submission does not fund them. One deploy is about 6.1 million gas. At 2 gwei that is about 0.013 of the native coin. A later deploy needs about **2 MON** on Monad mainnet, or **2 native USDC** on Arc.
 
 ```bash
 set -a && source .env && set +a
-bash deploy/deploy.sh monad-testnet
 bash deploy/deploy.sh monad-mainnet
 bash deploy/deploy.sh arc-mainnet
 ```
 
-Each command writes `deployments/<chainId>.json`. Arc sets `maxFeePerGas` and the priority fee to 20 gwei. A lower fee is dropped and does not revert.
+Each command writes `deployments/<chainId>.json`. Copy the three book addresses into `networks.json` before the public page will read that chain. Arc sets `maxFeePerGas` and the priority fee to 20 gwei. A lower fee is dropped and does not revert.
 
 Foundry must be on `PATH` (`foundryup`). `lib/forge-std` is not committed. Run `forge install foundry-rs/forge-std` once.
 
@@ -172,9 +174,9 @@ npm run score -- --wait
 | Blythe Fade | Fades the five-minute return. |
 | Clerk | OpenAI-compatible chat completions when `LLM_BASE_URL` and `LLM_API_KEY` are set. Otherwise a deterministic mock. |
 
-The decision tape is the Coinbase Exchange public candle API. Binance klines are geo-blocked from some hosts. The score still uses Pyth, not that candle.
+The decision tape is the Coinbase Exchange public candle API. Binance klines are geo-blocked from some hosts. The live testnet book settles on a signed Coinbase print, because the stored Pyth ETH/USD update was stale.
 
-`npm run score` marks an expired unrevealed call as a miss. It pins and scores a revealed call whose horizon has passed. On Arc it first posts a signed ETH-USD attestation from the deployer key.
+`npm run score` marks an expired unrevealed call as a miss. It pins and scores a revealed call whose horizon has passed. When `PRICE_KIND=attested`, the score command first posts a signed ETH-USD attestation from the deployer key.
 
 ### Dashboard
 
@@ -219,22 +221,14 @@ npm run test:ts
 
 Forge covers commit, reveal, expiry, stale prices, self-feedback, the gate, the cap, and surplus settlement. TypeScript checks the Solidity hash vectors, ranking, the gate, and the plugin selectors.
 
-## Arc
+## Deploy-ready chains
 
-Arc is mainnet only for this grant. Chain id `5042`. RPC `https://rpc.mainnet.arc.io`. Explorer `https://explorer.arc.io`.
-
-- Gas token is native USDC, 18 decimals. `CopyDesk` escrows `msg.value`. It never reads the 6-decimal ERC-20 balance at `0x3600…0000`.
-- `maxFeePerGas` is at least 20 gwei in `deploy/deploy.sh`.
-- Reveal delay uses `block.number`. Arc timestamps can repeat, so a timestamp delay is not the lock.
-- No `PREVRANDAO`. Salts come from the agent, not from chain randomness.
-- A transfer to `address(0)` reverts. The contracts do not do that.
-- Pyth `getPriceUnsafe` reverts on Arc. Prices are attested. See [docs/ARC.md](docs/ARC.md).
+Monad mainnet (`143`) and Arc (`5042`) use the same Foundry script. They are not part of the funded submission. Arc notes, if you deploy later, are in [docs/ARC.md](docs/ARC.md).
 
 ## Docs for submission
 
 - [docs/DEMO_SCRIPT.md](docs/DEMO_SCRIPT.md) — two to three minute recording script.
-- [docs/SUBMISSION.md](docs/SUBMISSION.md) — Monad portal fields.
-- [docs/ARC.md](docs/ARC.md) — Arc microgrant text.
+- [docs/SUBMISSION.md](docs/SUBMISSION.md) — Monad portal fields. The live chain is testnet.
 
 ## Monad testnet deployment
 
@@ -252,24 +246,24 @@ Deployed on 8 Oct 2026. Chain `10143`. The stored Pyth ETH/USD print was about 1
 
 Attestor: `0x749B414A7A31Ba0484d77e3A8a3A6aF347AA609a`. The key is not in git.
 
-Posted agents, scored against the next Coinbase minute:
+Posted agents. Each row is `stats` on the live ScoreAnchor after ten scored calls. The gate is 50%. Ada is exactly 50%, so copy stays open.
 
 | Agent | Id | Result |
 | --- | --- | --- |
-| Ada Momentum | `2074` | 1/1, +12 bps. Copy is open. |
-| Blythe Fade | `2075` | 0/1, -12 bps. Copy is closed. |
-| Clerk | `2076` | 1/1, +12 bps. The decision was the mock. Copy is open. |
+| Ada Momentum | `2074` | 5/10, -13 bps. Copy is open. |
+| Blythe Fade | `2075` | 4/10, -15 bps. Copy is closed. |
+| Clerk | `2076` | 6/10, +15 bps. The decision was the mock. Copy is open. |
 
-Each score is one `tradingYield` feedback on the live Reputation Registry. The attestor then followed Ada with 0.05 MON escrowed and a 0.02 MON per-trade cap.
+Each score is one `tradingYield` feedback on the live Reputation Registry. The attestor followed Ada with 0.05 MON escrowed and a 0.02 MON per-trade cap.
 
 - Signal book: https://testnet.monadscan.com/address/0x5Fcbf755e090D662DF1E673656Be97B4dA193010
 - Score anchor: https://testnet.monadscan.com/address/0xC9C45a32B4FEC8E0Ad7c3864051409D8330a71dd
 - Copy desk: https://testnet.monadscan.com/address/0xBAAFB4710f8B47Cf831FCdC1dF2b3135C9aCbA2e
 - Follow Ada: https://testnet.monadscan.com/tx/0x05d4a2b5f494d480476033320e504907395e42e48c90f42c37eaec43438ccf9b
 
-More scored calls: `bash deploy/rounds.sh 9`. See [docs/ROUNDS.md](docs/ROUNDS.md).
+The public site reads this book from the testnet RPC. There is no baked snapshot. More scored calls: `bash deploy/rounds.sh 9`. See [docs/ROUNDS.md](docs/ROUNDS.md).
 
-Monad mainnet and Arc mainnet are not deployed. Each needs about 2 of the native coin. The commands are in Deploy above.
+Monad mainnet and Arc are deploy-ready only. This submission does not fund them.
 
 ## What is mocked
 

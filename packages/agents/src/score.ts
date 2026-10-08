@@ -14,6 +14,35 @@ type SignalView = {
   committer: `0x${string}`;
 };
 
+function sleep(ms: number) {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function readSignal(
+  client: ReturnType<typeof clientsFor>["publicClient"],
+  book: `0x${string}`,
+  id: bigint,
+): Promise<SignalView> {
+  for (let attempt = 0; attempt < 8; attempt += 1) {
+    try {
+      const signal = (await client.readContract({
+        address: book,
+        abi: signalBookAbi,
+        functionName: "getSignal",
+        args: [id],
+      })) as SignalView;
+      await sleep(80);
+      return signal;
+    } catch (error) {
+      const message = error instanceof Error ? error.message : String(error);
+      if (!/15\/sec|rate limit|429|timeout|ETIMEDOUT/i.test(message) || attempt === 7) throw error;
+      console.log(`RPC limited the read of signal ${id}. Waiting ${attempt + 1}s.`);
+      await sleep(1000 * (attempt + 1));
+    }
+  }
+  throw new Error(`Could not read signal ${id}.`);
+}
+
 async function main() {
   const key = process.env.PRIVATE_KEY;
   if (!key) throw new Error("Set PRIVATE_KEY to the deployer key. On Arc this key is the price attestor.");
@@ -33,32 +62,22 @@ async function main() {
   if (wait) {
     let latest = 0n;
     for (let id = 1n; id < nextId; id += 1n) {
-      const signal = (await clients.publicClient.readContract({
-        address: deployment.signalBook,
-        abi: signalBookAbi,
-        functionName: "getSignal",
-        args: [id],
-      })) as SignalView;
+      const signal = await readSignal(clients.publicClient, deployment.signalBook, id);
       if (signal.revealed && !signal.exitPinned && signal.horizonEnd > latest) latest = signal.horizonEnd;
     }
     const now = BigInt((await clients.publicClient.getBlock()).timestamp);
     if (latest > now) {
       const ms = Number(latest - now + 2n) * 1000;
       console.log(`Waiting ${ms / 1000}s for the horizon.`);
-      await new Promise((resolve) => setTimeout(resolve, ms));
+      await sleep(ms);
     }
   }
 
   const pending: { id: bigint; signal: SignalView }[] = [];
   let earliestCommit = 0n;
+  const now = BigInt((await clients.publicClient.getBlock()).timestamp);
   for (let id = 1n; id < nextId; id += 1n) {
-    const signal = (await clients.publicClient.readContract({
-      address: deployment.signalBook,
-      abi: signalBookAbi,
-      functionName: "getSignal",
-      args: [id],
-    })) as SignalView;
-    const now = BigInt((await clients.publicClient.getBlock()).timestamp);
+    const signal = await readSignal(clients.publicClient, deployment.signalBook, id);
     if (!signal.revealed && !signal.expired && now > signal.revealDeadline && signal.committer !== "0x0000000000000000000000000000000000000000") {
       await markExpired({ clients, account, deployment, id });
       console.log(`Signal ${id} expired and scored as a miss.`);
@@ -74,7 +93,7 @@ async function main() {
 
   if (deployment.priceKind === "attested") {
     let print: { time: number; close: number } | null = null;
-    for (let attempt = 0; attempt < 6; attempt += 1) {
+    for (let attempt = 0; attempt < 15; attempt += 1) {
       const candles = await loadCandles("ETH-USD");
       const chainNow = BigInt((await clients.publicClient.getBlock()).timestamp);
       const fresh = candles.filter((candle) => {
@@ -83,8 +102,11 @@ async function main() {
       });
       print = fresh.length > 0 ? fresh[fresh.length - 1] : null;
       if (print) break;
-      console.log("The newest candle is still from before the commit. Waiting 20s.");
-      await new Promise((resolve) => setTimeout(resolve, 20_000));
+      const newest = candles.length > 0 ? candles[candles.length - 1].time : 0;
+      console.log(
+        `No candle at or after commit ${earliestCommit}. Newest candle ${newest}. Chain time ${chainNow}. Waiting 20s.`,
+      );
+      await sleep(20_000);
     }
     if (!print) throw new Error("No candle is dated at or after the commit. Refusing to pin the entry print.");
     await attestPrice({

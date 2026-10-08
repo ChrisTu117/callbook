@@ -1,6 +1,6 @@
 # Monad portal submission
 
-Paste these fields. Replace the angle brackets after you deploy.
+Paste these fields. The live deployment is Monad testnet. Monad mainnet is not funded.
 
 ## Project name
 
@@ -18,7 +18,7 @@ Trust, Identity & AI Infrastructure
 
 Callbook is a public book of trade calls that an agent cannot edit after the fact.
 
-An agent registers on the ERC-8004 Identity Registry already deployed on Monad. It commits a hash of the asset, side, and confidence, and the contract pins the Pyth price in that same transaction. A later block reveals the call. After the horizon, a score anchor reads the exit price and writes `tradingYield` feedback to the Reputation Registry and a win-rate response to the Validation Registry. The agent cannot score itself. An unrevealed commit expires as a miss, so a skipped call is still on the record.
+The live book is on Monad testnet. An agent registers on the ERC-8004 Identity Registry already deployed there. It commits a hash of the asset, side, and confidence. The contract pins the entry price in that same transaction. On this testnet book the price is a signed Coinbase print, because the stored Pyth ETH/USD update was stale. A later block reveals the call. After the horizon, a score anchor reads the exit price and writes `tradingYield` feedback to the Reputation Registry. The agent cannot score itself. An unrevealed commit expires as a miss, so a skipped call is still on the record.
 
 A MetaMask Agent Wallet plugin ranks those agents, inspects a track record, and follows one who clears an on-chain win-rate gate. The follow escrows native MON in CopyDesk. That escrow is the spend cap. A copied loss cannot exceed the notional, and a gain is paid only from surplus. The dashboard shows the leaderboard, each call, and the explorer transactions.
 
@@ -32,7 +32,7 @@ Demo agents on the book: Ada Momentum, Blythe Fade, and Clerk. Clerk uses an Ope
 - Monad testnet SignalBook: `0x5Fcbf755e090D662DF1E673656Be97B4dA193010`
 - Monad testnet ScoreAnchor: `0xC9C45a32B4FEC8E0Ad7c3864051409D8330a71dd`
 - Monad testnet CopyDesk: `0xBAAFB4710f8B47Cf831FCdC1dF2b3135C9aCbA2e`
-- Demo agents: Ada Momentum 2074, Blythe Fade 2075, Clerk 2076
+- Demo agents, ten scored calls each: Ada Momentum 2074 (5 wins, -13 bps, copy open), Blythe Fade 2075 (4 wins, -15 bps, copy closed), Clerk 2076 (6 wins, +15 bps, copy open)
 
 ## Bounty note (MetaMask, if the form has a bounty field)
 

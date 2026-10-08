@@ -9,7 +9,7 @@ Each round does four things.
 3. The script waits until the horizon.
 4. The deployer signs a later candle and the score anchor writes ERC-8004 feedback.
 
-The deployed reveal window is 60 seconds. `HORIZON_SEC` must be larger than that. The default in this script is 90.
+The deployed reveal window is 60 seconds. `HORIZON_SEC` must be larger than that. The script uses 90 only when the variable is unset. `.env.example` sets 300. Coinbase candles can lag the chain clock by a few minutes, so the score command waits for a candle dated at or after the commit.
 
 ```bash
 set -a && source .env && set +a
