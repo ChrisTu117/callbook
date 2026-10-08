@@ -12,9 +12,11 @@ import {
   reputationAbi,
   scoreAnchorAbi,
   signalBookAbi,
+  bookTxIndex,
   type Deployment,
+  type PendingSignal,
 } from "@callbook/core";
-import { createPublicClient, decodeEventLog, encodeFunctionData, http, type PublicClient } from "viem";
+import { createPublicClient, encodeFunctionData, http, type PublicClient } from "viem";
 
 type SignalTuple = {
   agentId: bigint;
@@ -91,8 +93,7 @@ export async function loadBook(client: PublicClient, deployment: Deployment): Pr
     abi: signalBookAbi,
     functionName: "nextId",
   })) as bigint;
-  const txs = await txIndex(client, deployment);
-  const byAgent = new Map<string, LoadedSignal[]>();
+  const read: { id: bigint; signal: SignalTuple; score: ScoreTuple }[] = [];
   for (let id = 1n; id < nextId; id += 1n) {
     const signal = (await client.readContract({
       address: deployment.signalBook,
@@ -107,6 +108,27 @@ export async function loadBook(client: PublicClient, deployment: Deployment): Pr
       functionName: "getScore",
       args: [id],
     })) as ScoreTuple;
+    read.push({ id, signal, score });
+  }
+  const pending: PendingSignal[] = read.map(({ id, signal, score }) => ({
+    id: id.toString(),
+    commitBlock: BigInt(signal.commitBlock),
+    commitTime: BigInt(signal.commitTime),
+    revealDeadline: BigInt(signal.revealDeadline),
+    horizonEnd: BigInt(signal.horizonEnd),
+    revealed: signal.revealed,
+    scored: score.exists,
+  }));
+  const txs = await bookTxIndex({
+    client,
+    chainId: deployment.chainId,
+    signalBook: deployment.signalBook,
+    scoreAnchor: deployment.scoreAnchor,
+    startBlock: deployment.startBlock !== undefined ? BigInt(deployment.startBlock) : undefined,
+    pending,
+  });
+  const byAgent = new Map<string, LoadedSignal[]>();
+  for (const { id, signal, score } of read) {
     const row: LoadedSignal = {
       id: id.toString(),
       agentId: signal.agentId.toString(),
@@ -234,37 +256,4 @@ export function mirrorCall(deployment: Deployment, signalId: bigint, notional: b
     }),
     value: 0n,
   };
-}
-
-async function txIndex(client: PublicClient, deployment: Deployment) {
-  const commit = new Map<string, string>();
-  const reveal = new Map<string, string>();
-  const score = new Map<string, string>();
-  try {
-    const logs = await client.getLogs({
-      address: [deployment.signalBook, deployment.scoreAnchor],
-      fromBlock: 0n,
-      toBlock: "latest",
-    });
-    for (const log of logs) {
-      try {
-        const decoded = decodeEventLog({
-          abi: [...signalBookAbi, ...scoreAnchorAbi],
-          data: log.data,
-          topics: log.topics,
-        });
-        const id = (decoded.args as { id?: bigint; signalId?: bigint }).id ?? (decoded.args as { signalId?: bigint }).signalId;
-        if (id === undefined) continue;
-        const key = id.toString();
-        if (decoded.eventName === "Committed") commit.set(key, log.transactionHash);
-        if (decoded.eventName === "Revealed") reveal.set(key, log.transactionHash ?? "");
-        if (decoded.eventName === "Scored") score.set(key, log.transactionHash ?? "");
-      } catch {
-        // unrelated log
-      }
-    }
-  } catch {
-    // Some RPCs reject a wide getLogs range. The book still renders without tx links.
-  }
-  return { commit, reveal, score };
 }

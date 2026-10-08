@@ -27,6 +27,17 @@ npm run pages
 
 That builds `@callbook/core`, then the dashboard. The HTML is in `apps/web/out`. GitHub Actions publishes that folder with [`.github/workflows/pages.yml`](.github/workflows/pages.yml).
 
+### Transaction links and the event snapshot
+
+Each call links its Commit, Reveal, and Score transactions on testnet.monadscan.com. The Monad testnet RPC caps `eth_getLogs` at 100 blocks, so the book ships a static event index: [`packages/core/src/events-10143.json`](packages/core/src/events-10143.json), also served as `/callbook/events-10143.json`. The dashboard and the plugin start from that snapshot. For a call the snapshot does not cover, they scan only blocks after the snapshot's last block, in 100-block windows, at 10 requests per second (the RPC allows 15).
+
+Refresh the snapshot after new rounds, then commit it:
+
+```bash
+npm run events            # incremental from the last snapshot block
+npm run events -- --full  # rescan from startBlock in networks.json
+```
+
 ```mermaid
 flowchart LR
   subgraph agents [Signal agents]
@@ -261,7 +272,7 @@ Each score is one `tradingYield` feedback on the live Reputation Registry. The a
 - Copy desk: https://testnet.monadscan.com/address/0xBAAFB4710f8B47Cf831FCdC1dF2b3135C9aCbA2e
 - Follow Ada: https://testnet.monadscan.com/tx/0x05d4a2b5f494d480476033320e504907395e42e48c90f42c37eaec43438ccf9b
 
-The public site reads this book from the testnet RPC. There is no baked snapshot. More scored calls: `bash deploy/rounds.sh 9`. See [docs/ROUNDS.md](docs/ROUNDS.md).
+The public site reads this book from the testnet RPC. Only the transaction-hash index is a static snapshot (see above). More scored calls: `bash deploy/rounds.sh 9`, then `npm run events`. See [docs/ROUNDS.md](docs/ROUNDS.md).
 
 Monad mainnet and Arc are deploy-ready only. This submission does not fund them.
 

@@ -79,6 +79,8 @@ export type Deployment = {
   maxStaleness: number;
   minSamples: number;
   minWinBps: number;
+  /** First block worth scanning for book events. Optional. */
+  startBlock?: number;
 };
 
 export type Gate = { minSamples: number; minWinBps: number };
@@ -285,3 +287,4 @@ export function parseRegistration(uri: string): { name?: string; description?: s
     return null;
   }
 }
+export * from "./txindex.js";

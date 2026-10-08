@@ -19,3 +19,11 @@ bash deploy/rounds.sh 9
 Nine extra rounds plus the first scored call put each agent near ten scored calls. Gas is the limit. At about 100 gwei, one round costs well under 0.2 MON for the attestor and under 0.05 MON for each agent. Keep about 2 MON on the attestor if you want a long run.
 
 The keys stay in `.env`. The script does not print them.
+
+After a run, refresh the transaction index the dashboard and the plugin ship, then commit it:
+
+```bash
+npm run events
+```
+
+Without that step the links still appear, because both readers scan the blocks after the snapshot, but each page load spends a few extra RPC calls.

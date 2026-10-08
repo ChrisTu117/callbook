@@ -1,5 +1,6 @@
 import {
   assetLabel,
+  bookTxIndex,
   copyDeskAbi,
   format1e8,
   formatBps,
@@ -12,7 +13,7 @@ import {
   scoreAnchorAbi,
   signalBookAbi,
 } from "@callbook/core";
-import { createPublicClient, decodeEventLog, formatUnits, http, isAddress, type Address } from "viem";
+import { createPublicClient, formatUnits, http, isAddress } from "viem";
 import { asAddress, type PublicNetwork } from "./networks";
 
 export type SignalRow = {
@@ -65,8 +66,10 @@ export type BookView = {
 
 type SignalTuple = {
   agentId: bigint;
-  committer: Address;
+  committer: `0x${string}`;
   assetId: `0x${string}`;
+  commitTime: bigint;
+  commitBlock: bigint;
   revealDeadline: bigint;
   horizonEnd: bigint;
   entryPrice: bigint;
@@ -97,10 +100,7 @@ export async function loadLiveBook(network: PublicNetwork): Promise<BookView> {
     abi: signalBookAbi,
     functionName: "nextId",
   })) as bigint;
-  const txs = await indexTxs(client, network, signalBook, scoreAnchor);
-  const grouped = new Map<string, SignalRow[]>();
-  const ids = new Map<string, bigint>();
-
+  const read: { id: bigint; signal: SignalTuple; score: { exists: boolean; hit: boolean; pnlBps: bigint } }[] = [];
   for (let id = BigInt(1); id < nextId; id += BigInt(1)) {
     const signal = (await client.readContract({
       address: signalBook,
@@ -115,6 +115,30 @@ export async function loadLiveBook(network: PublicNetwork): Promise<BookView> {
       functionName: "getScore",
       args: [id],
     })) as { exists: boolean; hit: boolean; pnlBps: bigint };
+    read.push({ id, signal, score });
+  }
+  // Bundled snapshot first, then throttled 100-block getLogs only for blocks after it.
+  const txs = await bookTxIndex({
+    client,
+    chainId: network.chainId,
+    signalBook,
+    scoreAnchor,
+    startBlock: BigInt(network.startBlock),
+    pending: read.map(({ id, signal, score }) => ({
+      id: id.toString(),
+      commitBlock: BigInt(signal.commitBlock),
+      commitTime: BigInt(signal.commitTime),
+      revealDeadline: BigInt(signal.revealDeadline),
+      horizonEnd: BigInt(signal.horizonEnd),
+      revealed: signal.revealed,
+      scored: score.exists,
+    })),
+  });
+  const link = (hash: string | undefined) => (hash ? explorer(network.explorer, "tx", hash) : null);
+  const grouped = new Map<string, SignalRow[]>();
+  const ids = new Map<string, bigint>();
+
+  for (const { id, signal, score } of read) {
     const agentId = signal.agentId.toString();
     ids.set(agentId, signal.agentId);
     const key = id.toString();
@@ -130,9 +154,9 @@ export async function loadLiveBook(network: PublicNetwork): Promise<BookView> {
       hit: score.exists ? score.hit : null,
       note: signal.note,
       horizon: new Date(Number(signal.horizonEnd) * 1000).toISOString().slice(0, 16).replace("T", " "),
-      commitUrl: txs.commit.get(key) ?? null,
-      revealUrl: txs.reveal.get(key) ?? null,
-      scoreUrl: txs.score.get(key) ?? null,
+      commitUrl: link(txs.commit.get(key)),
+      revealUrl: link(txs.reveal.get(key)),
+      scoreUrl: link(txs.score.get(key)),
     };
     grouped.set(agentId, [...(grouped.get(agentId) ?? []), row]);
   }
@@ -237,43 +261,4 @@ export async function loadLiveAccount(network: PublicNetwork, account: string): 
   })) as bigint;
   const unit = network.nativeSymbol;
   return `Spendable ${formatUnits(escrow, network.nativeDecimals)} ${unit}. Locked ${formatUnits(locked, network.nativeDecimals)} ${unit}. Per-trade cap ${formatUnits(perTrade, network.nativeDecimals)} ${unit}.`;
-}
-
-async function indexTxs(
-  client: ReturnType<typeof createPublicClient>,
-  network: PublicNetwork,
-  signalBook: Address,
-  scoreAnchor: Address,
-): Promise<{ commit: Map<string, string | null>; reveal: Map<string, string | null>; score: Map<string, string | null> }> {
-  const commit = new Map<string, string | null>();
-  const reveal = new Map<string, string | null>();
-  const score = new Map<string, string | null>();
-  try {
-    const logs = await client.getLogs({
-      address: [signalBook, scoreAnchor],
-      fromBlock: BigInt(network.startBlock),
-      toBlock: "latest",
-    });
-    for (const log of logs) {
-      try {
-        const decoded = decodeEventLog({
-          abi: [...signalBookAbi, ...scoreAnchorAbi],
-          data: log.data,
-          topics: log.topics,
-        });
-        const args = decoded.args as { id?: bigint; signalId?: bigint };
-        const id = (args.id ?? args.signalId)?.toString();
-        if (!id || !log.transactionHash) continue;
-        const url = explorer(network.explorer, "tx", log.transactionHash);
-        if (decoded.eventName === "Committed") commit.set(id, url);
-        if (decoded.eventName === "Revealed") reveal.set(id, url);
-        if (decoded.eventName === "Scored") score.set(id, url);
-      } catch {
-        // skip unrelated logs
-      }
-    }
-  } catch {
-    // tx links stay empty
-  }
-  return { commit, reveal, score };
 }
