@@ -1,0 +1,10 @@
+{
+  "name": "@callbook/agents",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "dependencies": {
+    "@callbook/core": "*",
+    "viem": "^2.38.3"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "name": "callbook",
+  "private": true,
+  "workspaces": [
+    "packages/core",
+    "packages/agents",
+    "packages/plugin",
+    "apps/web"
+  ],
+  "scripts": {
+    "build": "npm run build -w @callbook/core && npm run build -w mm-plugin-callbook",
+    "test:contracts": "forge test",
+    "test:ts": "node --import tsx --test packages/core/test/*.test.ts packages/agents/test/*.test.ts packages/plugin/test/*.test.ts",
+    "demo": "tsx packages/agents/src/demo.ts",
+    "agents": "tsx packages/agents/src/live.ts",
+    "score": "tsx packages/agents/src/score.ts",
+    "web": "npm run dev -w web -- --port 43127 --hostname 0.0.0.0"
+  },
+  "devDependencies": {
+    "tsx": "^4.20.6"
+  }
+}

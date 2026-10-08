@@ -1,0 +1,560 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "identity_",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "prices_",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "revealWindow_",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "pinWindow_",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "maxStaleness_",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "commit",
+    "inputs": [
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "assetId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "commitHash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "horizonSec",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "getSignal",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct SignalBook.Signal",
+        "components": [
+          {
+            "name": "agentId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "committer",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "assetId",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "commitHash",
+            "type": "bytes32",
+            "internalType": "bytes32"
+          },
+          {
+            "name": "commitTime",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "commitBlock",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "revealDeadline",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "horizonEnd",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "entryPrice",
+            "type": "int256",
+            "internalType": "int256"
+          },
+          {
+            "name": "entryPublishedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "direction",
+            "type": "int8",
+            "internalType": "int8"
+          },
+          {
+            "name": "confidenceBps",
+            "type": "uint16",
+            "internalType": "uint16"
+          },
+          {
+            "name": "revealed",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "expired",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "exitPinned",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "exitPrice",
+            "type": "int256",
+            "internalType": "int256"
+          },
+          {
+            "name": "exitPublishedAt",
+            "type": "uint64",
+            "internalType": "uint64"
+          },
+          {
+            "name": "note",
+            "type": "string",
+            "internalType": "string"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "hashSignal",
+    "inputs": [
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "assetId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "direction",
+        "type": "int8",
+        "internalType": "int8"
+      },
+      {
+        "name": "confidenceBps",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "salt",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "identity",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IIdentityRegistry"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "markExpired",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "maxStaleness",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "nextId",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "pinExit",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "pinWindow",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "prices",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract IPriceSource"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "reveal",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "direction",
+        "type": "int8",
+        "internalType": "int8"
+      },
+      {
+        "name": "confidenceBps",
+        "type": "uint16",
+        "internalType": "uint16"
+      },
+      {
+        "name": "salt",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "note",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "revealWindow",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "Committed",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "assetId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "commitHash",
+        "type": "bytes32",
+        "indexed": false,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "entryPrice",
+        "type": "int256",
+        "indexed": false,
+        "internalType": "int256"
+      },
+      {
+        "name": "entryPublishedAt",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      },
+      {
+        "name": "revealDeadline",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      },
+      {
+        "name": "horizonEnd",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "ExitPinned",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "exitPrice",
+        "type": "int256",
+        "indexed": false,
+        "internalType": "int256"
+      },
+      {
+        "name": "exitPublishedAt",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Expired",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Revealed",
+    "inputs": [
+      {
+        "name": "id",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "direction",
+        "type": "int8",
+        "indexed": false,
+        "internalType": "int8"
+      },
+      {
+        "name": "confidenceBps",
+        "type": "uint16",
+        "indexed": false,
+        "internalType": "uint16"
+      },
+      {
+        "name": "note",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "BadHorizon",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "BadPrice",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Confidence",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Direction",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Early",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Hash",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Late",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "NotOwner",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Note",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "PinWindow",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Stale",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "State",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "TooSoon",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Unknown",
+    "inputs": []
+  }
+]

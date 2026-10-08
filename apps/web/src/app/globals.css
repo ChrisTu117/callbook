@@ -1,0 +1,31 @@
+@import "tailwindcss";
+
+@theme inline {
+  --font-sans: var(--font-newsreader), "Iowan Old Style", Palatino, serif;
+  --font-mono: var(--font-plex), ui-monospace, monospace;
+  --color-paper: #141910;
+  --color-panel: #1c2418;
+  --color-line: #31402c;
+  --color-ink: #e7f0dc;
+  --color-muted: #9aaa90;
+  --color-seal: #d6f25c;
+  --color-miss: #ff7a59;
+  --color-gold: #e3b15a;
+}
+
+body {
+  background:
+    radial-gradient(1200px 500px at 10% -10%, rgb(214 242 92 / 8%), transparent 50%),
+    var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-sans);
+}
+
+a {
+  color: inherit;
+}
+
+::selection {
+  background: var(--color-seal);
+  color: #141910;
+}

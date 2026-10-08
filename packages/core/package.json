@@ -1,0 +1,21 @@
+{
+  "name": "@callbook/core",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json"
+  },
+  "dependencies": {
+    "viem": "^2.38.3"
+  },
+  "devDependencies": {
+    "typescript": "^5.9.3"
+  }
+}

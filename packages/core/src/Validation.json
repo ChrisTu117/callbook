@@ -1,0 +1,176 @@
+[
+  {
+    "type": "function",
+    "name": "getValidationStatus",
+    "inputs": [
+      {
+        "name": "requestHash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "validatorAddress",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "response",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "responseHash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "tag",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "lastUpdate",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "statuses",
+    "inputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "validatorAddress",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "response",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "responseHash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "tag",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "lastUpdate",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "exists",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "validationRequest",
+    "inputs": [
+      {
+        "name": "validatorAddress",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "requestHash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "validationResponse",
+    "inputs": [
+      {
+        "name": "requestHash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "response",
+        "type": "uint8",
+        "internalType": "uint8"
+      },
+      {
+        "name": "",
+        "type": "string",
+        "internalType": "string"
+      },
+      {
+        "name": "responseHash",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "tag",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "error",
+    "name": "Exists",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "NotValidator",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "ResponseRange",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Unknown",
+    "inputs": []
+  }
+]

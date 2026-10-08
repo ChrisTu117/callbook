@@ -1,0 +1,628 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "book_",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "anchor_",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "minSamples_",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "minWinBps_",
+        "type": "uint32",
+        "internalType": "uint32"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "anchor",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract ScoreAnchor"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "book",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "contract SignalBook"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "deposit",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "escrow",
+    "inputs": [
+      {
+        "name": "follower",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "follow",
+    "inputs": [
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "newPerTradeCap",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "following",
+    "inputs": [
+      {
+        "name": "follower",
+        "type": "address",
+        "internalType": "address"
+      },
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool",
+        "internalType": "bool"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getMirror",
+    "inputs": [
+      {
+        "name": "mirrorId",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "tuple",
+        "internalType": "struct CopyDesk.Mirror",
+        "components": [
+          {
+            "name": "follower",
+            "type": "address",
+            "internalType": "address"
+          },
+          {
+            "name": "agentId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "signalId",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "notional",
+            "type": "uint256",
+            "internalType": "uint256"
+          },
+          {
+            "name": "settled",
+            "type": "bool",
+            "internalType": "bool"
+          },
+          {
+            "name": "pnl",
+            "type": "int256",
+            "internalType": "int256"
+          }
+        ]
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "locked",
+    "inputs": [
+      {
+        "name": "follower",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "minSamples",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint32",
+        "internalType": "uint32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "minWinBps",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint32",
+        "internalType": "uint32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "mirror",
+    "inputs": [
+      {
+        "name": "signalId",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "notional",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "mirrorId",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "nextMirrorId",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "owner",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "perTradeCap",
+    "inputs": [
+      {
+        "name": "follower",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "seed",
+    "inputs": [],
+    "outputs": [],
+    "stateMutability": "payable"
+  },
+  {
+    "type": "function",
+    "name": "setGate",
+    "inputs": [
+      {
+        "name": "minSamples_",
+        "type": "uint32",
+        "internalType": "uint32"
+      },
+      {
+        "name": "minWinBps_",
+        "type": "uint32",
+        "internalType": "uint32"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "settle",
+    "inputs": [
+      {
+        "name": "mirrorId",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "spendable",
+    "inputs": [
+      {
+        "name": "follower",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "surplus",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "unfollow",
+    "inputs": [
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "withdraw",
+    "inputs": [
+      {
+        "name": "amount",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "event",
+    "name": "Deposited",
+    "inputs": [
+      {
+        "name": "follower",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Followed",
+    "inputs": [
+      {
+        "name": "follower",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "added",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "escrowBalance",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "perTradeCap",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "GateSet",
+    "inputs": [
+      {
+        "name": "minSamples",
+        "type": "uint32",
+        "indexed": false,
+        "internalType": "uint32"
+      },
+      {
+        "name": "minWinBps",
+        "type": "uint32",
+        "indexed": false,
+        "internalType": "uint32"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Mirrored",
+    "inputs": [
+      {
+        "name": "mirrorId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "follower",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "signalId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "notional",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Seeded",
+    "inputs": [
+      {
+        "name": "from",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Settled",
+    "inputs": [
+      {
+        "name": "mirrorId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "follower",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "pnl",
+        "type": "int256",
+        "indexed": false,
+        "internalType": "int256"
+      },
+      {
+        "name": "paidGain",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "loss",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Unfollowed",
+    "inputs": [
+      {
+        "name": "follower",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "agentId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "Withdrawn",
+    "inputs": [
+      {
+        "name": "follower",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "amount",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "AlreadySettled",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Cap",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Funds",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Gate",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "NotFollowing",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Owner",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Score",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Signal",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Value",
+    "inputs": []
+  }
+]

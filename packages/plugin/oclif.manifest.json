@@ -1,0 +1,449 @@
+{
+  "commands": {
+    "callbook:board": {
+      "aliases": [],
+      "args": {},
+      "description": "List trading agents ranked by verified ERC-8004 win rate.",
+      "examples": [
+        "<%= config.bin %> callbook board",
+        "<%= config.bin %> callbook board --chain 10143"
+      ],
+      "flags": {
+        "format": {
+          "char": "f",
+          "description": "Output format: text | json | toon (defaults to text in TTY, json when piped)",
+          "name": "format",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "text",
+            "json",
+            "toon"
+          ],
+          "type": "option"
+        },
+        "json": {
+          "description": "Shorthand for --format=json",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "toon": {
+          "description": "Shorthand for --format=toon",
+          "name": "toon",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show debug logs on stderr. Use this for troubleshooting",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "chain": {
+          "description": "Chain id. 143 Monad, 10143 Monad testnet, 5042 Arc.",
+          "name": "chain",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "rpc": {
+          "description": "RPC URL. Defaults to the public chain RPC.",
+          "name": "rpc",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "callbook:board",
+      "pluginAlias": "mm-plugin-callbook",
+      "pluginName": "mm-plugin-callbook",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "requiresAuth": false,
+      "requiresInit": false,
+      "requiresFees": false,
+      "byokPasswordFlags": {
+        "password": {
+          "description": "Password to unlock the BYOK mnemonic (BYOK mode only)",
+          "env": "MM_PASSWORD",
+          "input": [],
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "walletTimeoutFlags": {
+        "wallet-timeout": {
+          "description": "Seconds to wait per wallet job (MFA/signing), max 600; overrides config walletTimeoutSeconds",
+          "min": 1,
+          "max": 600,
+          "input": [],
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "STRUCTURED_FORMATS": {},
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "callbook",
+        "board.js"
+      ]
+    },
+    "callbook:copy": {
+      "aliases": [],
+      "args": {
+        "signal": {
+          "description": "Revealed signal id to mirror",
+          "name": "signal",
+          "required": true
+        }
+      },
+      "description": "Mirror one live signal. Refuses to sign if the notional breaks the spend cap.",
+      "examples": [
+        "<%= config.bin %> callbook copy 4 --notional 0.1 --chain 143"
+      ],
+      "flags": {
+        "format": {
+          "char": "f",
+          "description": "Output format: text | json | toon (defaults to text in TTY, json when piped)",
+          "name": "format",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "text",
+            "json",
+            "toon"
+          ],
+          "type": "option"
+        },
+        "json": {
+          "description": "Shorthand for --format=json",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "toon": {
+          "description": "Shorthand for --format=toon",
+          "name": "toon",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show debug logs on stderr. Use this for troubleshooting",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "signal": {
+          "description": "Revealed signal id to mirror",
+          "name": "signal",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "notional": {
+          "description": "Notional to put at risk, in the native coin",
+          "name": "notional",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "account": {
+          "description": "Follower address. Defaults to the selected wallet when the host exposes one.",
+          "name": "account",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "chain": {
+          "description": "Chain id",
+          "name": "chain",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "rpc": {
+          "description": "RPC URL",
+          "name": "rpc",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "callbook:copy",
+      "pluginAlias": "mm-plugin-callbook",
+      "pluginName": "mm-plugin-callbook",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "requiresAuth": true,
+      "requiresInit": true,
+      "requiresFees": false,
+      "byokPasswordFlags": {
+        "password": {
+          "description": "Password to unlock the BYOK mnemonic (BYOK mode only)",
+          "env": "MM_PASSWORD",
+          "input": [],
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "walletTimeoutFlags": {
+        "wallet-timeout": {
+          "description": "Seconds to wait per wallet job (MFA/signing), max 600; overrides config walletTimeoutSeconds",
+          "min": 1,
+          "max": 600,
+          "input": [],
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "STRUCTURED_FORMATS": {},
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "callbook",
+        "copy.js"
+      ]
+    },
+    "callbook:follow": {
+      "aliases": [],
+      "args": {
+        "agent": {
+          "description": "ERC-8004 agent id to follow",
+          "name": "agent",
+          "required": true
+        }
+      },
+      "description": "Escrow a hard spend cap and follow an agent who clears the reputation gate.",
+      "examples": [
+        "<%= config.bin %> callbook follow 1 --cap 0.5 --per-trade 0.1 --chain 143"
+      ],
+      "flags": {
+        "format": {
+          "char": "f",
+          "description": "Output format: text | json | toon (defaults to text in TTY, json when piped)",
+          "name": "format",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "text",
+            "json",
+            "toon"
+          ],
+          "type": "option"
+        },
+        "json": {
+          "description": "Shorthand for --format=json",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "toon": {
+          "description": "Shorthand for --format=toon",
+          "name": "toon",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show debug logs on stderr. Use this for troubleshooting",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "agent": {
+          "description": "ERC-8004 agent id to follow",
+          "name": "agent",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "cap": {
+          "description": "Hard spend cap in the chain's native coin (MON, or USDC on Arc)",
+          "name": "cap",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "per-trade": {
+          "description": "Max notional for one copied signal, in the native coin",
+          "name": "per-trade",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "chain": {
+          "description": "Chain id",
+          "name": "chain",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "rpc": {
+          "description": "RPC URL used to read the gate before signing",
+          "name": "rpc",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "callbook:follow",
+      "pluginAlias": "mm-plugin-callbook",
+      "pluginName": "mm-plugin-callbook",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "requiresAuth": true,
+      "requiresInit": true,
+      "requiresFees": false,
+      "byokPasswordFlags": {
+        "password": {
+          "description": "Password to unlock the BYOK mnemonic (BYOK mode only)",
+          "env": "MM_PASSWORD",
+          "input": [],
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "walletTimeoutFlags": {
+        "wallet-timeout": {
+          "description": "Seconds to wait per wallet job (MFA/signing), max 600; overrides config walletTimeoutSeconds",
+          "min": 1,
+          "max": 600,
+          "input": [],
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "STRUCTURED_FORMATS": {},
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "callbook",
+        "follow.js"
+      ]
+    },
+    "callbook:inspect": {
+      "aliases": [],
+      "args": {
+        "agent": {
+          "description": "ERC-8004 agent id",
+          "name": "agent",
+          "required": true
+        }
+      },
+      "description": "Show one agent's sealed calls, scores, and registry feedback count.",
+      "examples": [
+        "<%= config.bin %> callbook inspect 1 --chain 10143"
+      ],
+      "flags": {
+        "format": {
+          "char": "f",
+          "description": "Output format: text | json | toon (defaults to text in TTY, json when piped)",
+          "name": "format",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "options": [
+            "text",
+            "json",
+            "toon"
+          ],
+          "type": "option"
+        },
+        "json": {
+          "description": "Shorthand for --format=json",
+          "name": "json",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "toon": {
+          "description": "Shorthand for --format=toon",
+          "name": "toon",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "verbose": {
+          "char": "v",
+          "description": "Show debug logs on stderr. Use this for troubleshooting",
+          "name": "verbose",
+          "allowNo": false,
+          "type": "boolean"
+        },
+        "agent": {
+          "description": "ERC-8004 agent id",
+          "name": "agent",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "chain": {
+          "description": "Chain id",
+          "name": "chain",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        },
+        "rpc": {
+          "description": "RPC URL",
+          "name": "rpc",
+          "hasDynamicHelp": false,
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "hasDynamicHelp": false,
+      "hiddenAliases": [],
+      "id": "callbook:inspect",
+      "pluginAlias": "mm-plugin-callbook",
+      "pluginName": "mm-plugin-callbook",
+      "pluginType": "core",
+      "strict": true,
+      "enableJsonFlag": false,
+      "requiresAuth": false,
+      "requiresInit": false,
+      "requiresFees": false,
+      "byokPasswordFlags": {
+        "password": {
+          "description": "Password to unlock the BYOK mnemonic (BYOK mode only)",
+          "env": "MM_PASSWORD",
+          "input": [],
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "walletTimeoutFlags": {
+        "wallet-timeout": {
+          "description": "Seconds to wait per wallet job (MFA/signing), max 600; overrides config walletTimeoutSeconds",
+          "min": 1,
+          "max": 600,
+          "input": [],
+          "multiple": false,
+          "type": "option"
+        }
+      },
+      "STRUCTURED_FORMATS": {},
+      "isESM": true,
+      "relativePath": [
+        "dist",
+        "commands",
+        "callbook",
+        "inspect.js"
+      ]
+    }
+  },
+  "version": "0.1.0"
+}

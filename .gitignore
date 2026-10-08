@@ -1,0 +1,16 @@
+/out/
+/cache/
+/broadcast/
+/lib/
+node_modules/
+.env
+.env.*
+!.env.example
+.next/
+dist/
+coverage/
+*.log
+agent-tools/
+uploads/
+tsconfig.tsbuildinfo
+.DS_Store

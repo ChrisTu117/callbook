@@ -1,0 +1,190 @@
+[
+  {
+    "type": "constructor",
+    "inputs": [
+      {
+        "name": "attestor_",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "attest",
+    "inputs": [
+      {
+        "name": "assetId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "price1e8",
+        "type": "int256",
+        "internalType": "int256"
+      },
+      {
+        "name": "publishedAt",
+        "type": "uint64",
+        "internalType": "uint64"
+      },
+      {
+        "name": "signature",
+        "type": "bytes",
+        "internalType": "bytes"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "attestor",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "digest",
+    "inputs": [
+      {
+        "name": "assetId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      },
+      {
+        "name": "price1e8",
+        "type": "int256",
+        "internalType": "int256"
+      },
+      {
+        "name": "publishedAt",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "name",
+    "inputs": [],
+    "outputs": [
+      {
+        "name": "",
+        "type": "string",
+        "internalType": "string"
+      }
+    ],
+    "stateMutability": "pure"
+  },
+  {
+    "type": "function",
+    "name": "prints",
+    "inputs": [
+      {
+        "name": "assetId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "price1e8",
+        "type": "int256",
+        "internalType": "int256"
+      },
+      {
+        "name": "publishedAt",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "read",
+    "inputs": [
+      {
+        "name": "assetId",
+        "type": "bytes32",
+        "internalType": "bytes32"
+      }
+    ],
+    "outputs": [
+      {
+        "name": "price1e8",
+        "type": "int256",
+        "internalType": "int256"
+      },
+      {
+        "name": "publishedAt",
+        "type": "uint64",
+        "internalType": "uint64"
+      }
+    ],
+    "stateMutability": "view"
+  },
+  {
+    "type": "event",
+    "name": "Attested",
+    "inputs": [
+      {
+        "name": "assetId",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "price1e8",
+        "type": "int256",
+        "indexed": false,
+        "internalType": "int256"
+      },
+      {
+        "name": "publishedAt",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      },
+      {
+        "name": "attestor",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "error",
+    "name": "BadPrice",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "BadSignature",
+    "inputs": []
+  },
+  {
+    "type": "error",
+    "name": "Future",
+    "inputs": []
+  }
+]
