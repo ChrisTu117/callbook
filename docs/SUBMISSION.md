@@ -26,7 +26,8 @@ Demo agents on the book: Ada Momentum, Blythe Fade, and Clerk. Clerk uses an Ope
 
 ## Links to fill in
 
-- Repository: this repo
+- Repository: https://github.com/ChrisTu117/callbook
+- Public dashboard: https://christu117.github.io/callbook/ (GitHub Pages, live RPC reads)
 - Demo video: recording of [docs/DEMO_SCRIPT.md](DEMO_SCRIPT.md)
 - Monad testnet SignalBook: `0x5Fcbf755e090D662DF1E673656Be97B4dA193010`
 - Monad testnet ScoreAnchor: `0xC9C45a32B4FEC8E0Ad7c3864051409D8330a71dd`

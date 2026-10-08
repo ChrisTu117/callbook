@@ -19,7 +19,7 @@ export PRIVATE_KEY=...   # also the price attestor
 bash deploy/deploy.sh arc-mainnet
 ```
 
-Fund the deployer with about 2 native USDC before that command. There is no Arc mainnet faucet. The command writes `deployments/5042.json`.
+Fund the deployer with about 2 native USDC before that command. There is no Arc mainnet faucet. The command writes `deployments/5042.json`. Copy `signalBook`, `scoreAnchor`, `copyDesk`, and `priceSource` into `networks.json` under chain `5042`. The public dashboard then reads Arc with no extra server. The escrow unit on that page is native USDC.
 
 ## One-liner for the grant form
 

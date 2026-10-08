@@ -1,29 +1,60 @@
+"use client";
+
 import Link from "next/link";
-import { notFound } from "next/navigation";
-import { loadBook } from "@/lib/load";
+import { useSearchParams } from "next/navigation";
+import { Suspense, useEffect, useState } from "react";
+import { useNetwork } from "@/components/BookProvider";
+import { Loading, NotDeployed, Unread } from "@/components/States";
+import { loadLiveBook, type AgentRow } from "@/lib/live";
 
-export const dynamic = "force-dynamic";
+export default function AgentRoute() {
+  return (
+    <Suspense fallback={<Loading label="Opening the agent." />}>
+      <AgentPage />
+    </Suspense>
+  );
+}
 
-export default async function AgentPage({ params }: { params: Promise<{ id: string }> }) {
-  const { id } = await params;
-  const result = await loadBook();
-  if (!result.ok) {
-    return (
-      <section className="border border-miss/50 bg-panel p-6">
-        <h1 className="text-3xl">The chain did not answer.</h1>
-        <p className="mt-3 text-muted">{result.error}</p>
-      </section>
-    );
-  }
-  const agent = result.view.agents.find((row) => row.agentId === id);
-  if (!agent) notFound();
+function AgentPage() {
+  const params = useSearchParams();
+  const id = params.get("id") ?? "";
+  const { network, ready } = useNetwork();
+  const [agent, setAgent] = useState<AgentRow | null>(null);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (!ready || !id) return;
+    let cancel = false;
+    setAgent(null);
+    setError(null);
+    loadLiveBook(network)
+      .then((view) => {
+        if (cancel) return;
+        const row = view.agents.find((item) => item.agentId === id);
+        if (!row) setError("That agent has no calls on this book.");
+        else setAgent(row);
+      })
+      .catch((reason: unknown) => {
+        if (!cancel) setError(reason instanceof Error ? reason.message : "The RPC did not answer.");
+      });
+    return () => {
+      cancel = true;
+    };
+  }, [id, network, ready]);
+
+  if (!ready) return <NotDeployed name={network.name} />;
+  if (!id) return <Unread message="Add ?id= to the address. The leaderboard links do this." />;
+  if (error) return <Unread message={error} />;
+  if (!agent) return <Loading label="Reading this agent from the chain." />;
+
   return (
     <div className="space-y-8">
       <div>
         <Link href="/" className="font-mono text-xs tracking-[0.16em] text-muted uppercase">
           Back to the book
         </Link>
-        <h1 className="mt-3 text-4xl sm:text-5xl">{agent.name}</h1>
+        <p className="mt-3 font-mono text-xs tracking-[0.18em] text-seal uppercase">Live chain read</p>
+        <h1 className="mt-2 text-4xl sm:text-5xl">{agent.name}</h1>
         <p className="mt-3 max-w-2xl text-lg text-muted">{agent.description || "No registration text."}</p>
       </div>
       <dl className="grid grid-cols-2 gap-px border border-line bg-line font-mono text-xs sm:grid-cols-4">
@@ -33,9 +64,7 @@ export default async function AgentPage({ params }: { params: Promise<{ id: stri
         <Cell label="Registry notes" value={agent.feedbacks} />
       </dl>
       <p className="font-mono text-xs text-muted">
-        {agent.gate
-          ? `Copy is closed. ${agent.gate}`
-          : "Copy is open. The desk will accept a capped follow for this agent."}{" "}
+        {agent.gate ? `Copy is closed. ${agent.gate}` : "Copy is open. The desk will accept a capped follow for this agent."}{" "}
         Registry notes are feedback entries written by the score anchor, not by the agent.
       </p>
       <ol className="space-y-3">
@@ -81,12 +110,9 @@ function Cell({ label, value }: { label: string; value: string }) {
 
 function Tx({ href, label }: { href: string | null; label: string }) {
   if (!href) return <span className="text-muted">{label} —</span>;
-  if (href.startsWith("http")) {
-    return (
-      <a className="text-seal underline decoration-line underline-offset-2" href={href}>
-        {label}
-      </a>
-    );
-  }
-  return <span className="text-ink">{label} {href.slice(0, 10)}</span>;
+  return (
+    <a className="text-seal underline decoration-line underline-offset-2" href={href}>
+      {label}
+    </a>
+  );
 }

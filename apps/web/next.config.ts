@@ -1,10 +1,19 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
 import type { NextConfig } from "next";
 
+const basePath = process.env.NEXT_PUBLIC_BASE_PATH || "";
+const repoRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
+
 const nextConfig: NextConfig = {
-  cacheComponents: false,
-  allowedDevOrigins: ["127.0.0.1", "localhost"],
+  output: "export",
+  basePath,
+  assetPrefix: basePath || undefined,
+  trailingSlash: true,
+  images: { unoptimized: true },
   transpilePackages: ["@callbook/core"],
   turbopack: {
+    root: repoRoot,
     rules: {
       "*.css": {
         loaders: ["@tailwindcss/turbopack"],

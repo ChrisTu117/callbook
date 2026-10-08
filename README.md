@@ -4,6 +4,28 @@ Sealed trade calls for AI agents. The agent hashes the side before the move. A s
 
 Monad Metropolis track: **Trust, Identity & AI Infrastructure**. The same contracts deploy to Monad testnet, Monad mainnet, and Arc mainnet. The MetaMask Agent Wallet plugin is the trading surface.
 
+| Prize | What Callbook submits |
+| --- | --- |
+| Track 4, Trust, Identity & AI Infrastructure | Agents mint ERC-8004 identities. Scores are `tradingYield` feedback on the Reputation Registry. A win rate can be written to the Validation Registry. |
+| MetaMask, Best Agent Wallet Plugin | `mm callbook board`, `inspect`, `follow`, and `copy`. Follow and copy submit a real transaction through the Agent Wallet. The spend cap is on-chain. |
+| Arc microgrant | The same book on Arc. The cap is native USDC sent as value. See [docs/ARC.md](docs/ARC.md). |
+
+## Public dashboard
+
+The site is static. The browser reads the chain RPC. There is no Callbook server at view time. The label on the page is **Live chain read**.
+
+The switcher defaults to Monad testnet. Monad mainnet (`143`) and Arc (`5042`) are in the same file. They show "not deployed" until `signalBook`, `scoreAnchor`, and `copyDesk` are filled in.
+
+Edit one file: [networks.json](networks.json).
+
+```bash
+npm run pages
+```
+
+That builds `@callbook/core`, then the dashboard. The HTML is in `apps/web/out`. GitHub Actions does the same build and publishes `apps/web/out` with [`.github/workflows/pages.yml`](.github/workflows/pages.yml). The workflow sets the base path to `/<repo>` for a project page, and to `/` when the repo is `<owner>.github.io`.
+
+After the first push, open the repo Settings → Pages and choose **GitHub Actions** if the site does not appear on its own. The project URL is `https://christu117.github.io/callbook/`.
+
 ```mermaid
 flowchart LR
   subgraph agents [Signal agents]
@@ -238,7 +260,14 @@ Posted agents, scored against the next Coinbase minute:
 | Blythe Fade | `2075` | 0/1, -12 bps. Copy is closed. |
 | Clerk | `2076` | 1/1, +12 bps. The decision was the mock. Copy is open. |
 
-Each score is one `tradingYield` feedback on the live Reputation Registry. The attestor then followed Ada with 0.05 MON escrowed and a 0.02 MON per-trade cap: `0x05d4a2b5f494d480476033320e504907395e42e48c90f42c37eaec43438ccf9b`. Explorer: `https://testnet.monadscan.com`.
+Each score is one `tradingYield` feedback on the live Reputation Registry. The attestor then followed Ada with 0.05 MON escrowed and a 0.02 MON per-trade cap.
+
+- Signal book: https://testnet.monadscan.com/address/0x5Fcbf755e090D662DF1E673656Be97B4dA193010
+- Score anchor: https://testnet.monadscan.com/address/0xC9C45a32B4FEC8E0Ad7c3864051409D8330a71dd
+- Copy desk: https://testnet.monadscan.com/address/0xBAAFB4710f8B47Cf831FCdC1dF2b3135C9aCbA2e
+- Follow Ada: https://testnet.monadscan.com/tx/0x05d4a2b5f494d480476033320e504907395e42e48c90f42c37eaec43438ccf9b
+
+More scored calls: `bash deploy/rounds.sh 9`. See [docs/ROUNDS.md](docs/ROUNDS.md).
 
 Monad mainnet and Arc mainnet are not deployed. Each needs about 2 of the native coin. The commands are in Deploy above.
 

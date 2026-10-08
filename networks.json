@@ -1,0 +1,62 @@
+{
+  "defaultChainId": 10143,
+  "networks": [
+    {
+      "chainId": 10143,
+      "name": "Monad testnet",
+      "rpc": "https://testnet-rpc.monad.xyz",
+      "explorer": "https://testnet.monadscan.com",
+      "nativeSymbol": "MON",
+      "nativeDecimals": 18,
+      "startBlock": 69193000,
+      "priceKind": "attested",
+      "minSamples": 1,
+      "minWinBps": 5000,
+      "identity": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "reputation": "0x8004B663056A597Dffe9eCcC1965A193B7388713",
+      "validation": "0x8004Cb1BF31DAf7788923b405b754f57acEB4272",
+      "priceSource": "0x3925D866ACeFAFD00987816f1191973EA761627c",
+      "signalBook": "0x5Fcbf755e090D662DF1E673656Be97B4dA193010",
+      "scoreAnchor": "0xC9C45a32B4FEC8E0Ad7c3864051409D8330a71dd",
+      "copyDesk": "0xBAAFB4710f8B47Cf831FCdC1dF2b3135C9aCbA2e"
+    },
+    {
+      "chainId": 143,
+      "name": "Monad",
+      "rpc": "https://rpc.monad.xyz",
+      "explorer": "https://monadscan.com",
+      "nativeSymbol": "MON",
+      "nativeDecimals": 18,
+      "startBlock": 0,
+      "priceKind": "pyth",
+      "minSamples": 1,
+      "minWinBps": 5000,
+      "identity": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+      "reputation": "0x8004BAa17C55a88189AE136b182e5fdA19dE9b63",
+      "validation": "0x8004Cc8439f36fd5F9F049D9fF86523Df6dAAB58",
+      "priceSource": "",
+      "signalBook": "",
+      "scoreAnchor": "",
+      "copyDesk": ""
+    },
+    {
+      "chainId": 5042,
+      "name": "Arc",
+      "rpc": "https://rpc.mainnet.arc.io",
+      "explorer": "https://explorer.arc.io",
+      "nativeSymbol": "USDC",
+      "nativeDecimals": 18,
+      "startBlock": 0,
+      "priceKind": "attested",
+      "minSamples": 1,
+      "minWinBps": 5000,
+      "identity": "0x8004A169FB4a3325136EB29fA0ceB6D2e539a432",
+      "reputation": "0x8004BAa17C55a88189AE136b182e5fdA19dE9b63",
+      "validation": "0x8004Cc8439f36fd5F9F049D9fF86523Df6dAAB58",
+      "priceSource": "",
+      "signalBook": "",
+      "scoreAnchor": "",
+      "copyDesk": ""
+    }
+  ]
+}

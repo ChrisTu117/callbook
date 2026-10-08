@@ -1,27 +1,49 @@
+"use client";
+
 import Link from "next/link";
-import { loadBook } from "@/lib/load";
+import { useEffect, useState } from "react";
+import { useNetwork } from "@/components/BookProvider";
+import { Loading, NotDeployed, Unread } from "@/components/States";
+import { loadLiveBook, type BookView } from "@/lib/live";
 
-export const dynamic = "force-dynamic";
+export default function HomePage() {
+  const { network, ready } = useNetwork();
+  const [view, setView] = useState<BookView | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
-export default async function HomePage() {
-  const result = await loadBook();
-  if (!result.ok) {
-    return (
-      <section className="border border-miss/50 bg-panel p-6">
-        <p className="font-mono text-xs tracking-[0.18em] text-miss uppercase">Book unread</p>
-        <h1 className="mt-2 text-3xl">The chain did not answer.</h1>
-        <p className="mt-3 max-w-xl text-muted">{result.error}</p>
-      </section>
-    );
-  }
-  const { view } = result;
+  useEffect(() => {
+    if (!ready) {
+      setView(null);
+      setError(null);
+      return;
+    }
+    let cancel = false;
+    setView(null);
+    setError(null);
+    loadLiveBook(network)
+      .then((next) => {
+        if (!cancel) setView(next);
+      })
+      .catch((reason: unknown) => {
+        if (!cancel) setError(reason instanceof Error ? reason.message : "The RPC did not answer.");
+      });
+    return () => {
+      cancel = true;
+    };
+  }, [network, ready]);
+
+  if (!ready) return <NotDeployed name={network.name} />;
+  if (error) return <Unread message={error} />;
+  if (!view) return <Loading label="Reading the book from the chain." />;
+
   return (
     <div className="space-y-8">
       <section className="grid gap-6 lg:grid-cols-[1.4fr_0.8fr]">
         <div>
-          <h1 className="max-w-xl text-4xl leading-tight sm:text-5xl">A public book of calls an agent cannot edit after the fact.</h1>
+          <p className="font-mono text-xs tracking-[0.18em] text-seal uppercase">Live chain read</p>
+          <h1 className="mt-2 max-w-xl text-4xl leading-tight sm:text-5xl">A public book of calls an agent cannot edit after the fact.</h1>
           <p className="mt-4 max-w-xl text-lg text-muted">
-            The agent hashes the side before the move. The score uses the oracle print at the horizon. Copying spends only the cap you escrow.
+            The browser reads {view.chainName} directly. The agent hashes the side before the move. The score uses the price at the horizon. Copying spends only the cap you escrow.
           </p>
         </div>
         <dl className="grid grid-cols-2 gap-px border border-line bg-line font-mono text-xs">
@@ -35,7 +57,7 @@ export default async function HomePage() {
       {view.agents.length === 0 ? (
         <section className="border border-dashed border-line p-8">
           <h2 className="text-2xl">No sealed calls yet.</h2>
-          <p className="mt-2 max-w-lg text-muted">Deploy Callbook and run a demo agent. The book fills from contract events, not from a spreadsheet.</p>
+          <p className="mt-2 max-w-lg text-muted">The book fills from contract state, not from a spreadsheet.</p>
         </section>
       ) : (
         <>
@@ -56,7 +78,7 @@ export default async function HomePage() {
                   <tr key={agent.agentId} className="border-t border-line">
                     <td className="px-4 py-4 font-mono text-seal">{String(index + 1).padStart(2, "0")}</td>
                     <td className="px-4 py-4">
-                      <Link href={`/agent/${agent.agentId}`} className="text-lg hover:text-seal">
+                      <Link href={`/agent/?id=${agent.agentId}`} className="text-lg hover:text-seal">
                         {agent.name}
                       </Link>
                       <p className="font-mono text-xs text-muted">#{agent.agentId}</p>
@@ -74,7 +96,7 @@ export default async function HomePage() {
           </div>
           <div className="space-y-3 md:hidden">
             {view.agents.map((agent, index) => (
-              <Link key={agent.agentId} href={`/agent/${agent.agentId}`} className="block border border-line bg-panel p-4">
+              <Link key={agent.agentId} href={`/agent/?id=${agent.agentId}`} className="block border border-line bg-panel p-4">
                 <p className="font-mono text-xs text-seal">
                   {String(index + 1).padStart(2, "0")} · {agent.winRate}
                 </p>

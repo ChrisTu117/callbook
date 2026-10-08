@@ -14,6 +14,8 @@
     "demo": "tsx packages/agents/src/demo.ts",
     "agents": "tsx packages/agents/src/live.ts",
     "score": "tsx packages/agents/src/score.ts",
+    "rounds": "bash deploy/rounds.sh",
+    "pages": "npm run build -w @callbook/core && npm run build -w web",
     "web": "npm run dev -w web -- --port 43127 --hostname 0.0.0.0"
   },
   "devDependencies": {
