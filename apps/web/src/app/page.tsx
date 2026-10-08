@@ -50,11 +50,11 @@ export default function HomePage() {
           <p className="mt-4 font-mono text-xs text-muted">
             Watch:{" "}
             <a className="text-ink underline decoration-line underline-offset-2 hover:text-seal" href={`${MEDIA}/callbook-demo.mp4`}>
-              the demo (3 min)
+              the demo (2:53)
             </a>
             {" · "}
             <a className="text-ink underline decoration-line underline-offset-2 hover:text-seal" href={`${MEDIA}/callbook-pitch.mp4`}>
-              the pitch (90 s)
+              the pitch (1:30)
             </a>
           </p>
         </div>
