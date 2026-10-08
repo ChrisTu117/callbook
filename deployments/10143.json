@@ -1,0 +1,16 @@
+{
+  "chainId": 10143,
+  "copyDesk": "0xBAAFB4710f8B47Cf831FCdC1dF2b3135C9aCbA2e",
+  "identity": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+  "maxStaleness": 3600,
+  "minSamples": 1,
+  "minWinBps": 5000,
+  "pinWindow": 3600,
+  "priceKind": "attested",
+  "priceSource": "0x3925D866ACeFAFD00987816f1191973EA761627c",
+  "reputation": "0x8004B663056A597Dffe9eCcC1965A193B7388713",
+  "revealWindow": 60,
+  "scoreAnchor": "0xC9C45a32B4FEC8E0Ad7c3864051409D8330a71dd",
+  "signalBook": "0x5Fcbf755e090D662DF1E673656Be97B4dA193010",
+  "validation": "0x8004Cb1BF31DAf7788923b405b754f57acEB4272"
+}

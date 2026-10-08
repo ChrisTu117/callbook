@@ -1,9 +1,9 @@
 import { chainInfo } from "@callbook/core";
-import { accountFromKey, clientsFor, commitSignal, ensureAgent, revealSignal } from "./chain.ts";
+import { accountFromKey, attestPrice, clientsFor, commitSignal, ensureAgent, revealSignal } from "./chain.ts";
 import { fadeDecision, momentumDecision } from "./decide.ts";
 import { readDeployment } from "./files.ts";
 import { clerkDecision } from "./llm.ts";
-import { loadCandles } from "./market.ts";
+import { loadCandles, price1e8FromClose } from "./market.ts";
 
 const PROFILES = [
   {
@@ -38,6 +38,20 @@ async function main() {
   const deployment = readDeployment(chainId);
   const clients = clientsFor(rpc);
   const candles = await loadCandles(symbol);
+  if (deployment.priceKind === "attested") {
+    const signerKey = process.env.PRIVATE_KEY;
+    if (!signerKey) throw new Error("This book uses a signed price. Set PRIVATE_KEY to the deployer, who is the attestor.");
+    const last = candles[candles.length - 1];
+    await attestPrice({
+      clients,
+      account: accountFromKey(signerKey),
+      deployment,
+      symbol,
+      price1e8: price1e8FromClose(last.close),
+      publishedAt: BigInt(last.time),
+    });
+    console.log(`Attested ${symbol} at ${last.close} for the commits.`);
+  }
 
   for (let i = 0; i < PROFILES.length; i += 1) {
     const profile = PROFILES[i];

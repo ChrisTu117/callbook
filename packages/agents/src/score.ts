@@ -9,6 +9,7 @@ type SignalView = {
   exitPinned: boolean;
   revealDeadline: bigint;
   horizonEnd: bigint;
+  commitTime: bigint;
   assetId: `0x${string}`;
   committer: `0x${string}`;
 };
@@ -48,7 +49,8 @@ async function main() {
     }
   }
 
-  const candles = deployment.priceKind === "attested" ? await loadCandles("ETH-USD") : [];
+  const pending: { id: bigint; signal: SignalView }[] = [];
+  let earliestCommit = 0n;
   for (let id = 1n; id < nextId; id += 1n) {
     const signal = (await clients.publicClient.readContract({
       address: deployment.signalBook,
@@ -63,20 +65,42 @@ async function main() {
       continue;
     }
     if (signal.revealed && !signal.exitPinned && now >= signal.horizonEnd) {
-      if (deployment.priceKind === "attested") {
-        const last = candles[candles.length - 1];
-        await attestPrice({
-          clients,
-          account,
-          deployment,
-          symbol: "ETH-USD",
-          price1e8: price1e8FromClose(last.close),
-          publishedAt: BigInt(last.time),
-        });
-      }
-      await pinAndScore({ clients, account, deployment, id });
-      console.log(`Signal ${id} pinned and scored.`);
+      pending.push({ id, signal });
+      if (earliestCommit === 0n || signal.commitTime < earliestCommit) earliestCommit = signal.commitTime;
     }
+  }
+
+  if (pending.length === 0) return;
+
+  if (deployment.priceKind === "attested") {
+    let print: { time: number; close: number } | null = null;
+    for (let attempt = 0; attempt < 6; attempt += 1) {
+      const candles = await loadCandles("ETH-USD");
+      const chainNow = BigInt((await clients.publicClient.getBlock()).timestamp);
+      const fresh = candles.filter((candle) => {
+        const time = BigInt(candle.time);
+        return time >= earliestCommit && time <= chainNow;
+      });
+      print = fresh.length > 0 ? fresh[fresh.length - 1] : null;
+      if (print) break;
+      console.log("The newest candle is still from before the commit. Waiting 20s.");
+      await new Promise((resolve) => setTimeout(resolve, 20_000));
+    }
+    if (!print) throw new Error("No candle is dated at or after the commit. Refusing to pin the entry print.");
+    await attestPrice({
+      clients,
+      account,
+      deployment,
+      symbol: "ETH-USD",
+      price1e8: price1e8FromClose(print.close),
+      publishedAt: BigInt(print.time),
+    });
+    console.log(`Attested exit ETH-USD at ${print.close}, candle ${print.time}.`);
+  }
+
+  for (const item of pending) {
+    await pinAndScore({ clients, account, deployment, id: item.id });
+    console.log(`Signal ${item.id} pinned and scored.`);
   }
 }
 

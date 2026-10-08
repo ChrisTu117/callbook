@@ -62,7 +62,7 @@ Settlement is not the candle the agent looked at.
 
 | Chain | Source | Why |
 | --- | --- | --- |
-| Monad testnet `10143` and mainnet `143` | Pyth `0x2880aB155794e7179c9eE2e38200202908C17B43` via `PythPriceSource` | On 8 Oct 2026, `getPriceUnsafe` for ETH/USD and BTC/USD returned a live price (expo -8) on both chains. MON/USD on testnet was about eight days stale, so the demo asset is ETH-USD. The Hermes pull API returned 401, so the scorer does not depend on it. |
+| Monad testnet `10143` and mainnet `143` | Pyth `0x2880aB155794e7179c9eE2e38200202908C17B43` via `PythPriceSource` | `getPriceUnsafe` for ETH/USD returns a price with expo -8. The demo asset is ETH-USD. MON/USD on testnet was stale. Hermes has required an API key since 26 Aug 2026, so this repo does not pull updates. If the stored print is older than `maxStaleness`, set `PRICE_KIND=attested` and redeploy. The deployer then signs a Coinbase print, which is the Arc path. On 8 Oct 2026 the testnet ETH/USD print was about 15 hours old, so the posted testnet book uses that attested path. |
 | Arc mainnet `5042` | `AttestedPriceSource` | The same Pyth address has code, and `getPriceUnsafe` reverts. The deployer signs an EIP-191 digest over `CALLBOOK_PRICE`, chain id, source, asset, price, and time. The decision tape is still a public Coinbase candle. The signature is what the contract checks. |
 | Anvil `31337` | `MockPriceSource` | The local demo sets the print. Tests do not need a network. |
 
@@ -214,6 +214,34 @@ Arc is mainnet only for this grant. Chain id `5042`. RPC `https://rpc.mainnet.ar
 - [docs/SUBMISSION.md](docs/SUBMISSION.md) — Monad portal fields.
 - [docs/ARC.md](docs/ARC.md) — Arc microgrant text.
 
-## What is not on a public chain yet
+## Monad testnet deployment
 
-This environment has no funded key. Monad testnet, Monad mainnet, and Arc mainnet are ready to deploy and are not deployed. The local Anvil book is the running demo.
+Deployed on 8 Oct 2026. Chain `10143`. The stored Pyth ETH/USD print was about 15 hours old, and Hermes now requires an API key, so this book uses `PRICE_KIND=attested`. The deployer signs the Coinbase print. A later deploy with a fresh Pyth push can use the default `PRICE_KIND`.
+
+| Contract | Address |
+| --- | --- |
+| SignalBook | `0x5Fcbf755e090D662DF1E673656Be97B4dA193010` |
+| ScoreAnchor | `0xC9C45a32B4FEC8E0Ad7c3864051409D8330a71dd` |
+| CopyDesk | `0xBAAFB4710f8B47Cf831FCdC1dF2b3135C9aCbA2e` |
+| Attested price | `0x3925D866ACeFAFD00987816f1191973EA761627c` |
+| Identity (existing) | `0x8004A818BFB912233c491871b3d84c89A494BD9e` |
+| Reputation (existing) | `0x8004B663056A597Dffe9eCcC1965A193B7388713` |
+| Validation (existing) | `0x8004Cb1BF31DAf7788923b405b754f57acEB4272` |
+
+Attestor: `0x749B414A7A31Ba0484d77e3A8a3A6aF347AA609a`. The key is not in git.
+
+Posted agents, scored against the next Coinbase minute:
+
+| Agent | Id | Result |
+| --- | --- | --- |
+| Ada Momentum | `2074` | 1/1, +12 bps. Copy is open. |
+| Blythe Fade | `2075` | 0/1, -12 bps. Copy is closed. |
+| Clerk | `2076` | 1/1, +12 bps. The decision was the mock. Copy is open. |
+
+Each score is one `tradingYield` feedback on the live Reputation Registry. The attestor then followed Ada with 0.05 MON escrowed and a 0.02 MON per-trade cap: `0x05d4a2b5f494d480476033320e504907395e42e48c90f42c37eaec43438ccf9b`. Explorer: `https://testnet.monadscan.com`.
+
+Monad mainnet and Arc mainnet are not deployed. Each needs about 2 of the native coin. The commands are in Deploy above.
+
+## What is mocked
+
+Clerk uses the deterministic mock unless `LLM_BASE_URL` and `LLM_API_KEY` are set. The local book uses a mock price. The testnet book uses a signed Coinbase print because the Pyth push was stale. ERC-7715 delegations are not wired. The spend cap is `CopyDesk`.

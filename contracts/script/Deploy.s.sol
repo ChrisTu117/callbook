@@ -32,6 +32,9 @@ contract Deploy is Script {
         uint64 maxStaleness = uint64(vm.envOr("MAX_STALENESS", uint256(3600)));
         uint32 minSamples = uint32(vm.envOr("MIN_SAMPLES", uint256(1)));
         uint32 minWinBps = uint32(vm.envOr("MIN_WIN_BPS", uint256(5000)));
+        // Set PRICE_KIND=attested when the Pyth push feed is older than maxStaleness.
+        // Hermes has required an API key since 26 Aug 2026, so a stale push cannot be refreshed here.
+        bool forceAttested = keccak256(bytes(vm.envOr("PRICE_KIND", string("")))) == keccak256(bytes("attested"));
 
         vm.startBroadcast(pk);
 
@@ -45,14 +48,24 @@ contract Deploy is Script {
             identity = ID_TESTNET;
             reputation = REP_TESTNET;
             validation = VAL_TESTNET;
-            priceSource = address(new PythPriceSource(PYTH));
-            priceKind = "pyth";
+            if (forceAttested) {
+                priceSource = address(new AttestedPriceSource(vm.addr(pk)));
+                priceKind = "attested";
+            } else {
+                priceSource = address(new PythPriceSource(PYTH));
+                priceKind = "pyth";
+            }
         } else if (block.chainid == MONAD_MAINNET) {
             identity = ID_MAIN;
             reputation = REP_MAIN;
             validation = VAL_MAIN;
-            priceSource = address(new PythPriceSource(PYTH));
-            priceKind = "pyth";
+            if (forceAttested) {
+                priceSource = address(new AttestedPriceSource(vm.addr(pk)));
+                priceKind = "attested";
+            } else {
+                priceSource = address(new PythPriceSource(PYTH));
+                priceKind = "pyth";
+            }
         } else if (block.chainid == ARC_MAINNET) {
             // Same CREATE2 registry addresses as Monad mainnet. Confirmed in the research notes.
             identity = ID_MAIN;
