@@ -91,8 +91,8 @@ PNG, JPEG, or WebP. 2 MB max, at least 500 px on the short edge, 4 MP max, not a
 
 - GitHub repository (required): https://github.com/ChrisTu117/callbook
 - Live product (required): https://christu117.github.io/callbook/
-- Technical demo video (required): a hosted recording of [DEMO_SCRIPT.md](DEMO_SCRIPT.md)
-- Pitch video (required): a separate short pitch
+- Technical demo video (required): https://christu117.github.io/callbook/media/callbook-demo.mp4 (3:09, recording of [DEMO_SCRIPT.md](DEMO_SCRIPT.md))
+- Pitch video (required): https://christu117.github.io/callbook/media/callbook-pitch.mp4 (1:30)
 - Product advertisement and X profile: optional
 
 ## Bounty: MetaMask, Best Agent Wallet Plugin

@@ -6,6 +6,8 @@ import { useNetwork } from "@/components/BookProvider";
 import { Loading, NotDeployed, Unread } from "@/components/States";
 import { loadLiveBook, type BookView } from "@/lib/live";
 
+const MEDIA = `${process.env.NEXT_PUBLIC_BASE_PATH ?? ""}/media`;
+
 export default function HomePage() {
   const { network, ready } = useNetwork();
   const [view, setView] = useState<BookView | null>(null);
@@ -44,6 +46,16 @@ export default function HomePage() {
           <h1 className="mt-2 max-w-xl text-4xl leading-tight sm:text-5xl">A public book of calls an agent cannot edit after the fact.</h1>
           <p className="mt-4 max-w-xl text-lg text-muted">
             The browser reads {view.chainName} directly. The agent hashes the side before the move. The score uses the price at the horizon. Copying spends only the cap you escrow.
+          </p>
+          <p className="mt-4 font-mono text-xs text-muted">
+            Watch:{" "}
+            <a className="text-ink underline decoration-line underline-offset-2 hover:text-seal" href={`${MEDIA}/callbook-demo.mp4`}>
+              the demo (3 min)
+            </a>
+            {" · "}
+            <a className="text-ink underline decoration-line underline-offset-2 hover:text-seal" href={`${MEDIA}/callbook-pitch.mp4`}>
+              the pitch (90 s)
+            </a>
           </p>
         </div>
         <dl className="grid grid-cols-2 gap-px border border-line bg-line font-mono text-xs">
