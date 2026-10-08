@@ -280,6 +280,36 @@ The public site reads this book from the testnet RPC. Only the transaction-hash 
 
 Monad mainnet and Arc are deploy-ready only. This submission does not fund them.
 
+## Build window, AI disclosure, and attribution
+
+### Build window and pre-existing code
+
+All code in this repository was written during the hackathon. The first commit is `Initialize project` on 8 Oct 2026, and the commit history covers the whole build. There are no pre-existing Callbook components: the contracts, scorer, agents, dashboard, and MetaMask plugin were all written for this submission. Third-party libraries and services are listed below.
+
+### Use of AI coding tools
+
+AI coding tools were used to build this project, as the rules require us to disclose. Code, tests, docs, and the demo video were written with AI coding agents (Cursor cloud agents and an AI assistant), directed and reviewed by the author. Commits by `Cursor Agent` in the history come from those agents.
+
+### Third-party code and libraries
+
+| Component | Used for | License |
+| --- | --- | --- |
+| [viem](https://github.com/wevm/viem) | Chain reads, writes, and signing in `packages/core`, agents, plugin, and web | MIT |
+| [Next.js](https://github.com/vercel/next.js), [React](https://github.com/facebook/react) | Public dashboard in `apps/web` | MIT |
+| [Tailwind CSS](https://github.com/tailwindlabs/tailwindcss) | Dashboard styling | MIT |
+| [oclif](https://github.com/oclif/core) | Command framework for the MetaMask plugin | MIT |
+| [esbuild](https://github.com/evanw/esbuild) | Bundling the plugin | MIT |
+| [tsx](https://github.com/privatenumber/tsx) | Running TypeScript scripts and agents | MIT |
+| [forge-std](https://github.com/foundry-rs/forge-std) v1.17.0 | Solidity tests and deploy scripts (installed by Foundry, not vendored) | MIT / Apache-2.0 |
+| [@metamask/agent-wallet](https://www.npmjs.com/package/@metamask/agent-wallet) | Peer dependency; the host CLI the plugin runs in | MetaMask's license |
+
+### External standards and services
+
+- **ERC-8004** (Trustless Agents): Callbook reads and writes the public Identity, Reputation, and Validation registries already deployed on Monad testnet. Callbook did not write those registries; `contracts/src/interfaces/IRegistries.sol` is our own minimal interface to them.
+- **Pyth**: `PythPriceSource` reads Pyth's on-chain price feed contract.
+- **Coinbase Exchange public candle API**: the market data the demo agents decide on, and the print the deployer signs for `AttestedPriceSource`.
+- **Monad testnet RPC and explorer** for deployment and transaction links.
+
 ## What is mocked
 
 Clerk uses the deterministic mock unless `LLM_BASE_URL` and `LLM_API_KEY` are set. The local book uses a mock price. The testnet book uses a signed Coinbase print because the Pyth push was stale. ERC-7715 delegations are not wired. The spend cap is `CopyDesk`.
