@@ -8,7 +8,7 @@ Paste each `text` block into the matching portal field. Fields marked **USER** n
 
 Assets on the box (not in git):
 - Product demo video, 2:43: https://github.com/ChrisTu117/callbook/blob/cursor/colosseum-port-f4dc/media/colosseum-demo.mp4 (also at `/workspace/hackathons/colosseum-demo.mp4`; subtitles in `media/colosseum-demo.srt`)
-- Pitch video, 2:20: https://github.com/ChrisTu117/callbook/blob/cursor/colosseum-port-f4dc/media/colosseum-pitch.mp4 (also at `/workspace/hackathons/colosseum-pitch.mp4`; subtitles in `media/colosseum-pitch.srt`)
+- Pitch video, 1:49: https://github.com/ChrisTu117/callbook/blob/cursor/colosseum-port-f4dc/media/colosseum-pitch-v2.mp4 (also at `/workspace/hackathons/colosseum-pitch-v2.mp4`; subtitles in `media/colosseum-pitch-v2.srt`). The older 2:20 cut (`media/colosseum-pitch.mp4`) is over the portal's 2-minute limit, so do not use it.
 - Logo: `media/callbook-logo-1024.png` on the branch, plus `/workspace/hackathons/callbook-logo-1024.png` and `/workspace/hackathons/callbook-logo-512.png`
 
 ## Project name
@@ -163,13 +163,13 @@ Plugin (Node 22+, @metamask/agent-wallet 6.2.1 or 7.x): build with npm run build
 Tests: forge test and npm run test:ts.
 ```
 
-## Pitch video (2:00 to 3:00)
+## Pitch video (portal limit: up to 2 minutes)
 
 ```text
-https://github.com/ChrisTu117/callbook/blob/cursor/colosseum-port-f4dc/media/colosseum-pitch.mp4
+https://github.com/ChrisTu117/callbook/blob/cursor/colosseum-port-f4dc/media/colosseum-pitch-v2.mp4
 ```
 
-2:20, English narration, burned-in subtitles. It covers the problem, the solution, why Base, Arbitrum and Ethereum, live testnet traction (3 chains, 9 agents, 93 scored calls, 278 transactions), a short proof clip, the roadmap, and the solo-builder context. It states plainly that this is testnet only and that Clerk is a mock.
+1:49, English narration, burned-in subtitles. Following the portal prompt ("introduce yourselves, tell us what you're building, and why you're the people to build it"), it opens with a self-intro: ChrisTu, solo builder in Shenzhen, builds onchain tools for AI agents, works with AI coding assistants. Then the problem, what Callbook is, why now and why me, testnet traction (3 chains, 9 agents, 93 scored calls, 278 transactions; no outside users yet; Clerk is a mock), a short proof clip, and the roadmap.
 
 ## Presentation (optional)
 
