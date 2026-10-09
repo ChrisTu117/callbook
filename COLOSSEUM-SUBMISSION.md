@@ -52,6 +52,7 @@ Shenzhen, China
 ```text
 Repository: https://github.com/ChrisTu117/callbook
 Colosseum branch (do not review main for these three chains): https://github.com/ChrisTu117/callbook/tree/cursor/colosseum-port-f4dc
+Draft pull request, do not merge: https://github.com/ChrisTu117/callbook/pull/1
 ```
 
 `main` is the Monad testnet book. Judges who open only `main` will not see the Sepolia port.
