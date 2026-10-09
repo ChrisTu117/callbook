@@ -7,8 +7,9 @@ Paste each `text` block into the matching portal field. Fields marked **USER** n
 - Rules used here: one product submission per team. Past development must be disclosed (see "Context about your repo"). Track pools are separate: Ethereum L1, Base and Arbitrum, $25,000 each across 5 products.
 
 Assets on the box (not in git):
-- Product demo video, 2:43: `/workspace/hackathons/colosseum-demo.mp4` (subtitles: `/workspace/hackathons/colosseum-demo.srt`)
-- Logo: `/workspace/hackathons/callbook-logo-1024.png` and `/workspace/hackathons/callbook-logo-512.png`
+- Product demo video, 2:43: https://github.com/ChrisTu117/callbook/blob/cursor/colosseum-port-f4dc/media/colosseum-demo.mp4 (also at `/workspace/hackathons/colosseum-demo.mp4`; subtitles in `media/colosseum-demo.srt`)
+- Pitch video, 2:20: https://github.com/ChrisTu117/callbook/blob/cursor/colosseum-port-f4dc/media/colosseum-pitch.mp4 (also at `/workspace/hackathons/colosseum-pitch.mp4`; subtitles in `media/colosseum-pitch.srt`)
+- Logo: `media/callbook-logo-1024.png` on the branch, plus `/workspace/hackathons/callbook-logo-1024.png` and `/workspace/hackathons/callbook-logo-512.png`
 
 ## Project name
 
@@ -127,7 +128,11 @@ Upload `/workspace/hackathons/callbook-logo-1024.png` (or the 512 px file if the
 
 ## Please submit a demo video of your product (product demo, at most 3:00)
 
-File: `/workspace/hackathons/colosseum-demo.mp4` (2:43, English narration, burned-in subtitles). **USER**: upload it to YouTube (unlisted) or Loom and paste the link. It shows the Base, Ethereum and Arbitrum Sepolia books, the Blockscout commit and score transactions, and the MetaMask Agent Wallet plugin on Base Sepolia.
+```text
+https://github.com/ChrisTu117/callbook/blob/cursor/colosseum-port-f4dc/media/colosseum-demo.mp4
+```
+
+2:43, English narration, burned-in subtitles. It shows the Base, Ethereum and Arbitrum Sepolia books, the Blockscout commit and score transactions, and the MetaMask Agent Wallet plugin on Base Sepolia.
 
 ## Show demo video on the public project page
 
@@ -160,7 +165,11 @@ Tests: forge test and npm run test:ts.
 
 ## Pitch video (2:00 to 3:00)
 
-**OPEN**: the existing pitch is 1:30 (https://christu117.github.io/callbook/media/callbook-pitch.mp4), which is shorter than the official 2:00 to 3:00. Either re-cut a 2 to 3 minute pitch, or paste the demo link here if the field accepts it.
+```text
+https://github.com/ChrisTu117/callbook/blob/cursor/colosseum-port-f4dc/media/colosseum-pitch.mp4
+```
+
+2:20, English narration, burned-in subtitles. It covers the problem, the solution, why Base, Arbitrum and Ethereum, live testnet traction (3 chains, 9 agents, 93 scored calls, 278 transactions), a short proof clip, the roadmap, and the solo-builder context. It states plainly that this is testnet only and that Clerk is a mock.
 
 ## Presentation (optional)
 
@@ -244,8 +253,7 @@ Deployer (throwaway testnet key, not in git): 0xF31d46350D682CF6551fd835b03B7316
 
 ## Remaining steps (do not paste into the portal)
 
-1. Upload `/workspace/hackathons/colosseum-demo.mp4` to YouTube (unlisted) or Loom and paste the link.
-2. Decide on the pitch video: re-cut to 2:00 to 3:00, or reuse the demo.
-3. Upload the logo. Fill the USER fields.
-4. Do not merge the Colosseum PR before Monad's submission freeze (13 Oct 23:59 ET). GitHub Pages builds from `main` only.
-5. More rounds, if wanted: `deploy/rounds.sh` with `CALLBOOK_CHAIN_ID`, `CALLBOOK_RPC_URL` and `HORIZON_SEC=180` (the reveal window on these books is 120 s). Keys stay outside git.
+1. Paste the demo and pitch GitHub links above. If the portal will not play a GitHub blob link, upload the same files to YouTube (unlisted) instead.
+2. Upload the logo. Fill the USER fields.
+3. Do not merge the Colosseum PR before Monad's submission freeze (13 Oct 23:59 ET). GitHub Pages builds from `main` only.
+4. More rounds, if wanted: `deploy/rounds.sh` with `CALLBOOK_CHAIN_ID`, `CALLBOOK_RPC_URL` and `HORIZON_SEC=180` (the reveal window on these books is 120 s). Keys stay outside git.

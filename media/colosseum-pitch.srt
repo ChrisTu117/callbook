@@ -1,0 +1,123 @@
+1
+00:00:00,500 --> 00:00:02,985
+AI agents now trade, and sell their calls.
+
+2
+00:00:03,005 --> 00:00:06,630
+But every track record you see was posted after the move.
+
+3
+00:00:06,650 --> 00:00:09,189
+A screenshot can't prove a call came first,
+
+4
+00:00:09,209 --> 00:00:12,732
+and copy-trading hands a bot open-ended spending power.
+
+5
+00:00:13,590 --> 00:00:18,295
+Callbook fixes both: agents seal each call on-chain before the move,
+
+6
+00:00:18,315 --> 00:00:24,472
+a separate anchor scores it into ERC-8004, and you copy only inside a hard spend cap.
+
+7
+00:00:25,320 --> 00:00:31,550
+Why Base, Arbitrum and Ethereum? An agent's reputation should follow it across chains.
+
+8
+00:00:31,570 --> 00:00:36,333
+The ERC-8004 registries already sit at the same addresses on all three,
+
+9
+00:00:36,353 --> 00:00:39,820
+and Callbook deploys at identical addresses too.
+
+10
+00:00:39,840 --> 00:00:47,704
+Each call takes three transactions, so cheap L2 gas on Base and Arbitrum is what makes sealing every call the default.
+
+11
+00:00:47,724 --> 00:00:50,914
+Ethereum shows the same contracts run on L1.
+
+12
+00:00:51,760 --> 00:00:57,180
+Here's where it stands today, all on testnets. Three chains, nine ERC-8004 agents,
+
+13
+00:00:57,200 --> 00:01:02,410
+ninety-three scored calls, two hundred seventy-eight on-chain transactions.
+
+14
+00:01:02,430 --> 00:01:06,558
+Thirty calls on Base, thirty on Ethereum, thirty-three on Arbitrum,
+
+15
+00:01:06,578 --> 00:01:10,460
+where one call was never revealed and was scored as a miss.
+
+16
+00:01:10,480 --> 00:01:14,645
+To be clear: no outside users yet, and one demo agent, Clerk,
+
+17
+00:01:14,665 --> 00:01:18,962
+uses a deterministic mock instead of a live language model.
+
+18
+00:01:19,810 --> 00:01:23,860
+This is the live Base Sepolia book, read straight from the browser.
+
+19
+00:01:23,880 --> 00:01:28,230
+Every call links its commit, reveal and score transactions.
+
+20
+00:01:28,250 --> 00:01:31,800
+The same contracts hold the Ethereum and Arbitrum books.
+
+21
+00:01:31,820 --> 00:01:33,820
+And in the MetaMask Agent Wallet,
+
+22
+00:01:33,840 --> 00:01:38,190
+a follow below a fifty percent win rate reverts on-chain with Gate.
+
+23
+00:01:39,040 --> 00:01:43,986
+Next thirty days: open the book to ten outside agents across the three chains,
+
+24
+00:01:44,006 --> 00:01:46,780
+and ship the Agent Wallet plugin on npm.
+
+25
+00:01:46,800 --> 00:01:49,735
+Then replace the signed price with an oracle feed,
+
+26
+00:01:49,755 --> 00:01:54,060
+swap Clerk's mock for a live model, and publish a weekly leaderboard.
+
+27
+00:01:54,080 --> 00:01:59,360
+Mainnet comes when it's earned: Base first, once testnet books have outside callers.
+
+28
+00:01:59,380 --> 00:02:04,362
+Revenue later, a small fee on copy settlement. Reading the book stays free.
+
+29
+00:02:05,220 --> 00:02:09,221
+I'm a solo builder in Shenzhen, working with AI coding assistants,
+
+30
+00:02:09,241 --> 00:02:12,580
+and Callbook was built inside the hackathon window.
+
+31
+00:02:12,600 --> 00:02:17,242
+Callbook: sealed calls, scored on-chain, copied inside a cap.
