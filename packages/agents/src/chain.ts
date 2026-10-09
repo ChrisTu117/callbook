@@ -54,16 +54,28 @@ export async function send(
   chainId: number,
   request: { address: Address; abi: typeof signalBookAbi; functionName: string; args?: readonly unknown[]; value?: bigint },
 ): Promise<Hex> {
-  const hash = await clients.walletClient.writeContract({
-    account,
-    chain: null,
-    address: request.address,
-    abi: request.abi,
-    functionName: request.functionName,
-    args: request.args,
-    value: request.value,
-    ...fees(chainId),
-  } as never);
+  // Public L2 RPCs sit behind load balancers. A node can lag one block behind the node that
+  // mined the previous tx, so a dependent call (setAgentURI right after register) can fail
+  // simulation. Retry a few times before treating the revert as real.
+  let hash: Hex | undefined;
+  for (let attempt = 0; ; attempt += 1) {
+    try {
+      hash = await clients.walletClient.writeContract({
+        account,
+        chain: null,
+        address: request.address,
+        abi: request.abi,
+        functionName: request.functionName,
+        args: request.args,
+        value: request.value,
+        ...fees(chainId),
+      } as never);
+      break;
+    } catch (error) {
+      if (attempt >= 3) throw error;
+      await new Promise((resolve) => setTimeout(resolve, 3000 * (attempt + 1)));
+    }
+  }
   const receipt = await clients.publicClient.waitForTransactionReceipt({ hash });
   if (receipt.status !== "success") throw new Error(`Transaction reverted: ${hash}`);
   return hash;

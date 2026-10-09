@@ -42,7 +42,7 @@ const CHAINS = [
 ];
 
 const doc = JSON.parse(readFileSync(networksPath, "utf8"));
-const deployer = process.env.COLOSSEUM_DEPLOYER || "";
+const deployer = process.env.COLOSSEUM_DEPLOYER || "0xF31d46350D682CF6551fd835b03B73169944B1a5";
 
 function link(explorer, kind, address) {
   if (!address) return "";

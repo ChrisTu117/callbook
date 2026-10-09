@@ -74,7 +74,10 @@ async function main() {
   }
 
   const pending: { id: bigint; signal: SignalView }[] = [];
-  let earliestCommit = 0n;
+  // The exit print must be dated at or after every pending commit. SignalBook reverts Stale
+  // otherwise. On slow chains (Ethereum Sepolia, 12s blocks) the three commits of a round are
+  // a minute or more apart, so key on the latest commit, not the earliest.
+  let latestCommit = 0n;
   const now = BigInt((await clients.publicClient.getBlock()).timestamp);
   for (let id = 1n; id < nextId; id += 1n) {
     const signal = await readSignal(clients.publicClient, deployment.signalBook, id);
@@ -85,7 +88,7 @@ async function main() {
     }
     if (signal.revealed && !signal.exitPinned && now >= signal.horizonEnd) {
       pending.push({ id, signal });
-      if (earliestCommit === 0n || signal.commitTime < earliestCommit) earliestCommit = signal.commitTime;
+      if (signal.commitTime > latestCommit) latestCommit = signal.commitTime;
     }
   }
 
@@ -98,13 +101,13 @@ async function main() {
       const chainNow = BigInt((await clients.publicClient.getBlock()).timestamp);
       const fresh = candles.filter((candle) => {
         const time = BigInt(candle.time);
-        return time >= earliestCommit && time <= chainNow;
+        return time >= latestCommit && time <= chainNow;
       });
       print = fresh.length > 0 ? fresh[fresh.length - 1] : null;
       if (print) break;
       const newest = candles.length > 0 ? candles[candles.length - 1].time : 0;
       console.log(
-        `No candle at or after commit ${earliestCommit}. Newest candle ${newest}. Chain time ${chainNow}. Waiting 20s.`,
+        `No candle at or after commit ${latestCommit}. Newest candle ${newest}. Chain time ${chainNow}. Waiting 20s.`,
       );
       await sleep(20_000);
     }

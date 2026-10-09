@@ -67,7 +67,7 @@
       "explorer": "https://sepolia.basescan.org",
       "nativeSymbol": "ETH",
       "nativeDecimals": 18,
-      "startBlock": 0,
+      "startBlock": 47870178,
       "logChunk": 200,
       "priceKind": "attested",
       "minSamples": 1,
@@ -75,10 +75,13 @@
       "identity": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
       "reputation": "0x8004B663056A597Dffe9eCcC1965A193B7388713",
       "validation": "0x8004Cb1BF31DAf7788923b405b754f57acEB4272",
-      "priceSource": "",
-      "signalBook": "",
-      "scoreAnchor": "",
-      "copyDesk": ""
+      "priceSource": "0x9861E4A86b11fF4AfCF644bf8c6AFAf885B8a32d",
+      "signalBook": "0x2Ea6720834fa9b1DDaE0B9184FeBD70CAab882c6",
+      "scoreAnchor": "0x3EA266107f281f2A576566fCa9caee16942cb4f9",
+      "copyDesk": "0xa9117eFC6A19f1c58895e2f6ec869b90Cb23A324",
+      "revealWindow": 120,
+      "pinWindow": 3600,
+      "maxStaleness": 3600
     },
     {
       "chainId": 421614,
@@ -88,7 +91,7 @@
       "explorer": "https://sepolia.arbiscan.io",
       "nativeSymbol": "ETH",
       "nativeDecimals": 18,
-      "startBlock": 0,
+      "startBlock": 11874046,
       "logChunk": 2000,
       "priceKind": "attested",
       "minSamples": 1,
@@ -96,10 +99,13 @@
       "identity": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
       "reputation": "0x8004B663056A597Dffe9eCcC1965A193B7388713",
       "validation": "0x8004Cb1BF31DAf7788923b405b754f57acEB4272",
-      "priceSource": "",
-      "signalBook": "",
-      "scoreAnchor": "",
-      "copyDesk": ""
+      "priceSource": "0x9861E4A86b11fF4AfCF644bf8c6AFAf885B8a32d",
+      "signalBook": "0x2Ea6720834fa9b1DDaE0B9184FeBD70CAab882c6",
+      "scoreAnchor": "0x3EA266107f281f2A576566fCa9caee16942cb4f9",
+      "copyDesk": "0xa9117eFC6A19f1c58895e2f6ec869b90Cb23A324",
+      "revealWindow": 120,
+      "pinWindow": 3600,
+      "maxStaleness": 3600
     },
     {
       "chainId": 11155111,
@@ -109,7 +115,7 @@
       "explorer": "https://sepolia.etherscan.io",
       "nativeSymbol": "ETH",
       "nativeDecimals": 18,
-      "startBlock": 0,
+      "startBlock": 11873951,
       "logChunk": 2000,
       "priceKind": "attested",
       "minSamples": 1,
@@ -117,10 +123,13 @@
       "identity": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
       "reputation": "0x8004B663056A597Dffe9eCcC1965A193B7388713",
       "validation": "0x8004Cb1BF31DAf7788923b405b754f57acEB4272",
-      "priceSource": "",
-      "signalBook": "",
-      "scoreAnchor": "",
-      "copyDesk": ""
+      "priceSource": "0x9861E4A86b11fF4AfCF644bf8c6AFAf885B8a32d",
+      "signalBook": "0x2Ea6720834fa9b1DDaE0B9184FeBD70CAab882c6",
+      "scoreAnchor": "0x3EA266107f281f2A576566fCa9caee16942cb4f9",
+      "copyDesk": "0xa9117eFC6A19f1c58895e2f6ec869b90Cb23A324",
+      "revealWindow": 120,
+      "pinWindow": 3600,
+      "maxStaleness": 3600
     }
   ]
 }
