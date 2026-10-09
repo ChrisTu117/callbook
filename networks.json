@@ -91,7 +91,7 @@
       "explorer": "https://sepolia.arbiscan.io",
       "nativeSymbol": "ETH",
       "nativeDecimals": 18,
-      "startBlock": 11874046,
+      "startBlock": 317239324,
       "logChunk": 2000,
       "priceKind": "attested",
       "minSamples": 1,

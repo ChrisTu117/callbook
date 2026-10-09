@@ -2,6 +2,9 @@ import { decodeEventLog, type Abi, type Address, type PublicClient } from "viem"
 import scoreAnchorAbiJson from "./ScoreAnchor.json" with { type: "json" };
 import signalBookAbiJson from "./SignalBook.json" with { type: "json" };
 import snapshot10143 from "./events-10143.json" with { type: "json" };
+import snapshot84532 from "./events-84532.json" with { type: "json" };
+import snapshot421614 from "./events-421614.json" with { type: "json" };
+import snapshot11155111 from "./events-11155111.json" with { type: "json" };
 
 /** Monad testnet caps eth_getLogs at 100 blocks. This is the fallback for an unknown chain. */
 export const LOG_CHUNK = 100n;
@@ -52,6 +55,9 @@ export type EventSnapshot = {
 
 export const EVENT_SNAPSHOTS: Record<number, EventSnapshot> = {
   10143: snapshot10143 as EventSnapshot,
+  84532: snapshot84532 as EventSnapshot,
+  421614: snapshot421614 as EventSnapshot,
+  11155111: snapshot11155111 as EventSnapshot,
 };
 
 export type TxIndex = {
