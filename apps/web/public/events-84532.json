@@ -1,0 +1,550 @@
+{
+ "chainId": 84532,
+ "signalBook": "0x2Ea6720834fa9b1DDaE0B9184FeBD70CAab882c6",
+ "scoreAnchor": "0x3EA266107f281f2A576566fCa9caee16942cb4f9",
+ "fromBlock": 47870178,
+ "toBlock": 47873074,
+ "generatedAt": "2026-10-09T02:53:59.325Z",
+ "events": [
+  {
+   "id": "1",
+   "kind": "commit",
+   "tx": "0x6979ca3639dc16ca304764624e628ddf44008687c16f44306fcc2d981b2ba60f",
+   "block": 47870203
+  },
+  {
+   "id": "1",
+   "kind": "reveal",
+   "tx": "0xbda176883e98e32f117b50b275fb0a7615ce2822080d9da2d153962afdaf12dc",
+   "block": 47870207
+  },
+  {
+   "id": "1",
+   "kind": "score",
+   "tx": "0x57f6527c48d9de6713c05f0772213e44aa97830e30be58459d08cb8d7ad4b38e",
+   "block": 47870353
+  },
+  {
+   "id": "2",
+   "kind": "commit",
+   "tx": "0x187ddb59203062785871a7827a622aa6ab72103134de721316eb87191dd49d7a",
+   "block": 47870209
+  },
+  {
+   "id": "2",
+   "kind": "reveal",
+   "tx": "0x0eedcb28a99b902cb53587900406a47a0517bad5381fd2f6b0d7d9e2ab6fae80",
+   "block": 47870211
+  },
+  {
+   "id": "2",
+   "kind": "score",
+   "tx": "0xdd124649ea763389cb90e7aa58363944d12ed7d0b98584188414de238610e365",
+   "block": 47870355
+  },
+  {
+   "id": "3",
+   "kind": "commit",
+   "tx": "0x66c096cc2f8c1e811f39e6866b304a88ac1e19bb8f1a940bef7072981bb02152",
+   "block": 47870216
+  },
+  {
+   "id": "3",
+   "kind": "reveal",
+   "tx": "0xd96ab3663409a6d99b8c7a68e0bf3f29a2a084f9b561114e995815cea4f0f416",
+   "block": 47870218
+  },
+  {
+   "id": "3",
+   "kind": "score",
+   "tx": "0xd1f393877eacafe27c9f582255c3a0d1ed90ca8e210dd35b3d2c17d5f5c46c55",
+   "block": 47870357
+  },
+  {
+   "id": "4",
+   "kind": "commit",
+   "tx": "0x7cf60b4f804c05e89d161ec79f097e1074c70f54958f947a80c3db22ef47ef56",
+   "block": 47870360
+  },
+  {
+   "id": "4",
+   "kind": "reveal",
+   "tx": "0x887c751a5615cdb2e405d4cbb276105948d0c6e30c31b18435fc45d36cce869a",
+   "block": 47870363
+  },
+  {
+   "id": "4",
+   "kind": "score",
+   "tx": "0x633ab26c551f504a9b8be3f71a8de0ae44e2d4e154237e94dc106df5f6a028bd",
+   "block": 47870503
+  },
+  {
+   "id": "5",
+   "kind": "commit",
+   "tx": "0xdb0259822d1ffa760532b1c566251a24a09614f36c7dfc99734425c133c3883e",
+   "block": 47870363
+  },
+  {
+   "id": "5",
+   "kind": "reveal",
+   "tx": "0x0762f57393ecca3c27852e92835e0e14649ff770c8e663817f4cc6fce2092b59",
+   "block": 47870365
+  },
+  {
+   "id": "5",
+   "kind": "score",
+   "tx": "0x99909d8a0f6cd02ff346563c98f0bab536174d3ea873ba5e111830a993b7b787",
+   "block": 47870505
+  },
+  {
+   "id": "6",
+   "kind": "commit",
+   "tx": "0x6f6dee0c4c4035cb5552ebcbe556162912ddfeeffe1753e1a18214e13e862ce0",
+   "block": 47870366
+  },
+  {
+   "id": "6",
+   "kind": "reveal",
+   "tx": "0x2204d766265ec8f93539f39975c6cb5364b5dc615a3aa75b72d1c38bbef6f51a",
+   "block": 47870368
+  },
+  {
+   "id": "6",
+   "kind": "score",
+   "tx": "0xb5235c52c3f10a41aafcb0138323d63486aab00645764309c5e3264addf6614f",
+   "block": 47870507
+  },
+  {
+   "id": "7",
+   "kind": "commit",
+   "tx": "0xe301ded532d81892179c6f2c35829fae007a1c482bddf389684c0d5a387d7358",
+   "block": 47870511
+  },
+  {
+   "id": "7",
+   "kind": "reveal",
+   "tx": "0x9df52ae8b584d81bc3169638ab0df1e6acce0eae642f55056ea3c3b4c26ba83a",
+   "block": 47870515
+  },
+  {
+   "id": "7",
+   "kind": "score",
+   "tx": "0x077986b96bc4c932b179e7116d4d27ddc4d853ba24cec0943cfa366d8fe3177d",
+   "block": 47870657
+  },
+  {
+   "id": "8",
+   "kind": "commit",
+   "tx": "0xf76d24245fe8a237c55b90ff9f917cb48b7fa9fdbff56d98057c964369ff13dc",
+   "block": 47870516
+  },
+  {
+   "id": "8",
+   "kind": "reveal",
+   "tx": "0xdaac5fe7bc9af807597f2cf129d245db52cefe52d0fd803c6358bddcc70fc48e",
+   "block": 47870520
+  },
+  {
+   "id": "8",
+   "kind": "score",
+   "tx": "0x51b6a3e3384d47708aa6c218c3d51c7abc586b7f64b0be2cf11dc7827d2e7d32",
+   "block": 47870659
+  },
+  {
+   "id": "9",
+   "kind": "commit",
+   "tx": "0xe59b8e755805ca00f3a1a56950c71ef3f5efd2f811d4c834e51d5785f261482b",
+   "block": 47870520
+  },
+  {
+   "id": "9",
+   "kind": "reveal",
+   "tx": "0x7a90880b5b83b063c9808150f837c6e28da953d054c2ef9585b26a78dc28770f",
+   "block": 47870524
+  },
+  {
+   "id": "9",
+   "kind": "score",
+   "tx": "0xbb60b487570f87c564cc89f81d79f26b525f764168a407d07e7d84b2bf456584",
+   "block": 47870661
+  },
+  {
+   "id": "10",
+   "kind": "commit",
+   "tx": "0xed5b362c886900ec5cf142458c0ca8ca7c2cd86e987877526a1591b627827e40",
+   "block": 47870664
+  },
+  {
+   "id": "10",
+   "kind": "reveal",
+   "tx": "0xbbc1f74ff2ac988e802904dd79dbc5acf6814057867ca47882e91cf16c527738",
+   "block": 47870667
+  },
+  {
+   "id": "10",
+   "kind": "score",
+   "tx": "0xb09f15f54d8d5796fb1c4b9898571f0df563f659e59185c02ec49cd95f907eee",
+   "block": 47870798
+  },
+  {
+   "id": "11",
+   "kind": "commit",
+   "tx": "0x7ccb146688ba0371e5fe410be4ee14021987582f2b103df277b78454591e5802",
+   "block": 47870669
+  },
+  {
+   "id": "11",
+   "kind": "reveal",
+   "tx": "0x87d96278ec31ec3f15efc4a594342457727e129c4727c7e7976f677c283d70a4",
+   "block": 47870671
+  },
+  {
+   "id": "11",
+   "kind": "score",
+   "tx": "0x17ce9ac345e71c5f97c3d67dc84a25054d4791351d19e6ef0ffcbe2046db9b46",
+   "block": 47870802
+  },
+  {
+   "id": "12",
+   "kind": "commit",
+   "tx": "0x7c9f4cc559c7e9d75287f89462acc0fdf71e81a168cbd4ec1c764f713318e581",
+   "block": 47870671
+  },
+  {
+   "id": "12",
+   "kind": "reveal",
+   "tx": "0x656c80ef54582bf12bec02adf907205aa083e46e7f7967216989512f5a87ddc8",
+   "block": 47870673
+  },
+  {
+   "id": "12",
+   "kind": "score",
+   "tx": "0x3384936fe52f40c0a8d0ec06007733b672de61bdc5309f6d11c9694b13b44d62",
+   "block": 47870804
+  },
+  {
+   "id": "13",
+   "kind": "commit",
+   "tx": "0x2aef2ecc7f48170ec849347829d35dd1192bacb275ce29733e9873b5f4eea358",
+   "block": 47870808
+  },
+  {
+   "id": "13",
+   "kind": "reveal",
+   "tx": "0x8abb4982a0183dc3937770987f6334dbefba9f81e39f4510ce57257c08a51037",
+   "block": 47870810
+  },
+  {
+   "id": "13",
+   "kind": "score",
+   "tx": "0xf9e24d21244fa53a8db0864964a45d705e8ad3176a08c350ed5b3107ae5ad545",
+   "block": 47870951
+  },
+  {
+   "id": "14",
+   "kind": "commit",
+   "tx": "0x92fe85d6a4f6f1aec59f6e78e2ce08c0067d55c8f88b6c9b4fefb89bcc68cb06",
+   "block": 47870810
+  },
+  {
+   "id": "14",
+   "kind": "reveal",
+   "tx": "0x5c02b0a23811d31449236679218ad29eedc68cd563a77e840815d4723c476012",
+   "block": 47870813
+  },
+  {
+   "id": "14",
+   "kind": "score",
+   "tx": "0xbc226b753c607a5baea429ca784d4dd5901cd8157c46a7129057490dd0345757",
+   "block": 47870953
+  },
+  {
+   "id": "15",
+   "kind": "commit",
+   "tx": "0xd107b5bd80f80d1ca8d86e9d251af5962d1b22032b00e39826431b43c7c5d82d",
+   "block": 47870813
+  },
+  {
+   "id": "15",
+   "kind": "reveal",
+   "tx": "0x8d936672d74e02a3655de02edf4be2ba6f2630110fd4c815b517f6503cc3ba6f",
+   "block": 47870815
+  },
+  {
+   "id": "15",
+   "kind": "score",
+   "tx": "0x3314349f4600a095c32ef4960e31c43bfdf6de13a08c62a9bc1861ee7e8eded4",
+   "block": 47870957
+  },
+  {
+   "id": "16",
+   "kind": "commit",
+   "tx": "0x0b076765b0a6d74aa04c7bf76406ef8cd621103df067ee8c48769a597ee004cf",
+   "block": 47870960
+  },
+  {
+   "id": "16",
+   "kind": "reveal",
+   "tx": "0x7ec1e72f64762ca12fbbb6648017d9873d88d497cec0e03e3d6cf012edb1a691",
+   "block": 47870963
+  },
+  {
+   "id": "16",
+   "kind": "score",
+   "tx": "0xc36a9d2fee2274e34baf60e8b8fb2044f20faf4cfadd91206a80f45b36c18786",
+   "block": 47871104
+  },
+  {
+   "id": "17",
+   "kind": "commit",
+   "tx": "0x75cb660b2c7e9dcc1fcc4aee03e2372234f1d48ad53d821c69d86a110ea40993",
+   "block": 47870965
+  },
+  {
+   "id": "17",
+   "kind": "reveal",
+   "tx": "0x67f1108073f15181576abf5e4a2612df9bd9bfa76dad56976816ae9af5535306",
+   "block": 47870967
+  },
+  {
+   "id": "17",
+   "kind": "score",
+   "tx": "0x619af6e306e23d4bea9fffb97c2cc4a313ecf2bdc5b0c9ad62379b18b3201afd",
+   "block": 47871106
+  },
+  {
+   "id": "18",
+   "kind": "commit",
+   "tx": "0x4b184ce9b11b60f6395e4aa033b46ca4e9e803a9608dc9c4fbf3fe0691ca8ad9",
+   "block": 47870967
+  },
+  {
+   "id": "18",
+   "kind": "reveal",
+   "tx": "0x518a81ccd35005a764d98a501831f85013d129dd7f4c619f4a51ad00d6c7f2a8",
+   "block": 47870970
+  },
+  {
+   "id": "18",
+   "kind": "score",
+   "tx": "0xc7ec55225bf01e3415b2fb756731092fe7f306788d1c7f892272f3bf75dc7ed7",
+   "block": 47871110
+  },
+  {
+   "id": "19",
+   "kind": "commit",
+   "tx": "0x8cf2dec460379c2cc7fd26295361255cd1d0e86d7e60f04182e53f279cd63eec",
+   "block": 47871114
+  },
+  {
+   "id": "19",
+   "kind": "reveal",
+   "tx": "0xa00bfca1d0f26d51de0f1b7c8aabc1b3a5ed65aa2ff031efdaef7a13ddcb7ee3",
+   "block": 47871116
+  },
+  {
+   "id": "19",
+   "kind": "score",
+   "tx": "0xdab670c76b0a79918a85e1ec298ed53241057dc8854cd0a36805c2ae7b16b60c",
+   "block": 47871256
+  },
+  {
+   "id": "20",
+   "kind": "commit",
+   "tx": "0x23acc416edc6b3b080514c8deee9a510af2f3f70c76ea2d9677d06e94b71b02b",
+   "block": 47871116
+  },
+  {
+   "id": "20",
+   "kind": "reveal",
+   "tx": "0x90905594b5efdae52cf82acfa71b484a9c632b3ca20e31e5f89012caa0b0a6a5",
+   "block": 47871118
+  },
+  {
+   "id": "20",
+   "kind": "score",
+   "tx": "0xf7cf202485382886dbc939d79ae04e844748e3ca08466975d262a4263a23c41e",
+   "block": 47871259
+  },
+  {
+   "id": "21",
+   "kind": "commit",
+   "tx": "0xeaeb4bfd24dc488d324262b1ca3322806f448ebb9e555814854e7a0cce0fcec9",
+   "block": 47871119
+  },
+  {
+   "id": "21",
+   "kind": "reveal",
+   "tx": "0xfb6e1f242b00bbe27cda046a59da4b62d3dfb74ef78e62c75218f9b5098ff09c",
+   "block": 47871121
+  },
+  {
+   "id": "21",
+   "kind": "score",
+   "tx": "0xc94ef2cb96e1cec3dd0d1af1f07ee1da7a81c170ea47fa0866389c393b52be26",
+   "block": 47871261
+  },
+  {
+   "id": "22",
+   "kind": "commit",
+   "tx": "0x920692ef96348fa682c5d9d9d022113861ba646c9f579d320f9282d4effa6206",
+   "block": 47871267
+  },
+  {
+   "id": "22",
+   "kind": "reveal",
+   "tx": "0x283956b2343f29f5eebd9ba1bfa892a81e869ebbe7b1050dcb2e37a72e81ea93",
+   "block": 47871271
+  },
+  {
+   "id": "22",
+   "kind": "score",
+   "tx": "0xd438d681d05a43d71a85ee93378fa3f7884f884d7f46e2b7681bb619437f737d",
+   "block": 47871403
+  },
+  {
+   "id": "23",
+   "kind": "commit",
+   "tx": "0x2cffc2284a7b246d811c47e2468af94a4b60dc0ae20237c6a61a5125588fc7a3",
+   "block": 47871271
+  },
+  {
+   "id": "23",
+   "kind": "reveal",
+   "tx": "0x2031874ab8310300956f4bc9efdfaa2f3c16a6f0be0e9952d7230f3f48d5c6cc",
+   "block": 47871274
+  },
+  {
+   "id": "23",
+   "kind": "score",
+   "tx": "0x9e5caf79be770588e4aa84d576bcf316ede7ec1869f8a2bf76061a499e07d4b9",
+   "block": 47871407
+  },
+  {
+   "id": "24",
+   "kind": "commit",
+   "tx": "0xdd9b62aba83e23ecc6ab17b56f28968fc51fa6acc2ea623da91db4cc15db68b3",
+   "block": 47871274
+  },
+  {
+   "id": "24",
+   "kind": "reveal",
+   "tx": "0xd8b5743f48dd2008a0d514e6afb12828e5c049995e834546c8e8cfbcaf850944",
+   "block": 47871276
+  },
+  {
+   "id": "24",
+   "kind": "score",
+   "tx": "0xab7d3bd8dd6f6a277129f55a67c61a59eaf7c644e57d703db70f0ef9e18845c7",
+   "block": 47871410
+  },
+  {
+   "id": "25",
+   "kind": "commit",
+   "tx": "0xf670b50809cee0410ec3d6629a94db89aa51b96949ef347629587ab3deea87a9",
+   "block": 47871414
+  },
+  {
+   "id": "25",
+   "kind": "reveal",
+   "tx": "0x12b1a9f3278555c370115274ddea595801f37ddb5194817b6778f150af27cb3e",
+   "block": 47871417
+  },
+  {
+   "id": "25",
+   "kind": "score",
+   "tx": "0xc0c83214f5d2af59738fcb3532e1ca91dd83a22a0d55a25f2e12dcf5e011c8f3",
+   "block": 47871557
+  },
+  {
+   "id": "26",
+   "kind": "commit",
+   "tx": "0xf86674c35433484d3514a00edf4d65764dc53335ab7f1059f40f11c0dee715fa",
+   "block": 47871417
+  },
+  {
+   "id": "26",
+   "kind": "reveal",
+   "tx": "0xa5807e7a8d3a8392657b03b19330ce748ca6e0b0861297f8cffc6b984493b24d",
+   "block": 47871419
+  },
+  {
+   "id": "26",
+   "kind": "score",
+   "tx": "0x00c5a1b51b14e994090c30e6972be5049694692e4be1ebbd0ca6f354df185008",
+   "block": 47871559
+  },
+  {
+   "id": "27",
+   "kind": "commit",
+   "tx": "0x084cc9660db8016810c029368ebbe2ca02b9f8cd3e895ae03850244e8e3dde2d",
+   "block": 47871419
+  },
+  {
+   "id": "27",
+   "kind": "reveal",
+   "tx": "0x63a2764b1d793af7fc9f57c92cbef0726a5b35533a0a7c3a978ff7e21061e1a8",
+   "block": 47871422
+  },
+  {
+   "id": "27",
+   "kind": "score",
+   "tx": "0xf5dcafaa541fe759b170ab84463c26cbac55c06a72ee4d44659ec74f25edbe87",
+   "block": 47871561
+  },
+  {
+   "id": "28",
+   "kind": "commit",
+   "tx": "0x48f7397377148f803b2c1c96ce051c0d043ac5f820df6fa4ac081dc9de311d67",
+   "block": 47871564
+  },
+  {
+   "id": "28",
+   "kind": "reveal",
+   "tx": "0x9e053e77e2c2fb79cb20824f3535c023dc90ba960a2a61bb1526e0df62b01ab1",
+   "block": 47871567
+  },
+  {
+   "id": "28",
+   "kind": "score",
+   "tx": "0x6df62fe99073ce417a05c8f3e9b7aa1880c5a3a0ca70f8c0c43c31d0e30fe0dd",
+   "block": 47871699
+  },
+  {
+   "id": "29",
+   "kind": "commit",
+   "tx": "0xcdf3e35e918d3c9874a7314dc6b5cf0df6fbfc12386b1ddd48878e6edf678a20",
+   "block": 47871569
+  },
+  {
+   "id": "29",
+   "kind": "reveal",
+   "tx": "0x592e0cfcd93543f5e8461e7364a0770005ffd8259b846c396332e69fb3447197",
+   "block": 47871571
+  },
+  {
+   "id": "29",
+   "kind": "score",
+   "tx": "0x8a03e24b2dd05cd66ecd65e3639f48f9a1884fb149e0f3c2ee7ef7a456ca3def",
+   "block": 47871701
+  },
+  {
+   "id": "30",
+   "kind": "commit",
+   "tx": "0xd4c3af576a73fb3d50859aa1f89c55a811094b425ba160f95785263e17155af6",
+   "block": 47871571
+  },
+  {
+   "id": "30",
+   "kind": "reveal",
+   "tx": "0x1acf3e6511be1f357c8f9de22fa61746ff3e55627033480a07bfa23828a3fd46",
+   "block": 47871573
+  },
+  {
+   "id": "30",
+   "kind": "score",
+   "tx": "0x0e153e7faf254bf2f63464c159631433a2e77b5cf9975474e17afd3e27000b29",
+   "block": 47871703
+  }
+ ]
+}

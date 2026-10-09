@@ -2,11 +2,38 @@ import { decodeEventLog, type Abi, type Address, type PublicClient } from "viem"
 import scoreAnchorAbiJson from "./ScoreAnchor.json" with { type: "json" };
 import signalBookAbiJson from "./SignalBook.json" with { type: "json" };
 import snapshot10143 from "./events-10143.json" with { type: "json" };
+import snapshot84532 from "./events-84532.json" with { type: "json" };
+import snapshot421614 from "./events-421614.json" with { type: "json" };
+import snapshot11155111 from "./events-11155111.json" with { type: "json" };
 
-/** Most public RPCs (Monad testnet included) cap eth_getLogs at 100 blocks per call. */
+/** Monad testnet caps eth_getLogs at 100 blocks. This is the fallback for an unknown chain. */
 export const LOG_CHUNK = 100n;
+/**
+ * Inclusive eth_getLogs span for each public RPC in networks.json.
+ * Measured 8 Oct 2026. A larger span makes that RPC reject the request.
+ * Base Sepolia's official RPC rejects a range above 200. Monad testnet rejects above 100.
+ * Arbitrum Sepolia's official RPC and Ethereum Sepolia's publicnode RPC accepted 10,000.
+ * Those two stay at 2,000 so one response stays small.
+ */
+export const LOG_CHUNK_BY_CHAIN: Record<number, bigint> = {
+  10143: 100n,
+  84532: 200n,
+  421614: 2000n,
+  11155111: 2000n,
+};
 /** Monad testnet allows 15 requests per second. Stay well under it. */
 export const LOG_REQUESTS_PER_SECOND = 10;
+
+/** The inclusive getLogs span for this chain. Unknown chains use the Monad-sized fallback. */
+export function logChunkFor(chainId: number): bigint {
+  return LOG_CHUNK_BY_CHAIN[chainId] ?? LOG_CHUNK;
+}
+
+/** True when the RPC rejected the request because the block span was too wide. */
+export function isLogRangeError(err: unknown): boolean {
+  const text = err instanceof Error ? err.message : String(err);
+  return /limited to a \d+ range|block range|too many blocks|query returned more than|max(?:imum)? block range|exceeds max/i.test(text);
+}
 
 export type BookEventKind = "commit" | "reveal" | "score";
 
@@ -28,6 +55,9 @@ export type EventSnapshot = {
 
 export const EVENT_SNAPSHOTS: Record<number, EventSnapshot> = {
   10143: snapshot10143 as EventSnapshot,
+  84532: snapshot84532 as EventSnapshot,
+  421614: snapshot421614 as EventSnapshot,
+  11155111: snapshot11155111 as EventSnapshot,
 };
 
 export type TxIndex = {
@@ -165,7 +195,8 @@ export function missingRanges(args: {
 
 /**
  * Commit / reveal / score transaction hashes for a book. Starts from the bundled snapshot,
- * then fills gaps with throttled 100-block getLogs over blocks after the snapshot only.
+ * then fills gaps with throttled getLogs over blocks after the snapshot only.
+ * The window size is logChunkFor(chainId): 100 blocks on Monad testnet, 200 on Base Sepolia.
  */
 export async function bookTxIndex(args: {
   client: PublicClient;
@@ -176,6 +207,8 @@ export async function bookTxIndex(args: {
   pending: PendingSignal[];
   perSecond?: number;
   maxRequests?: number;
+  /** Inclusive getLogs span. Defaults to the cap measured for this chain. */
+  logChunk?: bigint;
 }): Promise<TxIndex & { scanned: number; snapshotTo: number | null }> {
   const snap = snapshotFor(args.chainId, args.signalBook, args.scoreAnchor);
   const index = indexFromSnapshot(snap);
@@ -195,11 +228,25 @@ export async function bookTxIndex(args: {
     });
     const wait = throttle(args.perSecond ?? LOG_REQUESTS_PER_SECOND);
     const budget = args.maxRequests ?? 400;
-    for (const [from, to] of ranges.flatMap(([a, b]) => chunkRange(a, b))) {
-      if (scanned >= budget) break;
+    const chunk = args.logChunk ?? logChunkFor(args.chainId);
+    const take = async (from: bigint, to: bigint): Promise<Awaited<ReturnType<PublicClient["getLogs"]>>> => {
+      if (scanned >= budget || from > to) return [];
       await wait();
       scanned += 1;
-      const logs = await args.client.getLogs({ address: [args.signalBook, args.scoreAnchor], fromBlock: from, toBlock: to });
+      try {
+        return await args.client.getLogs({ address: [args.signalBook, args.scoreAnchor], fromBlock: from, toBlock: to });
+      } catch (err) {
+        // Only split a span the RPC called too wide. Monad's 100-block windows do not hit this.
+        if (!isLogRangeError(err) || to <= from) throw err;
+        const mid = from + (to - from) / 2n;
+        const left = await take(from, mid);
+        const right = await take(mid + 1n, to);
+        return [...left, ...right];
+      }
+    };
+    for (const [from, to] of ranges.flatMap(([a, b]) => chunkRange(a, b, chunk))) {
+      if (scanned >= budget) break;
+      const logs = await take(from, to);
       for (const log of logs) {
         const event = decodeBookLog(log);
         if (event) index[event.kind].set(event.id, event.tx);

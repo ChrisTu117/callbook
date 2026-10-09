@@ -1,11 +1,14 @@
 #!/usr/bin/env bash
-# Deploy Callbook. One argument: monad-testnet | monad-mainnet | arc-mainnet | local
+# Deploy Callbook. One argument:
+#   monad-testnet | monad-mainnet | arc-mainnet |
+#   base-sepolia | arbitrum-sepolia | ethereum-sepolia | local
 # Requires PRIVATE_KEY in the environment. Never prints the key.
+# The three Sepolia targets are the Colosseum port. Use a throwaway key for them.
 set -euo pipefail
 
 TARGET="${1:-}"
 if [[ -z "$TARGET" ]]; then
-  echo "usage: deploy/deploy.sh <monad-testnet|monad-mainnet|arc-mainnet|local>" >&2
+  echo "usage: deploy/deploy.sh <monad-testnet|monad-mainnet|arc-mainnet|base-sepolia|arbitrum-sepolia|ethereum-sepolia|local>" >&2
   exit 1
 fi
 
@@ -30,6 +33,20 @@ case "$TARGET" in
     RPC="https://rpc.mainnet.arc.io"
     EXTRA+=(--with-gas-price 20000000000 --priority-gas-price 20000000000)
     ;;
+  base-sepolia)
+    RPC="https://sepolia.base.org"
+    ;;
+  arbitrum-sepolia)
+    RPC="https://sepolia-rollup.arbitrum.io/rpc"
+    ;;
+  ethereum-sepolia)
+    # rpc.sepolia.org returned HTML on 8 Oct 2026. publicnode answered JSON.
+    RPC="https://ethereum-sepolia-rpc.publicnode.com"
+    # Sepolia has run EIP-8037/8038 state-gas repricing since 6 Oct 2026. forge's local simulation
+    # still prices contract creation the old way, so its gas limits run out of gas (SignalBook used
+    # ~6.7M on Sepolia against ~1M simulated). Pad the limits. Unused gas is not charged.
+    EXTRA+=(--gas-estimate-multiplier "${ETH_SEPOLIA_GAS_MULTIPLIER:-1000}")
+    ;;
   local)
     RPC="${LOCAL_RPC:-http://127.0.0.1:8545}"
     ;;
@@ -43,6 +60,7 @@ mkdir -p deployments
 forge script contracts/script/Deploy.s.sol:Deploy \
   --rpc-url "$RPC" \
   --broadcast \
+  --slow \
   --private-key "$PRIVATE_KEY" \
   "${EXTRA[@]}"
 

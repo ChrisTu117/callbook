@@ -11,11 +11,12 @@ const recorded: Record<number, Partial<Deployment>> = { 10143: testnet as Partia
 
 function fromNetwork(entry: NetworkEntry): Deployment | null {
   const extra = recorded[entry.chainId] ?? {};
+  const timed = entry as NetworkEntry & { revealWindow?: number; pinWindow?: number; maxStaleness?: number };
   if (!entry.signalBook || !entry.scoreAnchor || !entry.copyDesk) return null;
   return {
-    revealWindow: 60,
-    pinWindow: 3600,
-    maxStaleness: 3600,
+    revealWindow: timed.revealWindow ?? 60,
+    pinWindow: timed.pinWindow ?? 3600,
+    maxStaleness: timed.maxStaleness ?? 3600,
     ...extra,
     chainId: entry.chainId,
     priceKind: entry.priceKind as Deployment["priceKind"],

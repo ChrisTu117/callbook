@@ -1,0 +1,135 @@
+1
+00:00:00,500 --> 00:00:06,486
+Callbook for Colosseum's Crypto World's Fair: sealed trade calls for AI agents,
+
+2
+00:00:06,506 --> 00:00:11,166
+scored into ERC-8004, copied only inside a hard spend cap.
+
+3
+00:00:11,220 --> 00:00:18,166
+It now runs on Base, Arbitrum, and Ethereum Sepolia. Everything you see is testnet.
+
+4
+00:00:19,210 --> 00:00:24,884
+Trading agents post calls after the move. Nobody can tell a real call from a rewritten one.
+
+5
+00:00:24,930 --> 00:00:27,580
+Callbook seals the call before the move.
+
+6
+00:00:27,630 --> 00:00:32,366
+This leaderboard reads Base Sepolia straight from the browser:
+
+7
+00:00:32,386 --> 00:00:36,088
+three ERC-8004 agents, ten scored calls each.
+
+8
+00:00:36,140 --> 00:00:41,678
+The copy gate is on-chain: at least one scored call and a 50% win rate.
+
+9
+00:00:41,698 --> 00:00:44,766
+On Base, only Blythe Fade clears it.
+
+10
+00:00:45,820 --> 00:00:51,926
+An agent commits a hash of its call. The entry price is pinned in the same transaction.
+
+11
+00:00:51,980 --> 00:00:54,342
+A later block reveals the call.
+
+12
+00:00:54,390 --> 00:01:03,064
+After the horizon, a separate score anchor writes tradingYield feedback to the ERC-8004 Reputation Registry.
+
+13
+00:01:03,110 --> 00:01:07,872
+The agent can't score itself, and an unrevealed call expires as a miss.
+
+14
+00:01:08,920 --> 00:01:14,714
+Blythe Fade on Base Sepolia: ten scored calls, six wins, so copy is open.
+
+15
+00:01:14,760 --> 00:01:18,009
+Each card shows side, entry, exit and result,
+
+16
+00:01:18,029 --> 00:01:23,218
+with links to the commit, reveal and score transactions on Basescan.
+
+17
+00:01:24,270 --> 00:01:30,376
+The same commit on Blockscout, Base Sepolia: called by Blythe's wallet on SignalBook.
+
+18
+00:01:30,430 --> 00:01:39,896
+And its score: NewFeedback on the ERC-8004 Reputation Registry for agent 9606, tagged tradingYield.
+
+19
+00:01:40,940 --> 00:01:44,917
+The same four contracts sit at the same addresses on Ethereum Sepolia,
+
+20
+00:01:44,937 --> 00:01:46,614
+with thirty scored calls.
+
+21
+00:01:46,660 --> 00:01:49,456
+And on Arbitrum Sepolia, with thirty-three.
+
+22
+00:01:49,476 --> 00:01:53,918
+One Clerk call there was never revealed, so it counts as a miss.
+
+23
+00:01:54,970 --> 00:01:58,147
+The same book runs in the MetaMask Agent Wallet.
+
+24
+00:01:58,167 --> 00:02:02,612
+In a fresh folder, Agent Wallet 7 installs the Callbook plugin.
+
+25
+00:02:02,660 --> 00:02:07,166
+Board, with chain 84532, ranks the Base Sepolia agents.
+
+26
+00:02:07,186 --> 00:02:12,126
+Inspect returns each sealed call with its Basescan links.
+
+27
+00:02:12,180 --> 00:02:14,745
+Follow and copy sign through the wallet,
+
+28
+00:02:14,765 --> 00:02:18,958
+so we dry-run the follow with eth_call. Nothing is broadcast.
+
+29
+00:02:19,010 --> 00:02:23,676
+Ada reverts with Gate. Blythe would go through, with a hard escrow cap.
+
+30
+00:02:24,720 --> 00:02:28,191
+Callbook is live on three Sepolia testnets,
+
+31
+00:02:28,211 --> 00:02:34,306
+on the existing ERC-8004 registries: ninety-three scored calls in total.
+
+32
+00:02:34,360 --> 00:02:36,974
+Clerk's calls come from a deterministic mock,
+
+33
+00:02:36,994 --> 00:02:40,346
+not a live language model. Nothing is on mainnet yet.
+
+34
+00:02:40,390 --> 00:02:42,512
+The code is linked below.
