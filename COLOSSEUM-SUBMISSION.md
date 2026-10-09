@@ -31,7 +31,20 @@ Callbook deploys, per chain: AttestedPriceSource, SignalBook, ScoreAnchor, and C
 
 Tools: Solidity 0.8.28 and Foundry, TypeScript and viem, a Next.js static dashboard, the MetaMask Agent Wallet plugin mm-plugin-callbook (board, inspect, follow, copy), and Coinbase Exchange public candles as the decision tape. Prices settle from a Coinbase print signed by the deployer (AttestedPriceSource), because Hermes now requires an API key.
 
-Status on 8 Oct 2026: the three chains are configured and the contracts compile (11 Forge tests, 16 TypeScript tests). The ERC-8004 registries answer on all three RPCs. Callbook's own contracts are not broadcast yet. The throwaway deployer has no testnet ETH. Public faucets asked for a CAPTCHA or a login. Addresses will land in deployments/colosseum.json after funding. The Monad testnet book on main is a separate hackathon and is unchanged.
+Status on 9 Oct 2026: live on all three testnets. The deployer used the same nonces on each chain, so the four Callbook contracts have the same address everywhere:
+- AttestedPriceSource 0x9861E4A86b11fF4AfCF644bf8c6AFAf885B8a32d
+- SignalBook 0x2Ea6720834fa9b1DDaE0B9184FeBD70CAab882c6
+- ScoreAnchor 0x3EA266107f281f2A576566fCa9caee16942cb4f9
+- CopyDesk 0xa9117eFC6A19f1c58895e2f6ec869b90Cb23A324
+
+Three demo agents (Ada Momentum, Blythe Fade, Clerk) registered as ERC-8004 agents on each chain and posted sealed ETH-USD calls (commit, reveal, scored at a 180-second horizon):
+- Base Sepolia: agents #9605, #9606, #9607. 10 scored calls each, 30 in total.
+- Ethereum Sepolia: agents #10839, #10840, #10841. 10 scored calls each, 30 in total.
+- Arbitrum Sepolia: agents #279, #280, #281. 11 scored calls each, 33 in total. One Clerk call was never revealed and was scored as a miss, which shows the no-reveal penalty working.
+
+Base Sepolia sample: commit https://sepolia.basescan.org/tx/0x6979ca3639dc16ca304764624e628ddf44008687c16f44306fcc2d981b2ba60f , reveal https://sepolia.basescan.org/tx/0xbda176883e98e32f117b50b275fb0a7615ce2822080d9da2d153962afdaf12dc , score https://sepolia.basescan.org/tx/0x57f6527c48d9de6713c05f0772213e44aa97830e30be58459d08cb8d7ad4b38e
+
+Tests: 11 Forge tests and 16 TypeScript tests. The Monad testnet book on main is a separate hackathon and is unchanged.
 ```
 
 ## Team
@@ -73,7 +86,7 @@ HOW WE REACH THEM
 - Post a weekly leaderboard with explorer links.
 
 MILESTONES
-- Broadcast the already-scripted deploy on all three testnets once the throwaway wallet is funded.
+- Done: the book is live on Base, Arbitrum, and Ethereum Sepolia, with three agents and 30+ scored calls on each chain.
 - Ten external agents posting calls, then the first followers through the plugin.
 - Mainnet only after the testnet books have outside callers. Nothing here is deployed on Base, Arbitrum, or Ethereum mainnet.
 
@@ -108,21 +121,31 @@ npm run web
 
 Open http://127.0.0.1:43127/ for the Monad testnet book (unchanged default).
 
-Open http://127.0.0.1:43127/?track=colosseum&chain=84532 for Base Sepolia. Arbitrum is chain 421614. Ethereum Sepolia is chain 11155111. Until the broadcast, those three rows say "not deployed".
+Open http://127.0.0.1:43127/?track=colosseum&chain=84532 for Base Sepolia. Arbitrum is chain 421614. Ethereum Sepolia is chain 11155111. Each shows the live leaderboard read from that chain, with commit, reveal, and score links.
+
+If `npm run web` fails to fetch Google Fonts on your network, run `npm run build -w web` and serve `apps/web/out` with any static server.
 
 Tests: `forge test` and `npm run test:ts`.
 
+## Deployments and explorer links
+
+| Chain | SignalBook | ScoreAnchor | CopyDesk | AttestedPriceSource | Scored calls per agent |
+| --- | --- | --- | --- | --- | --- |
+| Base Sepolia (84532) | [0x2Ea6…82c6](https://sepolia.basescan.org/address/0x2Ea6720834fa9b1DDaE0B9184FeBD70CAab882c6) | [0x3EA2…b4f9](https://sepolia.basescan.org/address/0x3EA266107f281f2A576566fCa9caee16942cb4f9) | [0xa911…A324](https://sepolia.basescan.org/address/0xa9117eFC6A19f1c58895e2f6ec869b90Cb23A324) | [0x9861…a32d](https://sepolia.basescan.org/address/0x9861E4A86b11fF4AfCF644bf8c6AFAf885B8a32d) | Ada #9605: 10, Blythe #9606: 10, Clerk #9607: 10 |
+| Arbitrum Sepolia (421614) | [0x2Ea6…82c6](https://sepolia.arbiscan.io/address/0x2Ea6720834fa9b1DDaE0B9184FeBD70CAab882c6) | [0x3EA2…b4f9](https://sepolia.arbiscan.io/address/0x3EA266107f281f2A576566fCa9caee16942cb4f9) | [0xa911…A324](https://sepolia.arbiscan.io/address/0xa9117eFC6A19f1c58895e2f6ec869b90Cb23A324) | [0x9861…a32d](https://sepolia.arbiscan.io/address/0x9861E4A86b11fF4AfCF644bf8c6AFAf885B8a32d) | Ada #279: 11, Blythe #280: 11, Clerk #281: 11 (one no-reveal miss) |
+| Ethereum Sepolia (11155111) | [0x2Ea6…82c6](https://sepolia.etherscan.io/address/0x2Ea6720834fa9b1DDaE0B9184FeBD70CAab882c6) | [0x3EA2…b4f9](https://sepolia.etherscan.io/address/0x3EA266107f281f2A576566fCa9caee16942cb4f9) | [0xa911…A324](https://sepolia.etherscan.io/address/0xa9117eFC6A19f1c58895e2f6ec869b90Cb23A324) | [0x9861…a32d](https://sepolia.etherscan.io/address/0x9861E4A86b11fF4AfCF644bf8c6AFAf885B8a32d) | Ada #10839: 10, Blythe #10840: 10, Clerk #10841: 10 |
+
+Sample transactions (signal #1 on each chain):
+
+- Base Sepolia: [commit](https://sepolia.basescan.org/tx/0x6979ca3639dc16ca304764624e628ddf44008687c16f44306fcc2d981b2ba60f), [reveal](https://sepolia.basescan.org/tx/0xbda176883e98e32f117b50b275fb0a7615ce2822080d9da2d153962afdaf12dc), [score](https://sepolia.basescan.org/tx/0x57f6527c48d9de6713c05f0772213e44aa97830e30be58459d08cb8d7ad4b38e)
+- Arbitrum Sepolia: [commit](https://sepolia.arbiscan.io/tx/0x817977d0aa595adf2b5c23c69e8ced7ae139760696c55260d751bb46684275bf), [reveal](https://sepolia.arbiscan.io/tx/0x0f7985896283740e79224d3f99d97acb27f1f536c5b4fd257af1200fc9f2e675), [score](https://sepolia.arbiscan.io/tx/0x7f7c6b39ac04bbe018b5572c6d27bd94a24cd200f0c24d40c34595b11c6bd49e)
+- Ethereum Sepolia: [commit](https://sepolia.etherscan.io/tx/0x3bbaa7dbf6bedb3a914e148e035bb1165a193780875a6bd45081ee53e14f922f), [reveal](https://sepolia.etherscan.io/tx/0x8e987584871ba994b7ed6ce5277b4791a578b9928f13ba39ff641432685e12e0), [score](https://sepolia.etherscan.io/tx/0x9758f38af04c9335b9a56a9ea8419d350c1f8fe862b99f1cae93bd8f0207d269)
+
+Deployer (throwaway testnet key, not in git): 0xF31d46350D682CF6551fd835b03B73169944B1a5. Funded with 0.05 Sepolia ETH from the Google Cloud faucet, then bridged 0.012 ETH each to Base Sepolia (L1StandardBridge 0xfd0Bf71F60660E2f608ed56e1659C450eB113120) and Arbitrum Sepolia (Inbox 0xaAe29B0366299461418F5324a79Afc425BE5ae21).
+
 ## Remaining steps (do not paste into the portal)
 
-The parent brief can send this list as-is.
-
-1. Do not merge the Colosseum PR before Monad's submission freeze. The Pages site deploys from `main` only. The default dashboard chain is still Monad testnet 10143. Sepolia rows appear only with `?track=colosseum` or `NEXT_PUBLIC_COLOSSEUM=1`.
-2. Fund the throwaway deployer `0xB45f5fc8c5733aC30C281BD21fDbC1E3BAAE344f` with testnet ETH. The private key is only in the agent environment `.env` (gitignored) and in the agent reply. It is not a mainnet key.
-3. Faucets that answered without a browser login still required a CAPTCHA (pk910 Sepolia) or an account (Coinbase CDP, Alchemy, Chainlink). A human has to claim. One deploy is about 6.1 million gas. On 8 Oct 2026 that was under 0.0001 ETH on Base and Ethereum Sepolia, and about 0.0005 ETH on Arbitrum Sepolia. Send at least 0.002 ETH on each chain.
-4. Base Sepolia drip: https://portal.cdp.coinbase.com/products/faucet or https://www.alchemy.com/faucets/base-sepolia or https://faucets.chain.link/base-sepolia
-5. Arbitrum Sepolia drip: https://faucets.chain.link/arbitrum-sepolia or https://www.alchemy.com/faucets/arbitrum-sepolia
-6. Ethereum Sepolia drip: https://sepolia-faucet.pk910.de/ or https://faucets.chain.link/sepolia
-7. After the balance shows, from the repo root: `set -a && source .env && set +a`, then `bash deploy/deploy.sh base-sepolia`, `bash deploy/deploy.sh arbitrum-sepolia`, `bash deploy/deploy.sh ethereum-sepolia`, then `node deploy/record-colosseum.mjs`. Commit the updated `deployments/*.json`, `deployments/colosseum.json`, and `networks.json`. Paste the explorer links from `deployments/colosseum.json` into the portal.
-8. Tracks: one submission per team. Enter Base, Arbitrum, and Ethereum L1 if the form allows more than one track. If it allows one track, choose the pool you want judged and mention the other two deploys in the text.
-9. Upload a logo. Decide whether to reuse the Monad pitch video. Record a Sepolia demo if the portal demo must show these chains.
-10. Live agent rounds (Ada, Blythe, Clerk) are a later step. They need three more funded keys in `AGENT_KEYS`, different from the deployer. The portal text is honest if you submit before those rounds exist.
+1. Do not merge the Colosseum PR before Monad's submission freeze (13 Oct 23:59 ET). GitHub Pages builds from `main` only, so the public site will not show the Sepolia books until after that. Judges can run the branch locally (see above). The default dashboard chain stays Monad testnet 10143. Sepolia rows appear only with `?track=colosseum` or `NEXT_PUBLIC_COLOSSEUM=1`.
+2. Tracks: one submission per team. Enter Base, Arbitrum, and Ethereum L1 if the form allows more than one track. If it allows one, pick Base Sepolia (cleanest data) and mention the other two deploys in the text.
+3. Upload a logo. Decide whether to reuse the Monad pitch video. Record a Sepolia demo if the portal demo must show these chains (the local site works with `?track=colosseum&chain=84532`).
+4. More rounds: `deploy/rounds.sh` with `CALLBOOK_CHAIN_ID`, `CALLBOOK_RPC_URL`, and `HORIZON_SEC=180` (the reveal window on these books is 120 s). Keys stay outside git.
