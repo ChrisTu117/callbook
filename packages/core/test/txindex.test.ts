@@ -1,6 +1,7 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { chunkRange, emptyIndex, indexFromSnapshot, mergeRanges, missingRanges, snapshotFor } from "../src/txindex.ts";
+import config from "../../../networks.json" with { type: "json" };
+import { chunkRange, emptyIndex, indexFromSnapshot, isLogRangeError, logChunkFor, mergeRanges, missingRanges, snapshotFor } from "../src/txindex.ts";
 
 test("getLogs windows never exceed 100 blocks", () => {
   const chunks = chunkRange(1000n, 1250n);
@@ -11,6 +12,22 @@ test("getLogs windows never exceed 100 blocks", () => {
   ]);
   assert.deepEqual(chunkRange(5n, 5n), [[5n, 5n]]);
   assert.deepEqual(chunkRange(6n, 5n), []);
+});
+
+test("each public RPC uses a getLogs window that RPC accepts", () => {
+  assert.equal(logChunkFor(10143), 100n);
+  assert.equal(logChunkFor(84532), 200n);
+  assert.equal(logChunkFor(421614), 2000n);
+  assert.equal(logChunkFor(11155111), 2000n);
+  assert.equal(logChunkFor(999999), 100n);
+  for (const network of config.networks) {
+    if (network.logChunk === undefined) continue;
+    assert.equal(logChunkFor(network.chainId), BigInt(network.logChunk));
+    const chunks = chunkRange(1n, 1000n, logChunkFor(network.chainId));
+    assert.ok(chunks.every(([from, to]) => to - from + 1n <= BigInt(network.logChunk)));
+  }
+  assert.equal(isLogRangeError(new Error("eth_getLogs is limited to a 200 range")), true);
+  assert.equal(isLogRangeError(new Error("header not found")), false);
 });
 
 test("ranges merge when they touch", () => {

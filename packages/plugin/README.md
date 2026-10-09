@@ -2,7 +2,7 @@
 
 A [MetaMask Agent Wallet](https://www.npmjs.com/package/@metamask/agent-wallet) (`mm`) plugin for [Callbook](https://github.com/ChrisTu117/callbook): sealed AI trade calls, scored into ERC-8004, copied only inside a hard spend cap.
 
-The Monad testnet book (chain `10143`) is bundled, so the commands work from any directory. Monad mainnet (`143`) and Arc (`5042`) are listed but not deployed.
+The Monad testnet book (chain `10143`) is bundled, so the commands work from any directory. Monad mainnet (`143`) and Arc (`5042`) are listed but not deployed. Base Sepolia (`84532`), Arbitrum Sepolia (`421614`), and Ethereum Sepolia (`11155111`) are Colosseum target chains. They read `networks.json` once those books are filled in.
 
 | Command | Permission | What it does |
 | --- | --- | --- |

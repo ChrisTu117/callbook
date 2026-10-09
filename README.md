@@ -29,7 +29,7 @@ That builds `@callbook/core`, then the dashboard. The HTML is in `apps/web/out`.
 
 ### Transaction links and the event snapshot
 
-Each call links its Commit, Reveal, and Score transactions on testnet.monadscan.com. The Monad testnet RPC caps `eth_getLogs` at 100 blocks, so the book ships a static event index: [`packages/core/src/events-10143.json`](packages/core/src/events-10143.json), also served as `/callbook/events-10143.json`. The dashboard and the plugin start from that snapshot. For a call the snapshot does not cover, they scan only blocks after the snapshot's last block, in 100-block windows, at 10 requests per second (the RPC allows 15).
+Each call links its Commit, Reveal, and Score transactions on testnet.monadscan.com. The Monad testnet RPC caps `eth_getLogs` at 100 blocks, so the book ships a static event index: [`packages/core/src/events-10143.json`](packages/core/src/events-10143.json), also served as `/callbook/events-10143.json`. The dashboard and the plugin start from that snapshot. For a call the snapshot does not cover, they scan only blocks after the snapshot's last block, in 100-block windows, at 10 requests per second (the RPC allows 15). Other public RPCs use a different cap. The Colosseum section lists those windows.
 
 Refresh the snapshot after new rounds, then commit it:
 
@@ -239,6 +239,38 @@ Forge covers commit, reveal, expiry, stale prices, self-feedback, the gate, the 
 ## Deploy-ready chains
 
 Monad mainnet (`143`) and Arc (`5042`) use the same Foundry script. They are not part of the funded submission. Arc notes, if you deploy later, are in [docs/ARC.md](docs/ARC.md).
+
+## Colosseum port (this branch)
+
+This branch adds Base Sepolia (`84532`), Arbitrum Sepolia (`421614`), and Ethereum Sepolia (`11155111`) for the Colosseum Crypto World's Fair. It does not replace the Monad testnet book. Do not merge it while Monad judges are reading `main`.
+
+The default chain stays Monad testnet (`10143`). The public Pages site is built only from `main`, so this branch does not change https://christu117.github.io/callbook/ . On this branch the dashboard hides the three Sepolia chains until the URL has `?track=colosseum` (or `NEXT_PUBLIC_COLOSSEUM=1`). Example: `http://127.0.0.1:43127/?track=colosseum&chain=84532`.
+
+`Deploy.s.sol` points those three chains at the ERC-8004 testnet registries already deployed there (the same CREATE2 addresses as Monad testnet). The price source is `AttestedPriceSource`. The deployer signs a Coinbase print. The script does not deploy mock registries on these chain ids.
+
+The Sepolia deploy key must be a new throwaway. Do not reuse the Monad deployer or any mainnet key.
+
+```bash
+export PRIVATE_KEY=0x...   # throwaway, never commit it
+export PATH="$PATH:$HOME/.foundry/bin"
+bash deploy/deploy.sh base-sepolia
+bash deploy/deploy.sh arbitrum-sepolia
+bash deploy/deploy.sh ethereum-sepolia
+node deploy/record-colosseum.mjs
+```
+
+Each deploy writes `deployments/<chainId>.json`. `record-colosseum.mjs` copies the book addresses into `networks.json` and writes explorer links to [deployments/colosseum.json](deployments/colosseum.json). Portal paste text is in [COLOSSEUM-SUBMISSION.md](COLOSSEUM-SUBMISSION.md). One deploy is about 6.1 million gas. On 8 Oct 2026 that was under 0.0001 ETH on Base Sepolia and Ethereum Sepolia, and about 0.0005 ETH on Arbitrum Sepolia. Fund at least 0.002 ETH on each chain.
+
+`eth_getLogs` windows, measured on 8 Oct 2026:
+
+| Chain | Public RPC | Inclusive window |
+| --- | --- | --- |
+| Monad testnet `10143` | `https://testnet-rpc.monad.xyz` | 100 |
+| Base Sepolia `84532` | `https://sepolia.base.org` | 200. A wider range returns `limited to a 200 range`. |
+| Arbitrum Sepolia `421614` | `https://sepolia-rollup.arbitrum.io/rpc` | 2,000. The RPC accepted 20,000. |
+| Ethereum Sepolia `11155111` | `https://ethereum-sepolia-rpc.publicnode.com` | 2,000. The RPC accepted 10,000. `https://rpc.sepolia.org` returned HTML. |
+
+`logChunkFor` in `packages/core/src/txindex.ts` is the value the dashboard, the plugin, and `npm run events` use. If a window is still too wide, that scan splits the range and retries. Monad's 100-block path does not split.
 
 ## Docs for submission
 

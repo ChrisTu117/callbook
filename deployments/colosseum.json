@@ -1,0 +1,93 @@
+{
+  "track": "colosseum-crypto-worlds-fair",
+  "deadline": "2026-10-12T23:59:00-07:00",
+  "deployer": "0xB45f5fc8c5733aC30C281BD21fDbC1E3BAAE344f",
+  "deployerNote": "Throwaway Sepolia key. The private key is not in git.",
+  "deployedCount": 0,
+  "chains": [
+    {
+      "key": "base-sepolia",
+      "chainId": 84532,
+      "name": "Base Sepolia",
+      "deployed": false,
+      "rpc": "https://sepolia.base.org",
+      "logChunk": 200,
+      "faucet": "https://portal.cdp.coinbase.com/products/faucet",
+      "faucetNote": "Coinbase CDP faucet, Base Sepolia, ETH. Also https://www.alchemy.com/faucets/base-sepolia and https://faucets.chain.link/base-sepolia (wallet login or CAPTCHA).",
+      "identity": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "reputation": "0x8004B663056A597Dffe9eCcC1965A193B7388713",
+      "validation": "0x8004Cb1BF31DAf7788923b405b754f57acEB4272",
+      "priceSource": "",
+      "signalBook": "",
+      "scoreAnchor": "",
+      "copyDesk": "",
+      "startBlock": 0,
+      "revealWindow": null,
+      "explorers": {
+        "identity": "https://sepolia.basescan.org/address/0x8004A818BFB912233c491871b3d84c89A494BD9e",
+        "reputation": "https://sepolia.basescan.org/address/0x8004B663056A597Dffe9eCcC1965A193B7388713",
+        "validation": "https://sepolia.basescan.org/address/0x8004Cb1BF31DAf7788923b405b754f57acEB4272",
+        "priceSource": "",
+        "signalBook": "",
+        "scoreAnchor": "",
+        "copyDesk": ""
+      }
+    },
+    {
+      "key": "arbitrum-sepolia",
+      "chainId": 421614,
+      "name": "Arbitrum Sepolia",
+      "deployed": false,
+      "rpc": "https://sepolia-rollup.arbitrum.io/rpc",
+      "logChunk": 2000,
+      "faucet": "https://faucets.chain.link/arbitrum-sepolia",
+      "faucetNote": "Chainlink drips 0.5 ETH and needs a wallet login. Alchemy: https://www.alchemy.com/faucets/arbitrum-sepolia",
+      "identity": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "reputation": "0x8004B663056A597Dffe9eCcC1965A193B7388713",
+      "validation": "0x8004Cb1BF31DAf7788923b405b754f57acEB4272",
+      "priceSource": "",
+      "signalBook": "",
+      "scoreAnchor": "",
+      "copyDesk": "",
+      "startBlock": 0,
+      "revealWindow": null,
+      "explorers": {
+        "identity": "https://sepolia.arbiscan.io/address/0x8004A818BFB912233c491871b3d84c89A494BD9e",
+        "reputation": "https://sepolia.arbiscan.io/address/0x8004B663056A597Dffe9eCcC1965A193B7388713",
+        "validation": "https://sepolia.arbiscan.io/address/0x8004Cb1BF31DAf7788923b405b754f57acEB4272",
+        "priceSource": "",
+        "signalBook": "",
+        "scoreAnchor": "",
+        "copyDesk": ""
+      }
+    },
+    {
+      "key": "ethereum-sepolia",
+      "chainId": 11155111,
+      "name": "Ethereum Sepolia",
+      "deployed": false,
+      "rpc": "https://ethereum-sepolia-rpc.publicnode.com",
+      "logChunk": 2000,
+      "faucet": "https://sepolia-faucet.pk910.de/",
+      "faucetNote": "PoW faucet. It asks for a CAPTCHA before mining. Chainlink: https://faucets.chain.link/sepolia . Coinbase CDP also drips Ethereum Sepolia ETH.",
+      "identity": "0x8004A818BFB912233c491871b3d84c89A494BD9e",
+      "reputation": "0x8004B663056A597Dffe9eCcC1965A193B7388713",
+      "validation": "0x8004Cb1BF31DAf7788923b405b754f57acEB4272",
+      "priceSource": "",
+      "signalBook": "",
+      "scoreAnchor": "",
+      "copyDesk": "",
+      "startBlock": 0,
+      "revealWindow": null,
+      "explorers": {
+        "identity": "https://sepolia.etherscan.io/address/0x8004A818BFB912233c491871b3d84c89A494BD9e",
+        "reputation": "https://sepolia.etherscan.io/address/0x8004B663056A597Dffe9eCcC1965A193B7388713",
+        "validation": "https://sepolia.etherscan.io/address/0x8004Cb1BF31DAf7788923b405b754f57acEB4272",
+        "priceSource": "",
+        "signalBook": "",
+        "scoreAnchor": "",
+        "copyDesk": ""
+      }
+    }
+  ]
+}

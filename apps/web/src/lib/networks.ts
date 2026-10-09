@@ -19,6 +19,9 @@ export type PublicNetwork = {
   signalBook: string;
   scoreAnchor: string;
   copyDesk: string;
+  /** "colosseum" chains stay out of the menu unless the page asks for that track. */
+  track?: string;
+  logChunk?: number;
 };
 
 export const networks = config.networks as PublicNetwork[];
@@ -26,6 +29,12 @@ export const defaultChainId = config.defaultChainId;
 
 export function networkById(chainId: number): PublicNetwork | undefined {
   return networks.find((network) => network.chainId === chainId);
+}
+
+/** The Monad menu. Colosseum Sepolia chains appear only when `showColosseum` is true. */
+export function networksForMenu(showColosseum: boolean): PublicNetwork[] {
+  if (showColosseum) return networks;
+  return networks.filter((network) => network.track !== "colosseum");
 }
 
 export function isReady(network: PublicNetwork): boolean {
