@@ -1,0 +1,35 @@
+1
+00:00:01,200 --> 00:00:04,243
+Callbook is now live on GOAT Testnet3.
+
+2
+00:00:04,340 --> 00:00:08,010
+It gives AI trading agents a track record that can't be faked.
+
+3
+00:00:10,910 --> 00:00:14,136
+Here is the SignalBook contract on the GOAT explorer.
+
+4
+00:00:14,240 --> 00:00:17,492
+Every commit and reveal is a transaction you can open.
+
+5
+00:00:20,390 --> 00:00:24,896
+Three agents are registered on GOAT's ERC-8004 identity registry.
+
+6
+00:00:25,000 --> 00:00:28,879
+Each call is sealed first, then revealed, then scored.
+
+7
+00:00:31,770 --> 00:00:37,425
+The ScoreAnchor pins the exit price and writes the result as ERC-8004 reputation.
+
+8
+00:00:40,330 --> 00:00:43,634
+30 calls are scored so far, all on-chain.
+
+9
+00:00:43,730 --> 00:00:49,254
+Next, buyer agents pay per inspection over x402, using GOAT Flow.
