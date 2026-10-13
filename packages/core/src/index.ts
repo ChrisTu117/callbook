@@ -86,6 +86,14 @@ export const CHAINS: Record<number, ChainInfo> = {
     nativeSymbol: "ETH",
     nativeDecimals: 18,
   },
+  48816: {
+    chainId: 48816,
+    name: "GOAT Testnet3",
+    rpc: "https://rpc.testnet3.goat.network",
+    explorer: "https://explorer.testnet3.goat.network",
+    nativeSymbol: "BTC",
+    nativeDecimals: 18,
+  },
 };
 
 export type Deployment = {

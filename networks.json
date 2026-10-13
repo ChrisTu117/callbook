@@ -130,6 +130,30 @@
       "revealWindow": 120,
       "pinWindow": 3600,
       "maxStaleness": 3600
+    },
+    {
+      "chainId": 48816,
+      "name": "GOAT Testnet3",
+      "track": "goat",
+      "rpc": "https://rpc.testnet3.goat.network",
+      "explorer": "https://explorer.testnet3.goat.network",
+      "nativeSymbol": "BTC",
+      "nativeDecimals": 18,
+      "startBlock": 17440000,
+      "logChunk": 2000,
+      "priceKind": "attested",
+      "minSamples": 1,
+      "minWinBps": 5000,
+      "identity": "0x54B8d8E2455946f2A5B8982283f2359812e815ce",
+      "reputation": "0xd9140951d8aE6E5F625a02F5908535e16e3af964",
+      "validation": "",
+      "priceSource": "",
+      "signalBook": "",
+      "scoreAnchor": "",
+      "copyDesk": "",
+      "revealWindow": 120,
+      "pinWindow": 3600,
+      "maxStaleness": 3600
     }
   ]
 }

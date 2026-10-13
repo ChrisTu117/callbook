@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
 # Deploy Callbook. One argument:
 #   monad-testnet | monad-mainnet | arc-mainnet |
-#   base-sepolia | arbitrum-sepolia | ethereum-sepolia | local
+#   base-sepolia | arbitrum-sepolia | ethereum-sepolia | goat-testnet3 | local
 # Requires PRIVATE_KEY in the environment. Never prints the key.
 # The three Sepolia targets are the Colosseum port. Use a throwaway key for them.
 set -euo pipefail
 
 TARGET="${1:-}"
 if [[ -z "$TARGET" ]]; then
-  echo "usage: deploy/deploy.sh <monad-testnet|monad-mainnet|arc-mainnet|base-sepolia|arbitrum-sepolia|ethereum-sepolia|local>" >&2
+  echo "usage: deploy/deploy.sh <monad-testnet|monad-mainnet|arc-mainnet|base-sepolia|arbitrum-sepolia|ethereum-sepolia|goat-testnet3|local>" >&2
   exit 1
 fi
 
@@ -46,6 +46,10 @@ case "$TARGET" in
     # still prices contract creation the old way, so its gas limits run out of gas (SignalBook used
     # ~6.7M on Sepolia against ~1M simulated). Pad the limits. Unused gas is not charged.
     EXTRA+=(--gas-estimate-multiplier "${ETH_SEPOLIA_GAS_MULTIPLIER:-1000}")
+    ;;
+  goat-testnet3)
+    # GOAT Testnet3, chain 48816, gas token BTC. Faucet: https://bridge.testnet3.goat.network/faucet
+    RPC="${GOAT_RPC:-https://rpc.testnet3.goat.network}"
     ;;
   local)
     RPC="${LOCAL_RPC:-http://127.0.0.1:8545}"
