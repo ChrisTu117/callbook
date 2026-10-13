@@ -87,6 +87,11 @@
         "buyer": "Clerk #69",
         "agentId": 68,
         "paymentTx": "https://explorer.testnet3.goat.network/tx/0xcfb66b7814d3af605718a72134d69117a017151d9711accb9f9b4e1a8d02261d"
+      },
+      {
+        "buyer": "Clerk #69",
+        "agentId": 67,
+        "paymentTx": "https://explorer.testnet3.goat.network/tx/0x4738e72ec688b9dbeaf50889fe429ee5e3a1a8a735d67faa74682debe5f2cf7b"
       }
     ],
     "replayTest": "reusing a paid tx for a new order returns 402 'tx already used for another order'"
