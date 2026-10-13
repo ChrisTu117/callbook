@@ -10,7 +10,7 @@
   "scripts": {
     "build": "npm run build -w @callbook/core && npm run build -w mm-plugin-callbook",
     "test:contracts": "forge test",
-    "test:ts": "node --import tsx --test packages/core/test/*.test.ts packages/agents/test/*.test.ts packages/plugin/test/*.test.ts",
+    "test:ts": "node --import tsx --test packages/core/test/*.test.ts packages/agents/test/*.test.ts packages/plugin/test/*.test.ts packages/x402/test/*.test.ts",
     "demo": "tsx packages/agents/src/demo.ts",
     "agents": "tsx packages/agents/src/live.ts",
     "score": "tsx packages/agents/src/score.ts",
