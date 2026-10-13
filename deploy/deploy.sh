@@ -50,6 +50,8 @@ case "$TARGET" in
   goat-testnet3)
     # GOAT Testnet3, chain 48816, gas token BTC. Faucet: https://bridge.testnet3.goat.network/faucet
     RPC="${GOAT_RPC:-https://rpc.testnet3.goat.network}"
+    # Testnet3 rejects a priority fee below 130000 wei; forge's own estimate is 1 wei.
+    EXTRA+=(--with-gas-price 140000 --priority-gas-price 130000)
     ;;
   local)
     RPC="${LOCAL_RPC:-http://127.0.0.1:8545}"
