@@ -5,19 +5,22 @@
     "packages/core",
     "packages/agents",
     "packages/plugin",
+    "packages/x402",
     "apps/web"
   ],
   "scripts": {
     "build": "npm run build -w @callbook/core && npm run build -w mm-plugin-callbook",
     "test:contracts": "forge test",
-    "test:ts": "node --import tsx --test packages/core/test/*.test.ts packages/agents/test/*.test.ts packages/plugin/test/*.test.ts",
+    "test:ts": "node --import tsx --test packages/core/test/*.test.ts packages/agents/test/*.test.ts packages/plugin/test/*.test.ts packages/x402/test/*.test.ts",
     "demo": "tsx packages/agents/src/demo.ts",
     "agents": "tsx packages/agents/src/live.ts",
     "score": "tsx packages/agents/src/score.ts",
     "rounds": "bash deploy/rounds.sh",
     "pages": "npm run build -w @callbook/core && npm run build -w web",
     "web": "npm run dev -w web -- --port 43127 --hostname 0.0.0.0",
-    "events": "tsx scripts/snapshot-events.mts"
+    "events": "tsx scripts/snapshot-events.mts",
+    "x402:server": "tsx packages/x402/src/server.ts",
+    "x402:buy": "tsx packages/x402/src/buyer.ts"
   },
   "devDependencies": {
     "tsx": "^4.20.6"

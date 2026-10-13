@@ -14,12 +14,14 @@ export const LOG_CHUNK = 100n;
  * Base Sepolia's official RPC rejects a range above 200. Monad testnet rejects above 100.
  * Arbitrum Sepolia's official RPC and Ethereum Sepolia's publicnode RPC accepted 10,000.
  * Those two stay at 2,000 so one response stays small.
+ * GOAT Testnet3's public RPC accepted 10,000 on 13 Oct 2026. It stays at 2,000.
  */
 export const LOG_CHUNK_BY_CHAIN: Record<number, bigint> = {
   10143: 100n,
   84532: 200n,
   421614: 2000n,
   11155111: 2000n,
+  48816: 2000n,
 };
 /** Monad testnet allows 15 requests per second. Stay well under it. */
 export const LOG_REQUESTS_PER_SECOND = 10;

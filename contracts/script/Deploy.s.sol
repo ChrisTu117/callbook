@@ -21,6 +21,13 @@ contract Deploy is Script {
     uint256 internal constant BASE_SEPOLIA = 84532;
     uint256 internal constant ARBITRUM_SEPOLIA = 421614;
     uint256 internal constant ETHEREUM_SEPOLIA = 11155111;
+    uint256 internal constant GOAT_TESTNET3 = 48816;
+
+    // GOAT Testnet3 ERC-8004 pair. GOAT (Brett@goat.network, 12 Oct 2026) confirmed 0x54B8 as the
+    // canonical identity registry; the AgentKit reputation registry 0xd914 is bound to it
+    // (getIdentityRegistry() == 0x54B8). The 0x5560 address in the docs is not used.
+    address internal constant ID_GOAT = 0x54B8d8E2455946f2A5B8982283f2359812e815ce;
+    address internal constant REP_GOAT = 0xd9140951d8aE6E5F625a02F5908535e16e3af964;
 
     address internal constant PYTH = 0x2880aB155794e7179c9eE2e38200202908C17B43;
     address internal constant ID_TESTNET = 0x8004A818BFB912233c491871b3d84c89A494BD9e;
@@ -86,6 +93,14 @@ contract Deploy is Script {
             identity = ID_TESTNET;
             reputation = REP_TESTNET;
             validation = VAL_TESTNET;
+            priceSource = address(new AttestedPriceSource(vm.addr(pk)));
+            priceKind = "attested";
+        } else if (block.chainid == GOAT_TESTNET3) {
+            // No ERC-8004 validation registry on Testnet3. ScoreAnchor only uses it for the optional
+            // validate() path, so a local MockValidation stands in.
+            identity = ID_GOAT;
+            reputation = REP_GOAT;
+            validation = address(new MockValidation());
             priceSource = address(new AttestedPriceSource(vm.addr(pk)));
             priceKind = "attested";
         } else {

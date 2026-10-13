@@ -1,0 +1,99 @@
+{
+  "network": "GOAT Testnet3",
+  "chainId": 48816,
+  "explorer": "https://explorer.testnet3.goat.network",
+  "deployer": "0x5b3096362Cc693F82e62D5078B1D73355CB211E6",
+  "contracts": {
+    "identity": {
+      "address": "0x54B8d8E2455946f2A5B8982283f2359812e815ce",
+      "explorer": "https://explorer.testnet3.goat.network/address/0x54B8d8E2455946f2A5B8982283f2359812e815ce"
+    },
+    "reputation": {
+      "address": "0xd9140951d8aE6E5F625a02F5908535e16e3af964",
+      "explorer": "https://explorer.testnet3.goat.network/address/0xd9140951d8aE6E5F625a02F5908535e16e3af964"
+    },
+    "validation": {
+      "address": "0xAb0120282fcc8C413ABBc2EE92F748772fE9639A",
+      "explorer": "https://explorer.testnet3.goat.network/address/0xAb0120282fcc8C413ABBc2EE92F748772fE9639A"
+    },
+    "priceSource": {
+      "address": "0x5B2122010C8F9a759aC5c125f3EB24b4624C36b4",
+      "explorer": "https://explorer.testnet3.goat.network/address/0x5B2122010C8F9a759aC5c125f3EB24b4624C36b4"
+    },
+    "signalBook": {
+      "address": "0x89913Ada7a1477a7F9e406F69b416884Ce32D8E3",
+      "explorer": "https://explorer.testnet3.goat.network/address/0x89913Ada7a1477a7F9e406F69b416884Ce32D8E3"
+    },
+    "scoreAnchor": {
+      "address": "0x4e838D79c78aE1100e6EddFE9E0B7510D7877a89",
+      "explorer": "https://explorer.testnet3.goat.network/address/0x4e838D79c78aE1100e6EddFE9E0B7510D7877a89"
+    },
+    "copyDesk": {
+      "address": "0x39F2A3C9B198b6D64d5f0fd1e57D26294CeF8077",
+      "explorer": "https://explorer.testnet3.goat.network/address/0x39F2A3C9B198b6D64d5f0fd1e57D26294CeF8077"
+    }
+  },
+  "notes": "identity/reputation are GOAT's Testnet3 ERC-8004 registries (identity confirmed by Brett@goat.network 2026-10-12); validation is a local MockValidation.",
+  "agents": {
+    "Ada Momentum": {
+      "agentId": "67",
+      "address": "0xaf29b32e4773E6b1c2B2D89e12eb2ff0657c17dD",
+      "explorer": "https://explorer.testnet3.goat.network/address/0xaf29b32e4773E6b1c2B2D89e12eb2ff0657c17dD"
+    },
+    "Blythe Fade": {
+      "agentId": "68",
+      "address": "0x6B12a15D7168E7A606699f24ed9717d6B5375dcD",
+      "explorer": "https://explorer.testnet3.goat.network/address/0x6B12a15D7168E7A606699f24ed9717d6B5375dcD"
+    },
+    "Clerk": {
+      "agentId": "69",
+      "address": "0xBFc7d96BF1A675853f4814229D3c3063Af98D97D",
+      "explorer": "https://explorer.testnet3.goat.network/address/0xBFc7d96BF1A675853f4814229D3c3063Af98D97D"
+    }
+  },
+  "startBlock": 17442221,
+  "rounds": {
+    "scoredCalls": 30,
+    "perAgent": {
+      "Ada Momentum": 10,
+      "Blythe Fade": 10,
+      "Clerk": 10
+    },
+    "horizonSec": 180,
+    "asset": "ETH-USD",
+    "completed": "2026-10-13 (Beijing)",
+    "note": "Clerk uses the deterministic mock decision function (no LLM key)."
+  },
+  "x402": {
+    "flow": "ERC20_DIRECT (GOAT Flow pattern, self-verified; no merchant account yet)",
+    "route": "GET /inspect/:agentId",
+    "price": "0.01 tUSD",
+    "payTo": "0x5b3096362Cc693F82e62D5078B1D73355CB211E6",
+    "token": {
+      "address": "0x2c766330e0071F1C469e23AD346808454eB3449E",
+      "symbol": "tUSD",
+      "decimals": 6,
+      "note": "Test-only token deployed by Callbook, NOT USDC, no value",
+      "explorer": "https://explorer.testnet3.goat.network/address/0x2c766330e0071F1C469e23AD346808454eB3449E",
+      "deployTx": "https://explorer.testnet3.goat.network/tx/0xe99f7756f5b1426c98a6630becdf24e77780aeab612cbd5683f092d37466ccdd"
+    },
+    "purchases": [
+      {
+        "buyer": "Clerk #69",
+        "agentId": 67,
+        "paymentTx": "https://explorer.testnet3.goat.network/tx/0x7f639ccfc85f92a7aecd05aae2d99f6c69e2fe26198907948d29e428f84f740a"
+      },
+      {
+        "buyer": "Clerk #69",
+        "agentId": 68,
+        "paymentTx": "https://explorer.testnet3.goat.network/tx/0xcfb66b7814d3af605718a72134d69117a017151d9711accb9f9b4e1a8d02261d"
+      },
+      {
+        "buyer": "Clerk #69",
+        "agentId": 67,
+        "paymentTx": "https://explorer.testnet3.goat.network/tx/0x4738e72ec688b9dbeaf50889fe429ee5e3a1a8a735d67faa74682debe5f2cf7b"
+      }
+    ],
+    "replayTest": "reusing a paid tx for a new order returns 402 'tx already used for another order'"
+  }
+}

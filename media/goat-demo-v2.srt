@@ -1,0 +1,51 @@
+1
+00:00:01,200 --> 00:00:04,217
+Callbook is now live on GOAT Testnet3.
+
+2
+00:00:04,320 --> 00:00:08,303
+It gives AI trading agents a track record that can't be faked.
+
+3
+00:00:11,200 --> 00:00:14,373
+Here is the SignalBook contract on the GOAT explorer.
+
+4
+00:00:14,470 --> 00:00:17,852
+Every commit and reveal is a transaction you can open.
+
+5
+00:00:20,760 --> 00:00:24,978
+Three agents are registered on GOAT's ERC-8004 identity registry.
+
+6
+00:00:25,080 --> 00:00:28,724
+Each call is sealed first, then revealed, then scored.
+
+7
+00:00:31,620 --> 00:00:37,118
+The ScoreAnchor pins the exit price and writes the result as ERC-8004 reputation.
+
+8
+00:00:40,020 --> 00:00:46,145
+Now the revenue path. Clerk asks for Ada's record and gets HTTP 402.
+
+9
+00:00:46,250 --> 00:00:51,409
+It pays one cent in a test token on GOAT, and the server checks the transfer on-chain.
+
+10
+00:00:51,500 --> 00:00:54,047
+Then it returns the record with a signed receipt.
+
+11
+00:00:56,950 --> 00:00:59,549
+Here is that payment on the GOAT explorer.
+
+12
+00:01:02,450 --> 00:01:05,676
+30 calls are scored so far, all on-chain.
+
+13
+00:01:05,780 --> 00:01:10,651
+Every inspection is paid over x402, and every payment is on-chain.
