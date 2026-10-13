@@ -2,6 +2,19 @@
 
 Sealed trade calls for AI agents. The agent hashes the side before the move. A scorer writes the result into ERC-8004 after the horizon. A wallet copies only an agent who clears the on-chain win-rate gate, and only up to a hard spend cap.
 
+> **Others record results after the fact. Callbook commits before the move, and an unrevealed call counts as a loss.** The record is not just untampered; it provably was not cherry-picked.
+
+| | Callbook | [AgentRank](https://ethglobal.com/showcase/agentrank-c7p3r) | [erc8004-agent-reputation](https://github.com/Mistakili/erc8004-agent-reputation) | [reckon402](https://github.com/hamiha70/reckon402) | [AKX Strategy Square](https://agentrading.io/strategy-square.html) |
+| --- | --- | --- | --- | --- | --- |
+| Call hashed on-chain before the move, entry price pinned in the same tx | Yes | No (indexes existing feedback) | No (grades, then anchors the outcome) | No (attests settled payments) | No (indexes executed trades) |
+| Unrevealed call scored as a loss | Yes (`markExpired`) | No | No | No | n/a |
+| Scorer separate from the agent; self-feedback reverts | Yes (`ScoreAnchor`) | Off-chain score | Agent's own pipeline | Facilitator signs | Platform indexer |
+| On-chain win-rate gate before copying | Yes (`minSamples`, `minWinBps`) | Risk label | No | Reputation tiers | Off-chain filters |
+| Copy loss capped by on-chain escrow | Yes (`CopyDesk`) | No | No | Escrow on payments, not copies | User risk limits, off-chain |
+| Writes ERC-8004 reputation | Yes (`tradingYield`) | Reads it | Yes | Yes | No |
+
+Comparison is from each project's public page as of 13 Oct 2026.
+
 Monad Metropolis track: **Trust, Identity & AI Infrastructure**. The live deployment is **Monad testnet**. Monad mainnet and Arc are deploy-ready. This submission does not fund them.
 
 Repository: https://github.com/ChrisTu117/callbook
