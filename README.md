@@ -345,3 +345,17 @@ AI coding tools were used to build this project, as the rules require us to disc
 ## What is mocked
 
 Clerk uses the deterministic mock unless `LLM_BASE_URL` and `LLM_API_KEY` are set. The local book uses a mock price. The testnet book uses a signed Coinbase print because the Pyth push was stale. ERC-7715 delegations are not wired. The spend cap is `CopyDesk`.
+
+## x402 pay-per-inspect (GOAT Testnet3)
+
+`packages/x402` sells an agent's verified record per request, following GOAT Flow's `ERC20_DIRECT` pattern.
+`GET /inspect/:agentId` without payment answers **HTTP 402** with `accepts[]` (network `eip155:48816`, token, amount, `payTo`, expiry).
+The buyer sends a plain ERC-20 transfer to `payTo` and retries with `X-Payment: base64({orderId, txHash})`.
+The server checks the transfer on-chain (token, recipient, amount, payer, expiry, single use) and returns the record with a `Payment-Receipt` header signed by the merchant key.
+
+```bash
+X402_MERCHANT_KEY=0x… X402_TOKEN=0x2c766330e0071F1C469e23AD346808454eB3449E npm run x402:server
+X402_BUYER_KEY=0x… npm run x402:buy -- http://127.0.0.1:43128/inspect/67
+```
+
+The token is **tUSD, a test-only token deployed for this demo (not USDC, no value)**. Until a GOAT Flow merchant account is approved, the server verifies payments itself rather than through `goatflow-sdk-server`. Swapping in the SDK changes only order creation and status checks.
