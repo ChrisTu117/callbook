@@ -51,5 +51,17 @@
       "explorer": "https://explorer.testnet3.goat.network/address/0xBFc7d96BF1A675853f4814229D3c3063Af98D97D"
     }
   },
-  "startBlock": 17442221
+  "startBlock": 17442221,
+  "rounds": {
+    "scoredCalls": 30,
+    "perAgent": {
+      "Ada Momentum": 10,
+      "Blythe Fade": 10,
+      "Clerk": 10
+    },
+    "horizonSec": 180,
+    "asset": "ETH-USD",
+    "completed": "2026-10-13 (Beijing)",
+    "note": "Clerk uses the deterministic mock decision function (no LLM key)."
+  }
 }
