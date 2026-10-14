@@ -4,7 +4,7 @@
     {
       "chainId": 10143,
       "name": "Monad testnet",
-      "rpc": "https://testnet-rpc.monad.xyz",
+      "rpc": "https://rpc-testnet.monadinfra.com",
       "explorer": "https://testnet.monadscan.com",
       "nativeSymbol": "MON",
       "nativeDecimals": 18,
@@ -19,11 +19,16 @@
       "priceSource": "0x3925D866ACeFAFD00987816f1191973EA761627c",
       "signalBook": "0x5Fcbf755e090D662DF1E673656Be97B4dA193010",
       "scoreAnchor": "0xC9C45a32B4FEC8E0Ad7c3864051409D8330a71dd",
-      "copyDesk": "0xBAAFB4710f8B47Cf831FCdC1dF2b3135C9aCbA2e"
+      "copyDesk": "0xBAAFB4710f8B47Cf831FCdC1dF2b3135C9aCbA2e",
+      "rpcFallbacks": [
+        "https://rpc.ankr.com/monad_testnet",
+        "https://10143.rpc.thirdweb.com",
+        "https://testnet-rpc.monad.xyz"
+      ]
     },
     {
       "chainId": 143,
-      "name": "Monad",
+      "name": "Monad mainnet",
       "rpc": "https://rpc.monad.xyz",
       "explorer": "https://monadscan.com",
       "nativeSymbol": "MON",

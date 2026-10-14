@@ -13,8 +13,8 @@ import {
   scoreAnchorAbi,
   signalBookAbi,
 } from "@callbook/core";
-import { createPublicClient, formatUnits, http, isAddress } from "viem";
-import { asAddress, type PublicNetwork } from "./networks";
+import { createPublicClient, formatUnits, isAddress } from "viem";
+import { asAddress, transportFor, type PublicNetwork } from "./networks";
 
 export type SignalRow = {
   id: string;
@@ -88,7 +88,7 @@ function explorer(base: string, kind: "tx" | "address", value: string): string |
 }
 
 export async function loadLiveBook(network: PublicNetwork): Promise<BookView> {
-  const client = createPublicClient({ transport: http(network.rpc) });
+  const client = createPublicClient({ transport: transportFor(network) });
   const signalBook = asAddress(network.signalBook);
   const scoreAnchor = asAddress(network.scoreAnchor);
   const copyDesk = asAddress(network.copyDesk);
@@ -239,7 +239,7 @@ export async function loadLiveBook(network: PublicNetwork): Promise<BookView> {
 
 export async function loadLiveAccount(network: PublicNetwork, account: string): Promise<string> {
   if (!isAddress(account)) throw new Error("That is not an address.");
-  const client = createPublicClient({ transport: http(network.rpc) });
+  const client = createPublicClient({ transport: transportFor(network) });
   const desk = asAddress(network.copyDesk);
   const escrow = (await client.readContract({
     address: desk,

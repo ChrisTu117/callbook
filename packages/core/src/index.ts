@@ -33,14 +33,14 @@ export const CHAINS: Record<number, ChainInfo> = {
   10143: {
     chainId: 10143,
     name: "Monad testnet",
-    rpc: "https://testnet-rpc.monad.xyz",
+    rpc: "https://rpc-testnet.monadinfra.com",
     explorer: "https://testnet.monadscan.com",
     nativeSymbol: "MON",
     nativeDecimals: 18,
   },
   143: {
     chainId: 143,
-    name: "Monad",
+    name: "Monad mainnet",
     rpc: "https://rpc.monad.xyz",
     explorer: "https://monadscan.com",
     nativeSymbol: "MON",
