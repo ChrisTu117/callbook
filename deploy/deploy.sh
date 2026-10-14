@@ -23,7 +23,7 @@ RPC=""
 EXTRA=()
 case "$TARGET" in
   monad-testnet)
-    RPC="https://testnet-rpc.monad.xyz"
+    RPC="https://rpc-testnet.monadinfra.com"
     ;;
   monad-mainnet)
     RPC="https://rpc.monad.xyz"

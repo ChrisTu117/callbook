@@ -11,7 +11,7 @@ via_ir = true
 fs_permissions = [{ access = "write", path = "./deployments" }]
 
 [rpc_endpoints]
-monad_testnet = "https://testnet-rpc.monad.xyz"
+monad_testnet = "https://rpc-testnet.monadinfra.com"
 monad_mainnet = "https://rpc.monad.xyz"
 arc_mainnet = "https://rpc.mainnet.arc.io"
 base_sepolia = "https://sepolia.base.org"

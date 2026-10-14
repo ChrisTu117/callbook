@@ -19,7 +19,7 @@ if ! [[ "$N" =~ ^[0-9]+$ ]] || [[ "$N" -lt 1 ]]; then
 fi
 
 export CALLBOOK_CHAIN_ID="${CALLBOOK_CHAIN_ID:-10143}"
-export CALLBOOK_RPC_URL="${CALLBOOK_RPC_URL:-https://testnet-rpc.monad.xyz}"
+export CALLBOOK_RPC_URL="${CALLBOOK_RPC_URL:-https://rpc-testnet.monadinfra.com}"
 export HORIZON_SEC="${HORIZON_SEC:-90}"
 export PRICE_KIND="${PRICE_KIND:-attested}"
 export CALLBOOK_ASSET="${CALLBOOK_ASSET:-ETH-USD}"
