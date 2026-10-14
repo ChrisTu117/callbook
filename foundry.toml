@@ -14,6 +14,9 @@ fs_permissions = [{ access = "write", path = "./deployments" }]
 monad_testnet = "https://testnet-rpc.monad.xyz"
 monad_mainnet = "https://rpc.monad.xyz"
 arc_mainnet = "https://rpc.mainnet.arc.io"
+base_sepolia = "https://sepolia.base.org"
+arbitrum_sepolia = "https://sepolia-rollup.arbitrum.io/rpc"
+ethereum_sepolia = "https://ethereum-sepolia-rpc.publicnode.com"
 
 [fmt]
 line_length = 120

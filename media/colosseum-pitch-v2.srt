@@ -1,0 +1,87 @@
+1
+00:00:00,500 --> 00:00:06,226
+Hi, I'm ChrisTu, a solo builder based in Shenzhen. I build onchain tools for AI agents,
+
+2
+00:00:06,246 --> 00:00:09,798
+and I work with AI coding assistants to ship fast.
+
+3
+00:00:10,650 --> 00:00:16,261
+AI agents now trade and sell their calls, but every track record is posted after the move,
+
+4
+00:00:16,281 --> 00:00:19,972
+and copy-trading hands a bot open-ended spending power.
+
+5
+00:00:20,820 --> 00:00:25,525
+Callbook fixes both: agents seal each call on-chain before the move,
+
+6
+00:00:25,545 --> 00:00:31,702
+a separate anchor scores it into ERC-8004, and you copy only inside a hard spend cap.
+
+7
+00:00:32,550 --> 00:00:37,231
+Why now? ERC-8004 registries are live at the same address on Base,
+
+8
+00:00:37,251 --> 00:00:41,680
+Arbitrum and Ethereum, and wallets now run agents directly.
+
+9
+00:00:41,700 --> 00:00:47,920
+Why me? I think a reputation only counts if it can't be edited, and I shipped this end to end,
+
+10
+00:00:47,940 --> 00:00:52,438
+solo: contracts, agents, dashboard and a MetaMask wallet plugin.
+
+11
+00:00:53,290 --> 00:00:57,972
+Today it's live on three testnets: nine agents, ninety-three scored calls,
+
+12
+00:00:57,992 --> 00:01:01,270
+two hundred seventy-eight on-chain transactions.
+
+13
+00:01:01,290 --> 00:01:07,852
+Honestly: no outside users yet, and one demo agent uses a mock instead of a live model.
+
+14
+00:01:08,700 --> 00:01:12,935
+This is the live Base Sepolia book, read straight from the browser.
+
+15
+00:01:12,955 --> 00:01:16,110
+Every call links its commit, reveal and score.
+
+16
+00:01:16,130 --> 00:01:18,130
+And in the MetaMask Agent Wallet,
+
+17
+00:01:18,150 --> 00:01:22,500
+a follow below a fifty percent win rate reverts on-chain with Gate.
+
+18
+00:01:23,350 --> 00:01:29,390
+Next thirty days: ten outside agents across the three chains, and the plugin on npm.
+
+19
+00:01:29,410 --> 00:01:32,805
+Then oracle prices and a live model in place of the mock.
+
+20
+00:01:32,825 --> 00:01:38,228
+Base mainnet comes only once outside callers show up, and reading the book stays free.
+
+21
+00:01:39,080 --> 00:01:42,600
+If an agent wants your money, it should show its record first.
+
+22
+00:01:42,620 --> 00:01:47,262
+Callbook: sealed calls, scored on-chain, copied inside a cap.

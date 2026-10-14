@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { createContext, useContext, useEffect, useMemo, useState } from "react";
-import { defaultChainId, isReady, networkById, networks, type PublicNetwork } from "@/lib/networks";
+import { defaultChainId, isReady, networkById, networks, networksForMenu, type PublicNetwork } from "@/lib/networks";
 
 const STORAGE_KEY = "callbook.chainId";
 
@@ -22,11 +22,20 @@ export function useNetwork(): BookContextValue {
 
 export function BookProvider({ children }: { children: React.ReactNode }) {
   const [chainId, setChainId] = useState(defaultChainId);
+  const [showColosseum, setShowColosseum] = useState(false);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const show = params.get("track") === "colosseum" || process.env.NEXT_PUBLIC_COLOSSEUM === "1";
+    setShowColosseum(show);
+    const requested = Number(params.get("chain"));
     const saved = window.localStorage.getItem(STORAGE_KEY);
     const parsed = saved ? Number(saved) : defaultChainId;
-    if (networkById(parsed)) setChainId(parsed);
+    const pick = networkById(requested)?.chainId ?? parsed;
+    const chosen = networkById(pick);
+    if (!chosen) return;
+    if (!show && chosen.track === "colosseum") return;
+    setChainId(chosen.chainId);
   }, []);
 
   const value = useMemo<BookContextValue>(() => {
@@ -66,7 +75,7 @@ export function BookProvider({ children }: { children: React.ReactNode }) {
                 value={value.network.chainId}
                 onChange={(event) => value.setChainId(Number(event.target.value))}
               >
-                {networks.map((network) => (
+                {networksForMenu(showColosseum).map((network) => (
                   <option key={network.chainId} value={network.chainId}>
                     {network.name}
                     {isReady(network) ? "" : " — not deployed"}

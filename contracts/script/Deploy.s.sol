@@ -10,12 +10,17 @@ import {ScoreAnchor} from "../src/ScoreAnchor.sol";
 import {SignalBook} from "../src/SignalBook.sol";
 
 /// @notice One entry point for Monad testnet (10143), Monad mainnet (143),
-///         Arc mainnet (5042), and a local Anvil chain.
-///         Arc uses AttestedPriceSource. Monad uses Pyth. Local uses mocks.
+///         Arc mainnet (5042), Base Sepolia (84532), Arbitrum Sepolia (421614),
+///         Ethereum Sepolia (11155111), and a local Anvil chain.
+///         Arc and the three Sepolia chains use AttestedPriceSource.
+///         Monad uses Pyth unless PRICE_KIND=attested. Local uses mocks.
 contract Deploy is Script {
     uint256 internal constant MONAD_TESTNET = 10143;
     uint256 internal constant MONAD_MAINNET = 143;
     uint256 internal constant ARC_MAINNET = 5042;
+    uint256 internal constant BASE_SEPOLIA = 84532;
+    uint256 internal constant ARBITRUM_SEPOLIA = 421614;
+    uint256 internal constant ETHEREUM_SEPOLIA = 11155111;
 
     address internal constant PYTH = 0x2880aB155794e7179c9eE2e38200202908C17B43;
     address internal constant ID_TESTNET = 0x8004A818BFB912233c491871b3d84c89A494BD9e;
@@ -73,6 +78,16 @@ contract Deploy is Script {
             validation = VAL_MAIN;
             priceSource = address(new AttestedPriceSource(vm.addr(pk)));
             priceKind = "attested";
+        } else if (
+            block.chainid == BASE_SEPOLIA || block.chainid == ARBITRUM_SEPOLIA || block.chainid == ETHEREUM_SEPOLIA
+        ) {
+            // Same CREATE2 testnet registries as Monad testnet. Confirmed live on 8 Oct 2026.
+            // Attested prices: Hermes requires an API key, so this port does not depend on a Pyth push.
+            identity = ID_TESTNET;
+            reputation = REP_TESTNET;
+            validation = VAL_TESTNET;
+            priceSource = address(new AttestedPriceSource(vm.addr(pk)));
+            priceKind = "attested";
         } else {
             identity = address(new MockIdentity());
             reputation = address(new MockReputation());
@@ -127,9 +142,10 @@ contract Deploy is Script {
         vm.serializeUint(obj, "pinWindow", pinWindow);
         vm.serializeUint(obj, "maxStaleness", maxStaleness);
         vm.serializeUint(obj, "minSamples", minSamples);
-        string memory json = vm.serializeAddress(obj, "copyDesk", desk);
-        // serializeUint for minWinBps must be included. Append it before the final key if the last call wins.
-        json = vm.serializeUint(obj, "minWinBps", minWinBps);
+        vm.serializeAddress(obj, "copyDesk", desk);
+        vm.serializeUint(obj, "minWinBps", minWinBps);
+        // The last serialize call returns every key. startBlock is the head before these txs.
+        string memory json = vm.serializeUint(obj, "startBlock", block.number);
         vm.writeJson(json, string.concat("deployments/", vm.toString(block.chainid), ".json"));
     }
 }

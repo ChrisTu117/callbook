@@ -2,8 +2,9 @@
 pragma solidity 0.8.28;
 
 /// @notice Minimal ERC-8004 Identity Registry surface Callbook reads.
-///         Deployed registries: Monad testnet 0x8004A818BFB912233c491871b3d84c89A494BD9e,
-///         Monad mainnet and Arc mainnet 0x8004A169FB4a3325136EB29fA0ceB6D2e539a432.
+///         Deployed registries: Monad testnet, Base Sepolia, Arbitrum Sepolia, and
+///         Ethereum Sepolia share 0x8004A818BFB912233c491871b3d84c89A494BD9e.
+///         Monad mainnet and Arc mainnet use 0x8004A169FB4a3325136EB29fA0ceB6D2e539a432.
 interface IIdentityRegistry {
     function ownerOf(uint256 agentId) external view returns (address);
 }

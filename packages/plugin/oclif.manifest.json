@@ -42,7 +42,7 @@
           "type": "boolean"
         },
         "chain": {
-          "description": "Chain id. 143 Monad, 10143 Monad testnet, 5042 Arc.",
+          "description": "Chain id. 10143 Monad testnet, 84532 Base Sepolia, 421614 Arbitrum Sepolia, 11155111 Ethereum Sepolia, 143 Monad, 5042 Arc.",
           "name": "chain",
           "hasDynamicHelp": false,
           "multiple": false,

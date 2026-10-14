@@ -24,7 +24,7 @@ const inputs = {
   cap: {
     type: InputFieldType.Text,
     flag: "cap",
-    message: "Hard spend cap in the chain's native coin (MON, or USDC on Arc)",
+    message: "Hard spend cap in the chain's native coin (MON on Monad, ETH on Sepolia, USDC on Arc)",
     required: true,
     prompt: false,
   },

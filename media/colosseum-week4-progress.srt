@@ -1,0 +1,15 @@
+1
+00:00:01,200 --> 00:00:04,908
+This week we finished Callbook for Crypto World's Fair.
+
+2
+00:00:14,700 --> 00:00:20,616
+Same four contracts live on Base, Arbitrum, and Ethereum Sepolia.
+
+3
+00:00:29,200 --> 00:00:37,588
+Ninety-three sealed ETH-USD calls are scored into ERC-8004 reputation.
+
+4
+00:00:45,700 --> 00:00:49,480
+Demo and pitch are up, and the project is submitted.

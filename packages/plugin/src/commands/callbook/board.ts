@@ -15,7 +15,7 @@ const inputs = {
   chain: {
     type: InputFieldType.Text,
     flag: "chain",
-    message: "Chain id. 143 Monad, 10143 Monad testnet, 5042 Arc.",
+    message: "Chain id. 10143 Monad testnet, 84532 Base Sepolia, 421614 Arbitrum Sepolia, 11155111 Ethereum Sepolia, 143 Monad, 5042 Arc.",
     required: false,
     prompt: false,
   },

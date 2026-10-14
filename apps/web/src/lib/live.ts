@@ -117,7 +117,7 @@ export async function loadLiveBook(network: PublicNetwork): Promise<BookView> {
     })) as { exists: boolean; hit: boolean; pnlBps: bigint };
     read.push({ id, signal, score });
   }
-  // Bundled snapshot first, then throttled 100-block getLogs only for blocks after it.
+  // Bundled snapshot first, then throttled per-chain getLogs only for blocks after it.
   const txs = await bookTxIndex({
     client,
     chainId: network.chainId,

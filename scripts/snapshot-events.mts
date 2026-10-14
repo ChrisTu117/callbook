@@ -6,14 +6,14 @@
  *
  * Writes packages/core/src/events-<chain>.json (bundled into @callbook/core and the plugin)
  * and apps/web/public/events-<chain>.json (served next to the dashboard).
- * eth_getLogs is capped at 100 blocks on Monad testnet, so the scan walks 100-block windows
- * at 10 requests per second, under the RPC's 15 req/s limit.
+ * The scan uses the per-chain window in logChunkFor (100 on Monad testnet, 200 on Base Sepolia).
+ * Requests stay at 10 per second, under the Monad RPC's 15 req/s limit.
  */
 import { existsSync, readFileSync, writeFileSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createPublicClient, http, type Address } from "viem";
-import { chunkRange, decodeBookLog, LOG_REQUESTS_PER_SECOND, throttle, type BookEvent, type EventSnapshot } from "../packages/core/src/txindex.ts";
+import { chunkRange, decodeBookLog, LOG_REQUESTS_PER_SECOND, logChunkFor, throttle, type BookEvent, type EventSnapshot } from "../packages/core/src/txindex.ts";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const networks = JSON.parse(readFileSync(path.join(root, "networks.json"), "utf8")) as {
@@ -40,7 +40,7 @@ if (!full && existsSync(corePath)) {
 const client = createPublicClient({ transport: http(process.env.CALLBOOK_RPC_URL || network.rpc, { retryCount: 5, retryDelay: 400 }) });
 const latest = await client.getBlockNumber();
 const from = previous ? BigInt(previous.toBlock) + 1n : BigInt(network.startBlock);
-const windows = chunkRange(from, latest);
+const windows = chunkRange(from, latest, logChunkFor(chainId));
 console.log(`chain ${chainId}: scanning ${from}..${latest} in ${windows.length} windows`);
 
 const wait = throttle(LOG_REQUESTS_PER_SECOND);

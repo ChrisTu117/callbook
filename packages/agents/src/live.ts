@@ -78,6 +78,11 @@ async function main() {
     while ((await clients.publicClient.getBlockNumber()) <= start) {
       await new Promise((resolve) => setTimeout(resolve, 400));
     }
+    // On Arbitrum, block.number inside a contract is the L1 (Ethereum) block number, which moves
+    // every ~12s, not the L2 block number the RPC reports. Wait for L1 to advance or reveal reverts TooSoon.
+    if (chainId === 421614 || chainId === 42161) {
+      await new Promise((resolve) => setTimeout(resolve, 30_000));
+    }
     const revealed = await revealSignal({
       clients,
       account,

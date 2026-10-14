@@ -62,6 +62,30 @@ export const CHAINS: Record<number, ChainInfo> = {
     nativeSymbol: "ETH",
     nativeDecimals: 18,
   },
+  84532: {
+    chainId: 84532,
+    name: "Base Sepolia",
+    rpc: "https://sepolia.base.org",
+    explorer: "https://sepolia.basescan.org",
+    nativeSymbol: "ETH",
+    nativeDecimals: 18,
+  },
+  421614: {
+    chainId: 421614,
+    name: "Arbitrum Sepolia",
+    rpc: "https://sepolia-rollup.arbitrum.io/rpc",
+    explorer: "https://sepolia.arbiscan.io",
+    nativeSymbol: "ETH",
+    nativeDecimals: 18,
+  },
+  11155111: {
+    chainId: 11155111,
+    name: "Ethereum Sepolia",
+    rpc: "https://ethereum-sepolia-rpc.publicnode.com",
+    explorer: "https://sepolia.etherscan.io",
+    nativeSymbol: "ETH",
+    nativeDecimals: 18,
+  },
 };
 
 export type Deployment = {
