@@ -183,7 +183,7 @@ Foundry must be on `PATH` (`foundryup`). `lib/forge-std` is not committed. Run `
 
 ```bash
 export CALLBOOK_CHAIN_ID=10143
-export CALLBOOK_RPC_URL=https://testnet-rpc.monad.xyz
+export CALLBOOK_RPC_URL=https://rpc-testnet.monadinfra.com
 export CALLBOOK_ASSET=ETH-USD
 export HORIZON_SEC=300
 npm run agents
@@ -206,7 +206,7 @@ The decision tape is the Coinbase Exchange public candle API. Binance klines are
 
 ```bash
 export CALLBOOK_CHAIN_ID=10143
-export CALLBOOK_RPC_URL=https://testnet-rpc.monad.xyz
+export CALLBOOK_RPC_URL=https://rpc-testnet.monadinfra.com
 npm run web
 ```
 
@@ -278,7 +278,7 @@ Each deploy writes `deployments/<chainId>.json`. `record-colosseum.mjs` copies t
 
 | Chain | Public RPC | Inclusive window |
 | --- | --- | --- |
-| Monad testnet `10143` | `https://testnet-rpc.monad.xyz` | 100 |
+| Monad testnet `10143` | `https://rpc-testnet.monadinfra.com` (official `https://testnet-rpc.monad.xyz` is the last fallback) | 100 |
 | Base Sepolia `84532` | `https://sepolia.base.org` | 200. A wider range returns `limited to a 200 range`. |
 | Arbitrum Sepolia `421614` | `https://sepolia-rollup.arbitrum.io/rpc` | 2,000. The RPC accepted 20,000. |
 | Ethereum Sepolia `11155111` | `https://ethereum-sepolia-rpc.publicnode.com` | 2,000. The RPC accepted 10,000. `https://rpc.sepolia.org` returned HTML. |
