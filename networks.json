@@ -86,7 +86,11 @@
       "copyDesk": "0xa9117eFC6A19f1c58895e2f6ec869b90Cb23A324",
       "revealWindow": 120,
       "pinWindow": 3600,
-      "maxStaleness": 3600
+      "maxStaleness": 3600,
+      "rpcFallbacks": [
+        "https://base-sepolia-rpc.publicnode.com",
+        "https://84532.rpc.thirdweb.com"
+      ]
     },
     {
       "chainId": 421614,
@@ -110,7 +114,10 @@
       "copyDesk": "0xa9117eFC6A19f1c58895e2f6ec869b90Cb23A324",
       "revealWindow": 120,
       "pinWindow": 3600,
-      "maxStaleness": 3600
+      "maxStaleness": 3600,
+      "rpcFallbacks": [
+        "https://arbitrum-sepolia-rpc.publicnode.com"
+      ]
     },
     {
       "chainId": 11155111,

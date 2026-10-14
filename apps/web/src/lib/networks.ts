@@ -55,10 +55,10 @@ const RPC_TIMEOUT_MS = 8_000;
 
 /**
  * Primary `rpc` first (it must serve history for getLogs), then `rpcFallbacks` in order.
- * A single RPC still gets the short timeout and a retry.
+ * Keeps viem's default retries (with backoff) so rate-limit 429s are absorbed.
  */
 export function transportFor(network: Pick<PublicNetwork, "rpc" | "rpcFallbacks">): Transport {
   const urls = [network.rpc, ...(network.rpcFallbacks ?? [])].filter((url, i, all) => url && all.indexOf(url) === i);
-  const transports = urls.map((url) => http(url, { timeout: RPC_TIMEOUT_MS, retryCount: 1 }));
-  return transports.length === 1 ? transports[0] : fallback(transports, { rank: false, retryCount: 1 });
+  const transports = urls.map((url) => http(url, { timeout: RPC_TIMEOUT_MS }));
+  return transports.length === 1 ? transports[0] : fallback(transports, { rank: false });
 }
